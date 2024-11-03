@@ -1,3 +1,14 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities'
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1, h2, h3, p {
+    @apply font-poppins;
+  }
+
+  h1 {
+		@apply text-[46px] font-medium leading-[110%] uppercase;
+	}
+}
+
