@@ -29,7 +29,9 @@
 		"vite": "^5.0.3"
 	},
 	"dependencies": {
+		"@eirikk/portabletext-2-svelte-5": "^0.1.0-alpha.2",
 		"@sanity/client": "^6.22.2",
-		"@sanity/image-url": "^1.1.0"
+		"@sanity/image-url": "^1.1.0",
+		"lucide-svelte": "^0.460.1"
 	}
 }

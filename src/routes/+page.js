@@ -1,8 +1,14 @@
 import { queryPage } from '../sanity';
 
 export async function load() {
-	const data = await queryPage(`*[_type == "startPage"]`);
-	console.log('DATA----->', data);
+	const data = await queryPage(`*[_type == "startPage"]{
+      ...,
+      "treks": *[_type == "trek"]{
+        seo,
+        general,
+        details
+      }
+    }`);
 
 	if (data) {
 		return data;
