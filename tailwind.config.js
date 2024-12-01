@@ -12,6 +12,7 @@ export default {
 		},
 		colors: {
 			dark: '#00171C',
+			dark80: 'rgba(0, 23, 28, 0.8)',
 			dark70: 'rgba(0, 23, 28, 0.7)',
 			dark30: 'rgba(0, 23, 28, 0.3)',
 			dark10: 'rgba(0, 23, 28, 0.1)',
@@ -20,10 +21,11 @@ export default {
 			blue40: 'rgba(7, 49, 71, 0.4)',
 			orange: '#EE7430',
 			orange70: 'rgba(238, 116, 48, 0.7)',
-			light: '#FFFFFF',
-			light30: 'rgba(255, 255, 255, 0.3)',
-			light80: 'rgba(255, 255, 255, 0.8)',
-			light10: 'rgba(255, 255, 255, 0.1)'
+			white: '#FFFFFF',
+			light: '#F8F8F8',
+			light30: 'rgba(248, 248, 248, 0.3)',
+			light80: 'rgba(248, 248, 248, 0.8)',
+			light10: 'rgba(248, 248, 248, 0.1)'
 		},
 		extend: {
 			fontFamily: {
@@ -31,7 +33,9 @@ export default {
 			},
 			backgroundImage: {
 				cardGradient:
-					'linear-gradient(179.67deg, rgba(0, 0, 0, 0.112) 59.34%, rgba(0, 0, 0, 0.359589) 70.98%, rgba(0, 0, 0, 0.7) 80.4%)'
+					'linear-gradient(179.67deg, rgba(0, 0, 0, 0.112) 59.34%, rgba(0, 0, 0, 0.359589) 70.98%, rgba(0, 0, 0, 0.7) 80.4%)',
+				heroGradient:
+					'linear-gradient(170.8deg, rgba(0, 0, 0, 0) 20.67%, rgba(0, 0, 0, 0.59) 102.38%)'
 			}
 		}
 	},

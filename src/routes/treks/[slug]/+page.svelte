@@ -3,7 +3,8 @@
 	import Overview from '$lib/blocks/Overview.svelte';
 	import LinkButton from '$lib/pieces/LinkButton.svelte';
 	import { Check, ChevronRight } from 'lucide-svelte';
-	import Itinerary from '../../../lib/blocks/Itinerary.svelte';
+	import Itinerary from '$lib/blocks/Itinerary.svelte';
+	import Dropdown from '$lib/pieces/Dropdown.svelte';
 
 	let { data } = $props();
 	let activeTab = $state('Overview');
@@ -19,40 +20,39 @@
 	];
 
 	const tabs = ['Overview', 'Itinerary', 'Included'];
-
-	console.log('TREK', data);
 </script>
 
 <section class="relative h-[92vh]">
 	<Hero data={general} height="h-[92vh]" />
-
-	<div class="absolute bottom-0 left-0 flex h-14 w-full gap-12 bg-dark70 lg:px-32">
-		{#each tabs as tab}
-			<div class="flex w-[115px] items-center gap-1">
-				<span class={activeTab === tab ? 'opacity-1' : 'opacity-0'}>
-					<ChevronRight color="#EE7430" />
-				</span>
-				<button
-					onclick={() => (activeTab = tab)}
-					class="uppercase {activeTab === tab ? 'text-orange' : 'text-light'}">{tab}</button
-				>
-			</div>
-		{/each}
-	</div>
 </section>
 
-<div class="flex flex-col-reverse md:flex-row">
-	{#if activeTab === 'Overview'}
-		<Overview {details} {description} />
-	{:else if activeTab === 'Itinerary'}
-		<Itinerary {itinerary} />
-	{/if}
+<div class="relative flex flex-col-reverse md:flex-row">
+	<div class="md:w-2/3">
+		<div class="mb-4 hidden w-full flex-row gap-12 bg-dark70 pl-6 md:flex md:pl-16 lg:pl-32">
+			{#each tabs as tab}
+				<div class="flex w-[115px] items-center gap-1">
+					<span class={activeTab === tab ? 'opacity-1' : 'opacity-0'}>
+						<ChevronRight color="#EE7430" />
+					</span>
+					<button
+						onclick={() => (activeTab = tab)}
+						class="uppercase {activeTab === tab ? 'text-orange' : 'text-light'}">{tab}</button
+					>
+				</div>
+			{/each}
+		</div>
+		{#if activeTab === 'Overview'}
+			<Overview {details} {description} />
+		{:else if activeTab === 'Itinerary'}
+			<Itinerary {itinerary} />
+		{/if}
+	</div>
 	<aside class="relative flex w-full justify-center bg-dark pb-4 md:w-1/3">
 		<section
-			class="bg-light10 left-[-3rem] top-[-8rem] z-20 mt-[-8rem] flex w-[90%] flex-col items-center rounded-xl pb-8 pt-12 text-light backdrop-blur md:absolute md:mt-0 md:pt-16"
+			class="z-20 mt-[-8rem] flex h-min w-[90%] flex-col items-center rounded-3xl bg-light10 pb-8 pt-12 text-light backdrop-blur md:mt-[-8rem] md:pt-16"
 		>
 			<div class="mb-8">
-				<p class="text-5xl font-semibold md:text-7xl">${cat1}</p>
+				<p class="text-5xl font-medium md:text-7xl">${cat1}</p>
 			</div>
 
 			<div class="flex w-full flex-col gap-4 bg-dark70 px-[16%] pb-6 pt-4">
@@ -79,6 +79,12 @@
 
 			<LinkButton label="Contact us" link="/" />
 		</section>
-		<div class="absolute left-[-3rem] hidden h-[548px] w-[90%] rounded-b-lg bg-dark md:block"></div>
 	</aside>
+	<div class="fixed bottom-4 right-4 z-50 md:hidden">
+		<Dropdown
+			options={tabs}
+			activeOption={activeTab}
+			handleClick={(option) => (activeTab = option)}
+		/>
+	</div>
 </div>

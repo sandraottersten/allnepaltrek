@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+   @apply bg-dark p-3 flex flex-col gap-4;
+  }
+
   h1, h2, h3, p {
     @apply font-poppins;
   }
@@ -16,7 +20,7 @@
 	}
 
   h2 {
-		@apply text-3xl md:text-3xl lg:text-4xl xl:text-6xl font-semibold leading-[110%] uppercase;
+		@apply text-3xl md:text-3xl lg:text-4xl xl:text-6xl font-medium leading-[110%] uppercase;
 	}
 
   h3 {

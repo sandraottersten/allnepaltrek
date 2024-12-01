@@ -23,8 +23,8 @@
 	const usps = [intro.usp1, intro.usp2, intro.usp3];
 </script>
 
-<section class="size-screen relative">
-	<Hero data={general} height="h-screen" />
+<section class="relative">
+	<Hero data={general} height="h-[calc(100vh-1.5rem)]" />
 
 	<div
 		class="absolute bottom-[5rem] right-0 flex h-[6rem] items-end justify-center pb-8 sm:bottom-[13.5rem] sm:h-[calc(100vh-17.5rem)] sm:w-[24rem]"
@@ -52,14 +52,14 @@
 		class="absolute bottom-[4rem] left-0 flex flex-col gap-2 border-t border-light30 py-[3rem] sm:hidden"
 	>
 		{#each heroTexts as text}
-			<div class="flex w-screen items-center pl-6 text-sm">
+			<div class="flex w-full items-center pl-6 text-sm">
 				<p class="sub-small">{text}</p>
 			</div>
 		{/each}
 	</div>
 </section>
 
-<section class="flex flex-col bg-dark text-light md:flex-row md:gap-12">
+<section class="flex flex-col text-light md:flex-row md:gap-12">
 	<div class="x-margin y-margin relative flex w-full flex-col gap-5 md:w-3/5">
 		<h2 class="mb-5">{intro.title}</h2>
 		{#each usps as usp}
@@ -68,9 +68,11 @@
 				<p>{usp}</p>
 			</div>
 		{/each}
-		<div class="bg-blue40 absolute right-[-50px] top-[-50px] size-[200px] blur-[58px] filter"></div>
+		<div
+			class="absolute right-0 top-[-50px] size-[50px] bg-blue40 blur-[58px] filter md:right-[-50px] md:size-[200px]"
+		></div>
 	</div>
-	<div class="w-full md:w-2/5">
+	<div class="w-full overflow-hidden rounded-3xl md:w-2/5">
 		<img
 			src={imgMob}
 			srcset={`${imgMob} 576w, ${imgSm} 768w, ${imgMd} 600w, ${imgLg} 600w, ${imgXl} 800w`}
@@ -80,7 +82,8 @@
 	</div>
 </section>
 
-<section class="x-margin y-margin">
+<section class="x-margin y-margin rounded-3xl bg-light">
+	<p class="text-2xl font-medium">Choose your experience</p>
 	<h2>Trekking packages</h2>
 	<div class="mt-12 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
 		{#each treks as trek}

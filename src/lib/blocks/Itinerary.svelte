@@ -20,11 +20,9 @@
 		if (expanded.includes(indexString)) expanded = expanded.filter((ex) => ex !== indexString);
 		else expanded.push(indexString);
 	};
-
-	console.log('ITINARARY', itinerary);
 </script>
 
-<article class="x-margin y-margin flex w-full flex-col md:w-2/3">
+<article class="x-margin y-margin flex w-full flex-col rounded-3xl bg-light">
 	<h2>The trek day by day</h2>
 	<p class="mt-4">
 		We have a prelimanary plan but it can always change due to weather, availability and your
@@ -41,12 +39,20 @@
 					<div class="w-full">
 						<div class="flex items-center md:text-nowrap">
 							<h3 class="h4 flex-grow">{day.title}</h3>
-							<div class="bg-dark30 mx-2 hidden h-[1px] w-full md:block"></div>
-							<button class="min-w-6" onclick={() => expandDay(i)}>
-								<ChevronRight color="rgba(0, 23, 28, 0.3)" />
+							<div class="mx-2 hidden h-[1px] w-full bg-dark30 md:block"></div>
+							<button
+								class="group flex size-8 min-w-8 items-center justify-center"
+								onclick={() => expandDay(i)}
+							>
+								<ChevronRight
+									size={28}
+									class="stroke-dark30 group-hover:stroke-orange {expanded.includes(i.toString())
+										? 'rotate-90'
+										: ''}"
+								/>
 							</button>
 						</div>
-						<div class="my-2 flex flex-wrap gap-x-8 gap-y-2 md:gap-12">
+						<div class="my-1 flex flex-wrap gap-x-8 gap-y-2 md:gap-12">
 							{#if day.details.arrival}
 								<div class="flex gap-2">
 									<PlaneLanding size={20} />

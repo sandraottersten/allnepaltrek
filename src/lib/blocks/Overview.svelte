@@ -14,7 +14,7 @@
 	const { distance, difficulty, duration, altitude, trekDays, season } = details;
 </script>
 
-<article class="x-margin y-margin flex w-full flex-col gap-12 md:w-2/3 md:gap-16">
+<article class="x-margin y-margin flex w-full flex-col gap-12 rounded-3xl bg-light md:gap-16">
 	<section
 		class="bg-dark10 flex flex-col gap-3 rounded-lg py-4 pl-4 md:flex-row md:justify-around md:pl-0"
 	>
