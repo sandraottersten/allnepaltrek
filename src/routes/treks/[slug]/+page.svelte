@@ -4,7 +4,7 @@
 	import LinkButton from '$lib/pieces/LinkButton.svelte';
 	import { Check, ChevronRight } from 'lucide-svelte';
 	import Itinerary from '$lib/blocks/Itinerary.svelte';
-	import Dropdown from '$lib/pieces/Dropdown.svelte';
+	import NavDropdown from '$lib/pieces/NavDropdown.svelte';
 
 	let { data } = $props();
 	let activeTab = $state('Overview');
@@ -81,7 +81,7 @@
 		</section>
 	</aside>
 	<div class="fixed bottom-4 right-4 z-50 md:hidden">
-		<Dropdown
+		<NavDropdown
 			options={tabs}
 			activeOption={activeTab}
 			handleClick={(option) => (activeTab = option)}

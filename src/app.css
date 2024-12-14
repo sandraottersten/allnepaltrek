@@ -36,7 +36,7 @@
 	}
 
   .x-margin {
-		@apply px-6 md:px-16 lg:px-32;
+		@apply px-4 md:px-16 lg:px-32;
 	}
 
   .y-margin {

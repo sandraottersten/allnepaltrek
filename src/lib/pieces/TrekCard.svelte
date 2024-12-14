@@ -4,7 +4,7 @@
 	import Calendar from '../svg/Calendar.svelte';
 	import PeaksSmall from '../svg/PeaksSmall.svelte';
 
-	const { trek } = $props();
+	let { trek = $bindable() } = $props();
 	const { cardImage, title, subtitle, description } = trek.general;
 	const { duration, difficulty } = trek.details;
 	const { slug } = trek.seo;
@@ -37,7 +37,7 @@
 		</div>
 	</div>
 
-	<div class="bg-cardGradient absolute left-0 top-0 z-10 size-full"></div>
+	<div class="absolute left-0 top-0 z-10 size-full bg-cardGradient"></div>
 	<img
 		src={urlFor(cardImage).width(800).url()}
 		alt={cardImage.attribution}
