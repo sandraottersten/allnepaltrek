@@ -151,7 +151,7 @@
 </nav>
 
 <nav
-	class="fixed inset-x-0 z-50 mx-auto flex w-[calc(100vw-1.5rem)] flex-col sm:px-[3.5rem] md:hidden {isScrolling
+	class="fixed inset-x-0 top-3 z-50 mx-auto flex w-[calc(100vw-1.5rem)] flex-col sm:px-[3.5rem] md:hidden {isScrolling
 		? 'bg-dark80 backdrop-blur'
 		: showMobileMenu
 			? 'bg-dark80 backdrop-blur'

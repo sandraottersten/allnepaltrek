@@ -6,4 +6,6 @@
 </script>
 
 <Navigation />
+<div id="portal"></div>
+
 {@render children()}

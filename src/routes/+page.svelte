@@ -1,9 +1,10 @@
 <script>
 	import Hero from '$lib/blocks/Hero.svelte';
 	import Peaks from '$lib/svg/Peaks.svelte';
+	import LinkButton from '$lib/pieces/LinkButton.svelte';
 	import TrekCard from '$lib/pieces/TrekCard.svelte';
-	import PeaksSmall from '$lib/svg/PeaksSmall.svelte';
-	import { urlFor } from '../sanity/index';
+	import Divider from '$lib//pieces/Divider.svelte';
+	import InfoCard from '$lib/pieces/InfoCard.svelte';
 
 	let { data } = $props();
 	const { general, intro, treks } = data;
@@ -14,17 +15,11 @@
 		'Local travel agency'
 	];
 
-	const imgMob = urlFor(intro.image).width(576).url();
-	const imgSm = urlFor(intro.image).width(768).url();
-	const imgMd = urlFor(intro.image).width(600).url();
-	const imgLg = urlFor(intro.image).width(600).url();
-	const imgXl = urlFor(intro.image).width(800).url();
-
 	const usps = [intro.usp1, intro.usp2, intro.usp3];
 </script>
 
 <section class="relative">
-	<Hero data={general} height="h-[calc(100vh-1.5rem)]" />
+	<Hero data={general} height="h-[calc(100vh+2rem)]" />
 
 	<div
 		class="absolute bottom-[5rem] right-0 flex h-[6rem] items-end justify-center pb-8 sm:bottom-[13.5rem] sm:h-[calc(100vh-17.5rem)] sm:w-[24rem]"
@@ -59,35 +54,38 @@
 	</div>
 </section>
 
-<section class="flex flex-col text-light md:flex-row md:gap-12">
-	<div class="x-margin y-margin relative flex w-full flex-col gap-5 md:w-3/5">
-		<h2 class="mb-5">{intro.title}</h2>
-		{#each usps as usp}
-			<div class="flex flex-col gap-2 md:flex-row md:gap-4">
-				<PeaksSmall size="size-[32px] min-w-[32px] md:size-[42px] md:min-w-[42px]" />
-				<p>{usp}</p>
-			</div>
-		{/each}
-		<div
-			class="absolute right-0 top-[-50px] size-[50px] bg-blue40 blur-[58px] filter md:right-[-50px] md:size-[200px]"
-		></div>
+<section
+	class="x-margin z-20 -mt-8 flex flex-col rounded-t-[40px] bg-light pt-0 text-dark md:gap-12"
+>
+	<div class="y-margin flex w-full flex-col items-center gap-16">
+		<h2 class="px-3 md:max-w-[50%] md:text-center">{intro.title}</h2>
+		<div class="grid grid-cols-1 gap-8 px-3 md:grid-cols-3">
+			{#each usps as usp}
+				<div class="border-l border-dark30 pl-5">
+					<p>{usp}</p>
+				</div>
+			{/each}
+		</div>
 	</div>
-	<div class="w-full overflow-hidden rounded-3xl md:w-2/5">
-		<img
-			src={imgMob}
-			srcset={`${imgMob} 576w, ${imgSm} 768w, ${imgMd} 600w, ${imgLg} 600w, ${imgXl} 800w`}
-			alt={intro.image.attribution}
-			class="size-full object-cover"
-		/>
-	</div>
+	<InfoCard image={intro.image} />
 </section>
 
-<section class="x-margin y-margin rounded-3xl bg-light">
-	<p class="text-2xl font-medium">Choose your experience</p>
-	<h2>Trekking packages</h2>
-	<div class="mt-12 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+<section class="y-margin flex flex-col gap-5">
+	<h2 class="x-margin">Trekking packages</h2>
+	<Divider />
+	<p class="x-margin md:max-w-[60%]">
+		Tell us about your interest and needs. We’ll work together with you to customize your trip just
+		how you want it.
+	</p>
+	<div class="x-margin mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
 		{#each treks as trek}
 			<TrekCard {trek} />
 		{/each}
+	</div>
+	<div class="flex flex-col items-center gap-8 py-12">
+		<p class="w-[90%] text-center text-3xl font-medium text-dark70 md:w-[40rem] md:text-4xl">
+			It's not the mountain we conquer but ourselves
+		</p>
+		<LinkButton label="See all treks" link="/treks" />
 	</div>
 </section>

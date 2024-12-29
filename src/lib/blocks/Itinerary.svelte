@@ -20,21 +20,41 @@
 		if (expanded.includes(indexString)) expanded = expanded.filter((ex) => ex !== indexString);
 		else expanded.push(indexString);
 	};
+
+	const expandAllDays = () => {
+		const numberArray = Array.from({ length: itinerary.days.length }, (_, index) =>
+			index.toString()
+		);
+		expanded = numberArray;
+	};
 </script>
 
-<article class="x-margin y-margin flex w-full flex-col rounded-3xl bg-light">
+<article class="y-margin flex w-full flex-col rounded-3xl bg-light px-4 md:px-0">
 	<h2>The trek day by day</h2>
-	<p class="mt-4">
+	<p class="my-4">
 		We have a prelimanary plan but it can always change due to weather, availability and your
 		preferences.
 	</p>
-	<section class="mt-12 flex flex-col gap-6">
+	<div class="mt-4 flex items-center gap-2 md:justify-end">
+		<button class="text-sm text-orange hover:text-dark30" onclick={expandAllDays}>
+			Expand all
+		</button>
+		<span class="text-dark30">|</span>
+		<button class="text-sm text-orange hover:text-dark30" onclick={() => (expanded = [])}>
+			Hide all
+		</button>
+	</div>
+	<section class="mt-8 flex flex-col gap-6">
 		{#each itinerary.days as day, i}
 			<div>
 				<div class="mb-2 flex w-full flex-col gap-1 md:mb-4 md:flex-row md:gap-8">
-					<div class="flex w-10 min-w-10 items-center gap-1 md:flex-col md:gap-0">
-						<p class="text-base font-medium text-orange md:text-xl">Day</p>
-						<p class="text-base font-medium text-orange md:text-3xl">{i + 1}</p>
+					<div class="flex gap-1 md:w-14 md:min-w-14 md:justify-center">
+						<p class="text-base font-medium text-orange md:hidden">Day</p>
+						<p
+							class="text-base font-normal text-orange md:text-[4rem] md:leading-none md:text-dark30"
+						>
+							{i + 1}
+						</p>
 					</div>
 					<div class="w-full">
 						<div class="flex items-center md:text-nowrap">
@@ -56,7 +76,7 @@
 							{#if day.details.arrival}
 								<div class="flex gap-2">
 									<PlaneLanding size={20} />
-									<p class="font-medium">Namaste</p>
+									<p>Namaste</p>
 								</div>
 							{:else if day.details.departure}
 								<PlaneTakeoff size={20} />
@@ -64,42 +84,42 @@
 							{#if day.details.flight}
 								<div class="flex gap-2">
 									<Plane size={20} />
-									<p class="font-medium">{day.details.transportTime}</p>
+									<p>{day.details.transportTime}</p>
 								</div>
 							{:else if day.details.bus}
 								<div class="flex gap-2">
 									<Bus size={20} />
-									<p class="font-medium">{day.details.transportTime}</p>
+									<p>{day.details.transportTime}</p>
 								</div>
 							{:else if day.details.car}
 								<div class="flex gap-2">
 									<Car size={20} />
-									<p class="font-medium">{day.details.transportTime}</p>
+									<p>{day.details.transportTime}</p>
 								</div>
 							{/if}
 							{#if day.details.distance}
 								<div class="flex gap-2">
 									<Footprints size={20} />
-									<p class="font-medium">{day.details.distance.km}</p>
+									<p>{day.details.distance.km}</p>
 								</div>
 							{/if}
 							{#if day.details.trekTime}
 								<div class="flex gap-2">
 									<Timer size={20} />
-									<p class="font-medium">{day.details.trekTime}</p>
+									<p>{day.details.trekTime}</p>
 								</div>
 							{/if}
 							{#if day.details.altitude}
 								<div class="flex gap-2">
 									<Mountain size={20} />
-									<p class="font-medium">{day.details.altitude.meters}</p>
+									<p>{day.details.altitude.meters}</p>
 								</div>
 							{/if}
 						</div>
 					</div>
 				</div>
 				{#if expanded.includes(i.toString())}
-					<div class="md:ml-[4.5rem]">
+					<div class="md:ml-[5.5rem]">
 						<PortableText value={day.text} />
 					</div>
 				{/if}

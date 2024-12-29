@@ -5,7 +5,7 @@
 	let openList = $state(false);
 </script>
 
-<div class="relative flex w-full flex-col rounded-full border border-dark80 p-1 pl-3 md:w-[200px]">
+<div class="relative flex w-full flex-col border-b border-dark30 p-1 pl-3 md:w-[200px]">
 	<div class="flex">
 		<select class="hidden w-12">
 			{#each options as option}
@@ -25,7 +25,7 @@
 	</div>
 
 	{#if openList}
-		<div class="absolute left-0 top-14 z-20 w-full rounded-3xl border border-dark80 bg-light p-2">
+		<div class="absolute left-0 top-14 z-20 w-full rounded bg-light p-2">
 			{#each options as option}
 				{#if option.value !== activeOption.value}
 					<button

@@ -2,13 +2,15 @@ import { queryPage } from '../sanity';
 
 export async function load() {
 	const data = await queryPage(`*[_type == "startPage"]{
-      ...,
-      "treks": *[_type == "trek"]{
-        seo,
-        general,
-        details
+    ...,
+    'treks': treks[] {
+        _type == 'reference' => {
+        'seo': @->seo,
+        'general': @->general,
+        'details': @->details
       }
-    }`);
+    }
+  }`);
 
 	if (data) {
 		return data;
