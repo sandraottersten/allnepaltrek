@@ -7,7 +7,8 @@ export async function load() {
         seo,
         general,
         details
-      }
+      },
+      "categories": *[_type == "category"]
     }`);
 
 	if (data) {

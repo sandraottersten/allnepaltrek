@@ -74,7 +74,7 @@
 		</div>
 	</div>
 
-	{#if gallery.images.length > 3}
+	{#if gallery?.images.length > 3}
 		<Gallery images={gallery.images} />
 	{/if}
 </article>

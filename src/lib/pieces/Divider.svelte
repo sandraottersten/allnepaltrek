@@ -1,1 +1,1 @@
-<hr class="borde w-full border-dark30" />
+<hr class="w-full border border-dark30" />

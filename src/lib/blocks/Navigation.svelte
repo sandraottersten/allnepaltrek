@@ -1,6 +1,7 @@
 <script>
 	import Logo from '$lib/svg/Logo.svelte';
-	import { ChevronRight, Mountain, Menu, X } from 'lucide-svelte';
+	import { ChevronRight, Menu, X } from 'lucide-svelte';
+	import WhatsApp from '$lib/svg/WhatsApp.svelte';
 
 	let expanded = $state(false);
 	let isScrolling = $state(false);
@@ -10,7 +11,7 @@
 	let expandedMenus = $state([]);
 
 	let everestTreks = [
-		{ label: 'All Everest treks', link: '/treks/?region=everest' },
+		{ label: 'All Everest treks', link: '/treks?region=everest' },
 		{ label: 'EBC classic route', link: '/treks/everest-base-camp-classic' },
 		{ label: 'EBC Gokyo lakes', link: '/treks/everest-base-camp-gokyo' },
 		{ label: 'EBC 3 passes', link: '/treks/everest-base-camp-3-passes' },
@@ -19,11 +20,11 @@
 
 	let regions = [
 		{ label: 'All treks', link: '/treks', subItems: null },
-		{ label: 'Annapurna region', link: '/treks?region=annapurna', subItems: null },
 		{ label: 'Everest region', link: '/treks?region=everest', subItems: everestTreks },
+		{ label: 'Annapurna region', link: '/treks?region=annapurna', subItems: null },
+		{ label: 'Manaslu region', link: '/treks?region=manaslu', subItems: null },
 		{ label: 'Langtang region', link: '/treks?region=langtang', subItems: null },
-		{ label: 'Other regions', link: '/treks?region=other', subItems: null },
-		{ label: 'Short treks', link: '/treks?type=short', subItems: null }
+		{ label: 'Kanchenjunga region', link: '/treks?region=kanchenjunga', subItems: null }
 	];
 
 	let destinations = [
@@ -83,34 +84,42 @@
 		window.document.body.classList.toggle('no-scroll');
 		if (!showMobileMenu) expandedMenus = [];
 	};
-
-	$inspect(expandedMenus);
 </script>
 
-<nav
-	class="fixed left-0 top-4 z-50 hidden h-[4rem] items-center pl-[1.5rem] sm:px-[3.5rem] md:flex {isScrolling
-		? 'inset-x-0 mx-auto w-max justify-center rounded-full bg-dark80 backdrop-blur'
-		: 'w-full justify-between '}"
+<header
+	class="fixed left-0 z-50 hidden h-14 w-full items-center justify-between rounded-b-[40px] pl-[1.5rem] sm:px-[3.5rem] md:flex {isScrolling &&
+	lastScrollTop > 600
+		? 'bg-dark80 backdrop-blur delay-500'
+		: ''}
+    {scrollDown
+		? 'translate-y-[-150%] transform delay-500 duration-500'
+		: 'translate-y-0 transform delay-500 duration-500'}"
 >
-	<a href="/"><Logo size="h-[56px] w-[60px]" /></a>
-	<div class="mx-20 flex h-full items-center justify-center {isScrolling ? 'gap-16' : 'gap-20'}">
+	<a href="/"
+		><Logo
+			size={isScrolling && lastScrollTop > 600
+				? 'w-[60px] duration-500 mt-0'
+				: 'w-[90px] duration-500 delay-500 mt-10'}
+		/></a
+	>
+	<nav class="flex h-full items-center justify-center gap-20">
 		{#each menuItems as item}
 			<div class="group relative flex h-full items-center">
 				<a href={item.link} class="flex items-center gap-2 uppercase text-light">
 					<span>{item.label}</span>
 					{#if item.subItems}
-						<ChevronRight size={28} class="stroke-dark30 group-hover:stroke-orange" />
+						<ChevronRight size={24} class="stroke-light80 group-hover:stroke-orange" />
 					{/if}
 				</a>
 				{#if item.subItems}
 					<ul
-						class="absolute -left-8 top-14 hidden flex-col rounded-3xl bg-dark80 py-3 !backdrop-blur group-hover:flex"
+						class="absolute -left-8 top-12 hidden flex-col rounded-lg bg-dark py-1 group-hover:flex"
 					>
 						{#each item.subItems as subItem, i}
 							<div class="group/sub relative flex h-full flex-col">
 								<a
 									href={subItem.link}
-									class="group/subitem flex h-12 min-w-max items-center justify-between text-nowrap pl-8 pr-6 hover:bg-dark70"
+									class="group/subitem flex h-12 min-w-max items-center justify-between text-nowrap pl-8 pr-6 hover:bg-light10"
 								>
 									<span class="pr-8 text-light">{subItem.label}</span>
 									<ChevronRight
@@ -122,13 +131,13 @@
 								</a>
 								{#if subItem.subItems}
 									<ul
-										class="absolute -top-3 left-[calc(100%-8px)] hidden flex-col rounded-3xl bg-dark80 py-3 backdrop-blur group-hover/sub:flex"
+										class="absolute -top-1 left-[calc(100%-8px)] hidden flex-col rounded-lg bg-dark py-1 group-hover/sub:flex"
 									>
 										{#each subItem.subItems as subItem, i}
 											<div class="relative">
 												<a
 													href={subItem.link}
-													class="group/subitem flex h-12 min-w-max items-center justify-between text-nowrap pl-8 pr-6 hover:bg-dark70"
+													class="group/subitem flex h-12 min-w-max items-center justify-between text-nowrap pl-8 pr-6 hover:bg-light10"
 												>
 													<span class="pr-8 text-light">{subItem.label}</span>
 												</a>
@@ -144,18 +153,16 @@
 				{/if}
 			</div>
 		{/each}
-	</div>
-	<div>
-		<Mountain size={28} />
-	</div>
-</nav>
+		<WhatsApp size="size-[24px]" color="#FFFFFF" />
+	</nav>
+</header>
 
-<nav
-	class="fixed inset-x-0 top-3 z-50 mx-auto flex w-[calc(100vw-1.5rem)] flex-col sm:px-[3.5rem] md:hidden {isScrolling
+<header
+	class="fixed inset-x-0 z-50 flex flex-col sm:px-[3.5rem] md:hidden {isScrolling
 		? 'bg-dark80 backdrop-blur'
 		: showMobileMenu
 			? 'bg-dark80 backdrop-blur'
-			: ''} {showMobileMenu ? 'rounded-xl' : 'rounded-full'}"
+			: ''} {showMobileMenu ? 'rounded-b-none' : 'rounded-b-3xl'}"
 >
 	<div class="flex h-[3.5rem] items-center justify-between pl-3 pr-6">
 		<a href="/"><Logo size="h-[36px] w-[60px]" /></a>
@@ -168,70 +175,72 @@
 	</div>
 
 	{#if showMobileMenu}
-		<ul class="flex h-[calc(100vh-80px)] flex-col overflow-y-auto text-light">
-			{#each menuItems as item}
-				<button
-					onclick={() => expandMenuItem(item.label)}
-					class="flex h-12 min-h-12 min-w-max items-center justify-between text-nowrap px-4 uppercase"
-				>
-					<span>{item.label}</span>
-					{#if item.subItems}
-						<ChevronRight
-							size={28}
-							class={expandedMenus.includes(item.label)
-								? 'rotate-90 stroke-orange'
-								: 'stroke-light80'}
-						/>
-					{/if}
-				</button>
-				{#if item.subItems}
-					<ul
-						class="flex flex-col bg-dark30 {expandedMenus.includes(item.label)
-							? 'h-min'
-							: 'h-0 overflow-hidden'}"
+		<nav>
+			<ul class="flex h-[calc(100vh-80px)] flex-col overflow-y-auto text-light">
+				{#each menuItems as item}
+					<button
+						onclick={() => expandMenuItem(item.label)}
+						class="flex h-12 min-h-12 min-w-max items-center justify-between text-nowrap px-4 uppercase"
 					>
-						{#each item.subItems as subItem, i}
-							<div class="flex flex-col">
-								<button
-									onclick={() => expandMenuItem(subItem.label)}
-									class="flex h-12 min-h-12 min-w-max items-center justify-between text-nowrap px-4"
-								>
-									<span class="pr-8 text-light">{subItem.label}</span>
-									{#if subItem.subItems}
-										<ChevronRight
-											size={28}
-											class={expandedMenus.includes(subItem.label)
-												? 'rotate-90 stroke-orange'
-												: 'stroke-light80'}
-										/>
-									{/if}
-								</button>
-								{#if subItem.subItems}
-									<ul
-										class="flex flex-col bg-dark {expandedMenus.includes(subItem.label)
-											? 'h-full'
-											: 'h-0 overflow-hidden'}"
+						<span>{item.label}</span>
+						{#if item.subItems}
+							<ChevronRight
+								size={28}
+								class={expandedMenus.includes(item.label)
+									? 'rotate-90 stroke-orange'
+									: 'stroke-light80'}
+							/>
+						{/if}
+					</button>
+					{#if item.subItems}
+						<ul
+							class="flex flex-col bg-dark30 {expandedMenus.includes(item.label)
+								? 'h-min'
+								: 'h-0 overflow-hidden'}"
+						>
+							{#each item.subItems as subItem, i}
+								<div class="flex flex-col">
+									<button
+										onclick={() => expandMenuItem(subItem.label)}
+										class="flex h-12 min-h-12 min-w-max items-center justify-between text-nowrap px-4"
 									>
-										{#each subItem.subItems as subItem, i}
-											<div class="relative">
-												<a
-													href={subItem.link}
-													class="flex h-12 min-w-max items-center justify-between text-nowrap pl-8 pr-6"
-												>
-													<span class="pr-8 text-light">{subItem.label}</span>
-												</a>
-											</div>
-										{/each}
-									</ul>
-								{/if}
-							</div>
-						{/each}
-					</ul>
-				{/if}
-			{/each}
-		</ul>
+										<span class="pr-8 text-light">{subItem.label}</span>
+										{#if subItem.subItems}
+											<ChevronRight
+												size={28}
+												class={expandedMenus.includes(subItem.label)
+													? 'rotate-90 stroke-orange'
+													: 'stroke-light80'}
+											/>
+										{/if}
+									</button>
+									{#if subItem.subItems}
+										<ul
+											class="flex flex-col bg-dark {expandedMenus.includes(subItem.label)
+												? 'h-full'
+												: 'h-0 overflow-hidden'}"
+										>
+											{#each subItem.subItems as subItem, i}
+												<div class="relative">
+													<a
+														href={subItem.link}
+														class="flex h-12 min-w-max items-center justify-between text-nowrap pl-8 pr-6"
+													>
+														<span class="pr-8 text-light">{subItem.label}</span>
+													</a>
+												</div>
+											{/each}
+										</ul>
+									{/if}
+								</div>
+							{/each}
+						</ul>
+					{/if}
+				{/each}
+			</ul>
+		</nav>
 	{/if}
-</nav>
+</header>
 
 <style>
 	:global(body.no-scroll) {

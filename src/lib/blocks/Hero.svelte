@@ -17,10 +17,10 @@
 	style:--image-md={`url(${imgMd})`}
 	style:--image-lg={`url(${imgLg})`}
 	style:--image-xl={`url(${imgXl})`}
-	class="relative flex w-screen {height} flex items-end overflow-hidden bg-[image:var(--image-mob)] bg-cover bg-fixed bg-center bg-no-repeat pb-8 sm:bg-[image:var(--image-sm)] md:bg-[image:var(--image-md)] lg:bg-[image:var(--image-lg)] xl:bg-[image:var(--image-xl)]"
+	class="relative flex w-screen {height} flex items-end overflow-hidden bg-[image:var(--image-mob)] bg-cover bg-fixed bg-center bg-no-repeat pb-16 sm:bg-[image:var(--image-sm)] md:bg-[image:var(--image-md)] lg:bg-[image:var(--image-lg)] xl:bg-[image:var(--image-xl)]"
 >
 	<div
-		class=" z-20 flex w-[calc(100vw-5rem)] flex-col gap-4 pl-[1.5rem] sm:w-[36rem] sm:pl-[3.5rem] md:w-[34rem] lg:w-[37rem] xl:w-[64rem]"
+		class="z-20 flex w-[calc(100vw-5rem)] flex-col gap-4 pl-[1.5rem] sm:w-[36rem] sm:pl-[3.5rem] md:w-[34rem] lg:w-[37rem] xl:w-[64rem]"
 	>
 		<h1>
 			{data.title}

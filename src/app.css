@@ -7,7 +7,7 @@
    @apply bg-light flex flex-col;
   }
 
-  h1, h2, h3, p, button {
+  h1, h2, h3, p, a, span, button {
     @apply font-poppins;
   }
 
@@ -28,7 +28,7 @@
 	}
 
   .h4 {
-		@apply text-lg md:text-xl lg:text-xl xl:text-xl font-medium normal-case;
+		@apply text-lg md:text-xl lg:text-xl xl:text-xl font-medium leading-[110%];
 	}
 
   .sub-small {

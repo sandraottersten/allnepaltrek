@@ -9,7 +9,14 @@ export async function load() {
         'general': @->general,
         'details': @->details
       }
-    }
+    },
+    "regions": *[_type == "region"]{
+      seo,
+      general,
+      id
+    },
+    "categories": *[_type == "category"],
+    "tours": *[_type == "tour"]
   }`);
 
 	if (data) {

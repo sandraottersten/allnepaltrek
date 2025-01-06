@@ -3,11 +3,21 @@
 	import Peaks from '$lib/svg/Peaks.svelte';
 	import LinkButton from '$lib/pieces/LinkButton.svelte';
 	import TrekCard from '$lib/pieces/TrekCard.svelte';
-	import Divider from '$lib//pieces/Divider.svelte';
+	import TourCard from '$lib/pieces/TourCard.svelte';
+	import Divider from '$lib/pieces/Divider.svelte';
 	import InfoCard from '$lib/pieces/InfoCard.svelte';
+	import NepalMap from '$lib/svg/NepalMap.svelte';
+	import PeaksSmall from '$lib/svg/PeaksSmall.svelte';
+	import { urlFor } from '../sanity/index';
+	import { PlusCircle } from 'lucide-svelte';
 
 	let { data } = $props();
-	const { general, intro, treks } = data;
+	const { general, intro, treks, regions, categories, tours } = data;
+	let selectedRegion = $state();
+	let selectedCategory = $state(categories[0]);
+	let expandedCategories = $state([]);
+
+	const imgMob = urlFor(general.image).width(2000).height(1000).url();
 
 	const heroTexts = [
 		'Packages and customized treks',
@@ -15,7 +25,21 @@
 		'Local travel agency'
 	];
 
+	const nepalTitle = "Nepal's protected areas";
+	const nepalText =
+		'Between the high peaks and the lowlands, Nepal has a number of conservation areas and national parks to protect the flora and fauna. In these areas we find most of the trekking trails and destinations. Which area would you like to visit?';
+
 	const usps = [intro.usp1, intro.usp2, intro.usp3];
+
+	const toggleCategory = (cat) => {
+		if (expandedCategories.includes(cat.id)) {
+			const updatedCats = expandedCategories.filter((c) => c !== cat.id);
+			expandedCategories = updatedCats;
+		} else {
+			expandedCategories.push(cat.id);
+			selectedCategory = cat;
+		}
+	};
 </script>
 
 <section class="relative">
@@ -82,10 +106,101 @@
 			<TrekCard {trek} />
 		{/each}
 	</div>
-	<div class="flex flex-col items-center gap-8 py-12">
-		<p class="w-[90%] text-center text-3xl font-medium text-dark70 md:w-[40rem] md:text-4xl">
-			It's not the mountain we conquer but ourselves
-		</p>
-		<LinkButton label="See all treks" link="/treks" />
+</section>
+
+<div class="flex flex-col items-center gap-8 py-12">
+	<p class="w-[90%] text-center text-3xl font-medium text-dark70 md:w-[40rem] md:text-4xl">
+		It's not the mountain we conquer but ourselves
+	</p>
+	<LinkButton label="See all treks" link="/treks" />
+</div>
+
+<section class="x-margin y-margin flex gap-24">
+	<div class="hidden h-[600px] w-full flex-1 md:flex">
+		<img
+			src={urlFor(selectedCategory.image).width(800).height(1000).url()}
+			alt={selectedCategory.image.attribution}
+			class="size-full rounded-3xl object-cover"
+		/>
+	</div>
+	<div class="flex-[2_2_0%]">
+		{#each categories as cat}
+			<div
+				class="flex gap-5 overflow-hidden border-t border-dark30 p-5 transition-[height] duration-700 {expandedCategories.includes(
+					cat.id
+				)
+					? 'h-[200px]'
+					: 'h-[72px]'}"
+			>
+				<button class="h-min" onclick={() => toggleCategory(cat)}>
+					<PlusCircle size={32} color="#EE7430" strokeWidth={1} />
+				</button>
+				<div class="flex flex-col gap-5 md:w-1/2">
+					<h3>{cat.name}</h3>
+					<p>{cat.description}</p>
+					<a href={`/treks?category=${cat.id}`} class="flex gap-2 hover:text-orange">
+						Go to treks <PeaksSmall size="size-[24px] min-w-[24px]" /></a
+					>
+				</div>
+			</div>
+		{/each}
+	</div>
+</section>
+
+<section
+	style:--image-mob={`url(${imgMob})`}
+	class="flex bg-[image:var(--image-mob)] bg-cover bg-fixed bg-center bg-no-repeat"
+>
+	<div class="relative flex w-full flex-col gap-12 bg-dark70 px-14 py-16 text-light backdrop-blur">
+		<h2 class="text-light">Regions</h2>
+		<div class="flex justify-center">
+			<NepalMap
+				size="w-[70vw]"
+				selected={selectedRegion?.id}
+				onclick={(region) => (selectedRegion = regions.find((r) => r.id === region))}
+			/>
+		</div>
+		<div class="absolute right-32 top-32 flex w-2/6 flex-col gap-5">
+			<h3>{selectedRegion?.general.title || nepalTitle}</h3>
+			<p>{selectedRegion?.general.description || nepalText}</p>
+			{#if selectedRegion}
+				<a
+					href={`/regions/${selectedRegion.seo.slug.current}`}
+					class="flex gap-2 hover:text-orange"
+				>
+					Read more <PeaksSmall size="size-[24px] min-w-[24px]" /></a
+				>
+			{/if}
+		</div>
+		{#if selectedRegion}
+			<div class="absolute bottom-16 left-16 w-1/5">
+				<img
+					src={urlFor(selectedRegion?.general.image).width(1000).height(800).url()}
+					alt={selectedRegion?.general.image.attribution}
+					class="size-full rounded-3xl object-cover"
+				/>
+
+				<p class="mt-4 border-y border-light30 px-3 py-3">Area: 38478</p>
+				<a
+					href={`/regions/${selectedRegion.seo.slug.current}`}
+					class="flex justify-between border-b border-light30 px-3 py-3"
+					>Treks: 5 <PeaksSmall size="size-[24px] min-w-[24px]" /></a
+				>
+			</div>
+		{/if}
+	</div>
+</section>
+
+<section class="y-margin flex flex-col gap-5">
+	<h2 class="x-margin">More of Nepal</h2>
+	<Divider />
+	<p class="x-margin md:max-w-[60%]">
+		Tell us about your interest and needs. We’ll work together with you to customize your trip just
+		how you want it.
+	</p>
+	<div class="x-margin mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2">
+		{#each tours as tour}
+			<TourCard {tour} />
+		{/each}
 	</div>
 </section>

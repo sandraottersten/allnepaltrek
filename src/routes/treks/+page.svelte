@@ -7,12 +7,13 @@
 	import Dropdown from '$lib/pieces/Dropdown.svelte';
 	import Divider from '$lib/pieces/Divider.svelte';
 	import Filter from '$lib/pieces/Filter.svelte';
-	import { Footprints, Mountain, Timer } from 'lucide-svelte';
 	import PeaksSmall from '$lib/svg/PeaksSmall.svelte';
 	import { urlFor } from '../../sanity/index';
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	let { data } = $props();
-	const { general, intro, introCard, treks } = data;
+	const { general, intro, categories, treks } = data;
 
 	const imgMob = urlFor(intro.image).width(576).url();
 	const imgSm = urlFor(intro.image).width(768).url();
@@ -43,37 +44,31 @@
 		{ label: '14-20 days', value: 'long' }
 	];
 
-	const categories = [
-		{
-			label: 'All treks',
-			value: 'all',
-			icon: Mountain,
-			title: 'Trekking packages',
-			text: 'Explore Nepal’s trekking havens, from the snow-capped majestic peaks of Himalaya to the lush flowering forests of the valleys. Trekking in Nepal is an unforgettable journey through breathtaking scenery, rich cultural heritage and and genuine hospitality.'
-		},
-		{
-			label: 'Classic treks',
-			value: 'classic',
-			icon: Footprints,
-			title: 'Follow the footsteps',
-			text: 'Explore Nepal’s trekking havens, from the snow-capped majestic peaks of Himalaya to the lush flowering forests of the valleys. Trekking in Nepal is an unforgettable journey through breathtaking scenery, rich cultural heritage and and genuine hospitality.'
-		},
-		{ label: 'Short treks', value: 'short', icon: Timer, title: 'Trekking packages', text: '' },
-		{ label: 'Peak climbs', value: 'peak', icon: Mountain, title: 'Trekking packages', text: '' },
-		{ label: 'Best views', value: 'view', icon: Mountain, title: 'Trekking packages', text: '' },
-		{
-			label: 'Of the beaten path',
-			value: 'off',
-			icon: Mountain,
-			title: 'Trekking packages',
-			text: ''
-		}
-	];
+	const categoryAll = {
+		name: 'All treks',
+		id: 'all',
+		title: 'Trekking packages',
+		description:
+			'Explore Nepals trekking havens, from the snow-capped majestic peaks of Himalaya to the lush flowering forests of the valleys. Trekking in Nepal is an unforgettable journey through breathtaking scenery, rich cultural heritage and and genuine hospitality.'
+	};
 
-	let selectedFilter = $state(categories[0]);
+	let selectedFilter = $state(categoryAll);
 	let selectedRegion = $state(regions[0]);
 	let selectedDuration = $state(durations[0]);
 	let selectedDifficulty = $state(difficulties[0]);
+
+	onMount(() => {
+		const region = $page.url.searchParams.get('region');
+		if (region) {
+			const regionObject = regions.find((r) => r.value === region);
+			selectedRegion = regionObject;
+		}
+		const category = $page.url.searchParams.get('category');
+		if (category) {
+			const categoryObject = regions.find((r) => r.value === category);
+			selectedFilter = categoryObject;
+		}
+	});
 
 	const checkDuration = (trek) => {
 		const duration = Number(trek.details.duration);
@@ -86,7 +81,7 @@
 	let filteredTreks = $derived.by(() => {
 		return treks
 			.filter(
-				(trek) => trek.details.tags.includes(selectedFilter.value) || selectedFilter.value === 'all'
+				(trek) => trek.details.tags?.includes(selectedFilter.id) || selectedFilter.id === 'all'
 			)
 			.filter(
 				(trek) => selectedRegion.value === trek.details.region || selectedRegion.value === 'all'
@@ -144,7 +139,7 @@
 <section class="y-margin">
 	{#snippet slot1()}
 		<div class="grid grid-cols-2 gap-2 md:grid-cols-6 md:gap-4">
-			{#each categories as category}
+			{#each [categoryAll, ...categories] as category}
 				<button
 					class="flex h-16 w-full items-center gap-1 rounded-full border px-4 md:h-28 md:flex-col md:justify-center md:gap-2 md:rounded-3xl md:text-lg {selectedFilter.value ===
 					category.value
@@ -158,7 +153,7 @@
 					<span class="block size-6 md:hidden">
 						<category.icon size="20" />
 					</span>
-					{category.label}
+					{category.name}
 				</button>
 			{/each}
 		</div>
@@ -166,29 +161,29 @@
 	<Divider />
 	<div class="x-margin y-margin flex gap-24">
 		<div class="hidden w-1/2 grid-cols-2 gap-4 md:grid md:grid-cols-2 md:gap-x-12 md:gap-y-6">
-			{#each categories as category}
+			{#each [categoryAll, ...categories] as category}
 				<button
-					class="flex w-full items-center gap-4 border-b px-4 pb-3 md:gap-2 md:text-xl {selectedFilter.value ===
-					category.value
+					class="flex w-full items-center gap-4 border-b px-4 pb-3 md:gap-2 md:text-xl {selectedFilter.id ===
+					category.id
 						? 'border-orange text-orange'
 						: 'border-dark30'}"
 					onclick={() => (selectedFilter = category)}
 				>
 					<PeaksSmall
-						size="size-[32px] min-w-[32px] md:size-[32px] md:min-w-[32px] {selectedFilter.value ===
-						category.value
+						size="size-[32px] min-w-[32px] md:size-[32px] md:min-w-[32px] {selectedFilter.id ===
+						category.id
 							? 'block'
 							: 'hidden'}"
 					/>
 
-					{category.label}
+					{category.name}
 				</button>
 			{/each}
 		</div>
 		<div class="mb-8 flex w-full flex-col gap-4 md:w-1/2">
-			<p class="md:hidden">{selectedFilter.label}</p>
+			<p class="md:hidden">{selectedFilter.name}</p>
 			<h2>{selectedFilter.title}</h2>
-			<p class="">{selectedFilter.text}</p>
+			<p class="">{selectedFilter.description}</p>
 		</div>
 	</div>
 
