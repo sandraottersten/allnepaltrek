@@ -29,8 +29,11 @@
 	};
 </script>
 
-<article class="y-margin flex w-full flex-col rounded-3xl bg-light px-4 md:px-0">
-	<h2>The trek day by day</h2>
+<article
+	id="itinerary"
+	class="scroll-block y-margin flex w-full flex-col rounded-3xl bg-light px-4 md:px-0"
+>
+	<h2>Day to day itinerary</h2>
 	<p class="my-4">
 		We have a prelimanary plan but it can always change due to weather, availability and your
 		preferences.
@@ -41,19 +44,16 @@
 		</button>
 		<span class="text-dark30">|</span>
 		<button class="text-sm text-orange hover:text-dark30" onclick={() => (expanded = [])}>
-			Hide all
+			Collapse all
 		</button>
 	</div>
 	<section class="mt-8 flex flex-col gap-6">
 		{#each itinerary.days as day, i}
 			<div>
 				<div class="mb-2 flex w-full flex-col gap-1 md:mb-4 md:flex-row md:gap-8">
-					<div class="flex gap-1 md:w-14 md:min-w-14 md:justify-center">
-						<p class="text-base font-medium text-orange md:hidden">Day</p>
-						<p
-							class="text-base font-normal text-orange md:text-[4rem] md:leading-none md:text-dark30"
-						>
-							{i + 1}
+					<div class="mt-0.5 flex gap-1">
+						<p class="whitespace-nowrap text-base font-medium text-orange md:text-xl md:leading-7">
+							Day {i + 1}
 						</p>
 					</div>
 					<div class="w-full">
@@ -73,43 +73,43 @@
 							</button>
 						</div>
 						<div class="my-1 flex flex-wrap gap-x-8 gap-y-2 md:gap-12">
-							{#if day.details.arrival}
+							{#if day.details?.arrival}
 								<div class="flex gap-2">
 									<PlaneLanding size={20} />
 									<p>Namaste</p>
 								</div>
-							{:else if day.details.departure}
+							{:else if day.details?.departure}
 								<PlaneTakeoff size={20} />
 							{/if}
-							{#if day.details.flight}
+							{#if day.details?.flight}
 								<div class="flex gap-2">
 									<Plane size={20} />
 									<p>{day.details.transportTime}</p>
 								</div>
-							{:else if day.details.bus}
+							{:else if day.details?.bus}
 								<div class="flex gap-2">
 									<Bus size={20} />
-									<p>{day.details.transportTime}</p>
+									<p>{day.details?.transportTime}</p>
 								</div>
-							{:else if day.details.car}
+							{:else if day.details?.car}
 								<div class="flex gap-2">
 									<Car size={20} />
 									<p>{day.details.transportTime}</p>
 								</div>
 							{/if}
-							{#if day.details.distance}
+							{#if day.details?.distance}
 								<div class="flex gap-2">
 									<Footprints size={20} />
 									<p>{day.details.distance.km}</p>
 								</div>
 							{/if}
-							{#if day.details.trekTime}
+							{#if day.details?.trekTime}
 								<div class="flex gap-2">
 									<Timer size={20} />
 									<p>{day.details.trekTime}</p>
 								</div>
 							{/if}
-							{#if day.details.altitude}
+							{#if day.details?.altitude}
 								<div class="flex gap-2">
 									<Mountain size={20} />
 									<p>{day.details.altitude.meters}</p>

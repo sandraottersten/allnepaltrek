@@ -1,25 +1,24 @@
 <script>
 	import Hero from '$lib/blocks/Hero.svelte';
-	import TrekOverview from '$lib/blocks/TrekOverview.svelte';
+	import TourOverview from '$lib/blocks/TourOverview.svelte';
 	import LinkButton from '$lib/pieces/LinkButton.svelte';
 	import { ChevronRight } from 'lucide-svelte';
-	import Itinerary from '$lib/blocks/Itinerary.svelte';
 	import NavDropdown from '$lib/pieces/NavDropdown.svelte';
 	import Peaks from '$lib/svg/Peaks.svelte';
 	import Included from '$lib/blocks/Included.svelte';
 	import Gallery from '$lib/blocks/Gallery.svelte';
+	import { PortableText } from '@eirikk/portabletext-2-svelte-5';
 
 	let { data } = $props();
 	let activeContent = $state('overview');
 
-	const { general, description, details, itinerary, gallery, packageContent } = data;
+	const { general, description, details, gallery, packageContent } = data;
 	const { cat1, cat2, cat3, cat4 } = data.pricing;
 
 	const content = [
 		{ label: 'Overview', value: 'overview' },
 		{ label: 'Gallery', value: 'gallery' },
-		{ label: 'Itinerary', value: 'itinerary' },
-		{ label: 'Map', value: 'map' },
+		{ label: 'Program', value: 'program' },
 		{ label: 'Included', value: 'included' }
 	];
 
@@ -100,11 +99,14 @@
 	</aside>
 
 	<article class="md:w-[70%] md:border-l md:border-dark30 md:pl-10 lg:pl-24">
-		<TrekOverview {details} {description} />
+		<TourOverview {details} {description} />
 		{#if gallery}
 			<Gallery {gallery} />
 		{/if}
-		<Itinerary {itinerary} />
+		<section id="program" class="y-margin">
+			<h2>Program</h2>
+			<PortableText value={description.program} />
+		</section>
 		<Included {packageContent} />
 	</article>
 	<div class="fixed bottom-4 right-4 z-50 md:hidden">

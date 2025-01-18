@@ -9,8 +9,11 @@
 	const { slug } = trek.seo;
 </script>
 
-<a href={`/treks/${slug.current}`} class="group relative h-full w-full cursor-pointer">
-	<div class="relative h-[60%] overflow-hidden rounded-3xl">
+<a
+	href={`/treks/${slug.current}`}
+	class="group relative flex h-full w-full cursor-pointer flex-col"
+>
+	<div class="relative aspect-[380/400] overflow-hidden rounded-3xl">
 		<div class="invisible absolute bottom-4 right-4 z-20 group-hover:visible">
 			<PeaksSmall size="size-[32px] min-w-[32px] md:size-[42px] md:min-w-[42px]" />
 		</div>
@@ -22,7 +25,7 @@
 		/>
 	</div>
 
-	<div class="py-5">
+	<div class="flex-1 py-5">
 		<h3>{title}</h3>
 		<p class="sub-small">{subtitle}</p>
 		<p class="mt-3">{description}</p>

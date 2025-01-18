@@ -5,7 +5,7 @@
 	import { Check, ChevronRight } from 'lucide-svelte';
 	import Peaks from '$lib/svg/Peaks.svelte';
 	import PeaksSmall from '$lib/svg/PeaksSmall.svelte';
-	import Gallery from '$lib/pieces/Gallery.svelte';
+	import Gallery from '$lib/blocks/Gallery.svelte';
 	import { PortableText } from '@eirikk/portabletext-2-svelte-5';
 
 	let { data } = $props();

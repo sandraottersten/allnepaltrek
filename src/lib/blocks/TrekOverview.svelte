@@ -8,16 +8,19 @@
 		ChartNoAxesColumnIncreasing
 	} from 'lucide-svelte';
 	import Divider from '$lib/pieces/Divider.svelte';
-	import Gallery from '$lib/pieces/Gallery.svelte';
 	import { PortableText } from '@eirikk/portabletext-2-svelte-5';
 	import PeaksSmall from '$lib/svg/PeaksSmall.svelte';
+	import { urlFor } from '../../sanity/index';
 
-	const { details, description, gallery } = $props();
+	const { details, description } = $props();
 	const { distance, difficulty, duration, altitude, trekDays, season } = details;
 </script>
 
-<article class="y-margin flex w-full flex-col gap-12 rounded-3xl bg-light px-4 md:gap-16 md:px-0">
-	<section>
+<section
+	id="overview"
+	class="scroll-block flex w-full flex-col gap-12 rounded-3xl bg-light px-4 md:gap-16 md:px-0"
+>
+	<div>
 		<h2 class="w-5/6">{description.title}</h2>
 		<div class="my-12">
 			<div class="my-4 flex items-center justify-between">
@@ -50,21 +53,44 @@
 					<Route />
 					<span class="border-l border-dark30 pl-2">
 						<p class="font-medium">Distance</p>
-						<p>{distance.km}</p>
+						<p>{distance?.km}</p>
 					</span>
 				</div>
 				<div class="flex items-center gap-2">
 					<Mountain />
 					<span class="border-l border-dark30 pl-2">
 						<p class="font-medium">Max altitude</p>
-						<p>{altitude.meters}</p>
+						<p>{altitude?.meters}</p>
 					</span>
 				</div>
 			</section>
 		</div>
 
+		<div class="my-12">
+			<h3>Highlights of Ganja La pass trek</h3>
+			<div class="mt-2 grid grid-cols-4 gap-3">
+				{#each description.highlights as highlight}
+					<div>
+						<div class="group relative mb-3 aspect-[1/1]">
+							<div
+								class="absolute left-0 top-0 hidden size-full rounded-xl bg-dark70 p-3 backdrop-blur group-hover:flex"
+							>
+								<p class="text-sm font-light text-light">{highlight.description}</p>
+							</div>
+							<img
+								src={urlFor(highlight.image).width(800).height(800).url()}
+								alt={highlight.image.attribution}
+								class="size-full rounded-xl object-cover"
+							/>
+						</div>
+						<span class="text-md flex w-[65%] font-medium leading-tight">{highlight.title}</span>
+					</div>
+				{/each}
+			</div>
+		</div>
+
 		<PortableText value={description.text} />
-	</section>
+	</div>
 
 	<div class="flex">
 		<SunSnow />
@@ -73,8 +99,4 @@
 			<p>{season}</p>
 		</div>
 	</div>
-
-	{#if gallery?.images.length > 3}
-		<Gallery images={gallery.images} />
-	{/if}
-</article>
+</section>

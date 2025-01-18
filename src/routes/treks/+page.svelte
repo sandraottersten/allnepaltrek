@@ -231,7 +231,7 @@
 		<div class="grid grid-cols-1 gap-4 md:mt-12 md:grid-cols-2 lg:grid-cols-3">
 			{#key filteredTreks}
 				{#each filteredTreks as trek, i}
-					<TrekCard index={i} bind:trek={filteredTreks[i]} />
+					<TrekCard index={i} {trek} />
 				{/each}
 			{/key}
 		</div>

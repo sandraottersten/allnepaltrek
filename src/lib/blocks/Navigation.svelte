@@ -2,6 +2,7 @@
 	import Logo from '$lib/svg/Logo.svelte';
 	import { ChevronRight, Menu, X } from 'lucide-svelte';
 	import WhatsApp from '$lib/svg/WhatsApp.svelte';
+	import PeaksSmall from '$lib/svg/PeaksSmall.svelte';
 
 	let expanded = $state(false);
 	let isScrolling = $state(false);
@@ -28,12 +29,18 @@
 	];
 
 	let destinations = [
-		{ label: 'All destinations', link: '/destination', subItems: null },
-		{ label: 'Annapurna', link: '/destination?region=annapurna', subItems: null },
-		{ label: 'Everest', link: '/destination?region=everest', subItems: null },
-		{ label: 'Langtang', link: '/destination?region=langtang', subItems: null },
-		{ label: 'Manaslu', link: '/destination?region=manaslu', subItems: null },
-		{ label: 'Makalu', link: '/destination?region=makalu', subItems: null }
+		{ label: 'Annapurna', link: '/regions/annapurna', subItems: null },
+		{ label: 'Everest', link: '/regions/everest', subItems: null },
+		{ label: 'Langtang', link: '/regions/langtang', subItems: null },
+		{ label: 'Manaslu', link: '/regions/manaslu', subItems: null },
+		{ label: 'Makalu', link: '/regions/makalu', subItems: null }
+	];
+
+	let tours = [
+		{ label: 'All tours', link: '/tours', subItems: null },
+		{ label: 'City sightseeing', link: '/tours?category=city', subItems: null },
+		{ label: 'Adventure', link: '/tours?category=adventure', subItems: null },
+		{ label: 'Day hikes', link: '/tours?category=hike', subItems: null }
 	];
 
 	let information = [
@@ -43,9 +50,9 @@
 
 	let menuItems = [
 		{ label: 'Trekking', link: '/treks', subItems: regions },
-		{ label: 'Destinations', link: '/destinations', subItems: destinations },
-		{ label: 'Travel info', link: '/travel-info', subItems: information },
-		{ label: 'Contact', link: '/contact', subItems: null }
+		{ label: 'Regions', link: '/regions', subItems: destinations },
+		{ label: 'Tours', link: '/tours', subItems: tours },
+		{ label: 'Travel info', link: '/travel-info', subItems: information }
 	];
 
 	$effect(() => {
@@ -105,7 +112,7 @@
 	<nav class="flex h-full items-center justify-center gap-20">
 		{#each menuItems as item}
 			<div class="group relative flex h-full items-center">
-				<a href={item.link} class="flex items-center gap-2 uppercase text-light">
+				<a href={item.link} class="flex items-center gap-2 text-lg text-light">
 					<span>{item.label}</span>
 					{#if item.subItems}
 						<ChevronRight size={24} class="stroke-light80 group-hover:stroke-orange" />
@@ -141,7 +148,9 @@
 												>
 													<span class="pr-8 text-light">{subItem.label}</span>
 												</a>
-												<div class="w-full {i === 0 ? 'h-[1px] bg-light10' : 'hidden'}"></div>
+												<hr
+													class="border-1 w-full {i === 0 ? 'h-[1px] border-light10' : 'hidden'}"
+												/>
 											</div>
 										{/each}
 									</ul>
@@ -153,7 +162,28 @@
 				{/if}
 			</div>
 		{/each}
-		<WhatsApp size="size-[24px]" color="#FFFFFF" />
+
+		<div class="group/contact relative flex min-h-14 min-w-10 items-center justify-center">
+			<WhatsApp size="size-[24px] cursor-pointer" color="#FFFFFF" />
+			<div
+				class="absolute right-[calc(100%-70px)] top-12 hidden flex-col rounded-lg bg-dark pb-1 text-light group-hover/contact:flex"
+			>
+				<div class="flex flex-col gap-1 px-6 py-4">
+					<p>Ask Bhim</p>
+					<p>+9779841356471</p>
+				</div>
+				<hr class="border-1 h-[1px] w-full border-light10" />
+				<div>
+					<a
+						href={'/contact'}
+						class="group/subitem flex h-12 min-w-max items-center justify-between text-nowrap px-6 hover:bg-light10"
+					>
+						<span class="pr-4 text-light">{'Contact page'}</span>
+						<PeaksSmall size="size-[24px]" />
+					</a>
+				</div>
+			</div>
+		</div>
 	</nav>
 </header>
 

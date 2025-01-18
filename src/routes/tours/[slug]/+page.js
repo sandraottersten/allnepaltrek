@@ -1,7 +1,9 @@
 import { queryPage } from '../../../sanity';
 
 export async function load({ params }) {
-	const data = await queryPage(`*[_type == "trek" && seo.slug.current == "${params.slug}"]`);
+	const data = await queryPage(`*[_type == "tour" && seo.slug.current == "${params.slug}"]`);
+
+	console.log('DATA----->', data);
 
 	if (data) {
 		return data;

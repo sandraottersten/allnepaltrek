@@ -4,7 +4,8 @@
 	import GalleryImage from '$lib/pieces/GalleryImage.svelte';
 	import { ChevronLeft, ChevronRight, X } from 'lucide-svelte';
 
-	const { images } = $props();
+	const { gallery } = $props();
+	const { images } = gallery;
 	let selectedImage = $state(-1);
 	let showMobileGallery = $state(false);
 </script>
@@ -71,7 +72,10 @@
 </div>
 
 {#if images.length === 3}
-	<section class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex">
+	<section
+		id="gallery"
+		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex"
+	>
 		<!-- row 1 -->
 		<div class="flex h-[360px] flex-col gap-2 md:flex-row">
 			<div class="flex-[2_2_0%] flex-row gap-2 md:flex">
@@ -101,7 +105,10 @@
 {/if}
 
 {#if images.length === 4}
-	<section class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex">
+	<section
+		id="gallery"
+		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex"
+	>
 		<!-- row 1 -->
 		<div class="flex h-[360px] flex-col gap-2 md:flex-row">
 			<div class="flex-[2_2_0%] flex-row gap-2 md:flex">
@@ -134,7 +141,10 @@
 {/if}
 
 {#if images.length === 5}
-	<section class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex">
+	<section
+		id="gallery"
+		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex"
+	>
 		<!-- row 1 -->
 		<div class="flex flex-col gap-2 md:flex-row">
 			<div class="flex flex-[2_2_0%] flex-col gap-2">
@@ -180,7 +190,10 @@
 {/if}
 
 {#if images.length === 6}
-	<section class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex">
+	<section
+		id="gallery"
+		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex"
+	>
 		<!-- row 1 -->
 		<div class="flex flex-col gap-2 md:flex-row">
 			<div class="flex flex-[2_2_0%] flex-col gap-2">
@@ -229,7 +242,10 @@
 {/if}
 
 {#if images.length === 7}
-	<section class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex">
+	<section
+		id="gallery"
+		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex"
+	>
 		<!-- row 1 -->
 		<div class="flex flex-col gap-2 md:flex-row">
 			<div class="flex flex-[2_2_0%] flex-col gap-2">
@@ -271,7 +287,10 @@
 {/if}
 
 {#if images.length === 8}
-	<section class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex">
+	<section
+		id="gallery"
+		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex"
+	>
 		<!-- row 1 -->
 		<div class="flex flex-col gap-2 md:flex-row">
 			<div class="flex flex-[2_2_0%] flex-col gap-2">
