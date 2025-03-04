@@ -10,6 +10,7 @@
 
 <a href={`/tours/${slug.current}`} class="group flex h-full w-full cursor-pointer flex-col">
 	<div class="relative h-full overflow-hidden rounded-3xl">
+		<div class="absolute left-0 top-0 z-10 size-full bg-dark10"></div>
 		<img
 			src={urlFor(cardImage).width(800).height(500).url()}
 			alt={cardImage.attribution}

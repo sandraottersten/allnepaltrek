@@ -1,33 +1,17 @@
 <script>
 	import Hero from '$lib/blocks/Hero.svelte';
-	import Peaks from '$lib/svg/Peaks.svelte';
 	import TrekCard from '$lib/pieces/TrekCard.svelte';
-	import { PortableText } from '@eirikk/portabletext-2-svelte-5';
-	import LinkButton from '$lib/pieces/LinkButton.svelte';
+	import InfoCard from '$lib/pieces/InfoCard.svelte';
 	import Dropdown from '$lib/pieces/Dropdown.svelte';
-	import Divider from '$lib/pieces/Divider.svelte';
 	import Filter from '$lib/pieces/Filter.svelte';
 	import PeaksSmall from '$lib/svg/PeaksSmall.svelte';
-	import { urlFor } from '../../sanity/index';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 
 	let { data } = $props();
-	const { general, intro, categories, treks } = data;
-
-	const imgMob = urlFor(intro.image).width(576).url();
-	const imgSm = urlFor(intro.image).width(768).url();
-	const imgMd = urlFor(intro.image).width(600).url();
-	const imgLg = urlFor(intro.image).width(600).url();
-	const imgXl = urlFor(intro.image).width(800).url();
-
-	const regions = [
-		{ label: 'All regions', value: 'all' },
-		{ label: 'Everest region', value: 'everest' },
-		{ label: 'Annapurna region', value: 'annapurna' },
-		{ label: 'Langtang region', value: 'langtang' },
-		{ label: 'Other regions', value: 'other' }
-	];
+	const { general, intro, categories, treks, infoCard, regions } = data;
+	const usps = [intro.usp1, intro.usp2, intro.usp3];
+	const allRegions = [{ label: 'All regions', value: 'all' }, ...regions];
 
 	const difficulties = [
 		{ label: 'All difficulties', value: 'all' },
@@ -53,19 +37,19 @@
 	};
 
 	let selectedFilter = $state(categoryAll);
-	let selectedRegion = $state(regions[0]);
+	let selectedRegion = $state(allRegions[0]);
 	let selectedDuration = $state(durations[0]);
 	let selectedDifficulty = $state(difficulties[0]);
 
 	onMount(() => {
 		const region = $page.url.searchParams.get('region');
 		if (region) {
-			const regionObject = regions.find((r) => r.value === region);
+			const regionObject = allRegions.find((r) => r.value === region);
 			selectedRegion = regionObject;
 		}
 		const category = $page.url.searchParams.get('category');
 		if (category) {
-			const categoryObject = regions.find((r) => r.value === category);
+			const categoryObject = allRegions.find((r) => r.value === category);
 			selectedFilter = categoryObject;
 		}
 	});
@@ -84,7 +68,7 @@
 				(trek) => trek.details.tags?.includes(selectedFilter.id) || selectedFilter.id === 'all'
 			)
 			.filter(
-				(trek) => selectedRegion.value === trek.details.region || selectedRegion.value === 'all'
+				(trek) => selectedRegion.value === trek.details.region.id || selectedRegion.value === 'all'
 			)
 			.filter(
 				(trek) =>
@@ -94,49 +78,51 @@
 				(trek) => selectedDuration.value === checkDuration(trek) || selectedDuration.value === 'all'
 			);
 	});
-
-	$inspect(filteredTreks);
 </script>
 
 <section class="relative">
-	<Hero data={general} height="h-[calc(100vh+2rem)]" />
-
-	<div
-		class="absolute bottom-[5rem] right-0 flex h-[6rem] items-end justify-center pb-8 sm:bottom-[13.5rem] sm:h-[calc(100vh-17.5rem)] sm:w-[24rem]"
-	>
-		<div class="size-[80px] sm:size-[120px] md:size-[270px]">
-			<Peaks />
-		</div>
-	</div>
-
-	<!-- <p
-		class="absolute bottom-[0.8rem] left-0 w-[calc(100vw-5rem)] px-[1.5rem] text-sm font-thin uppercase text-orange70 md:left-[4rem] md:text-base"
-	>
-		{data.general.subtitle}
-	</p> -->
+	<Hero data={general} height="h-[105vh]" />
 </section>
 
 <section
-	class="x-margin y-margin relative z-20 -mt-8 flex flex-col rounded-t-[40px] bg-light pb-3 text-dark md:flex-row md:gap-24 md:pb-0"
+	class="y-margin relative z-20 -mt-8 flex flex-col items-center rounded-t-[40px] bg-light pb-3 pt-12 text-dark md:gap-24 md:pb-0 md:pt-28 lg:pt-32"
 >
-	<div class="relative mb-8 flex flex-col justify-end gap-8 md:mb-0 md:w-2/3 md:gap-12">
-		<h2>{intro.title}</h2>
-		<span>
-			<PortableText value={intro.text} />
-		</span>
-		<LinkButton label="Contact us" link="/" />
+	<div class="x-margin flex w-full flex-col items-center gap-16">
+		<h2 class="px-3 md:max-w-[50%] md:text-center">{intro.title}</h2>
+		<div class="grid grid-cols-1 gap-8 px-3 md:grid-cols-3">
+			{#each usps as usp}
+				<div class="border-l border-dark30 pl-5">
+					<p>{usp}</p>
+				</div>
+			{/each}
+		</div>
 	</div>
-	<div class="relative overflow-hidden rounded-3xl md:w-1/3">
-		<img
-			src={imgMob}
-			srcset={`${imgMob} 576w, ${imgSm} 768w, ${imgMd} 600w, ${imgLg} 600w, ${imgXl} 800w`}
-			alt={intro.image.attribution}
-			class="size-full object-cover"
-		/>
-	</div>
-</section>
 
-<section class="y-margin">
+	<div
+		class="x-margin hidden w-4/5 grid-cols-2 gap-4 md:grid md:grid-cols-3 md:gap-x-12 md:gap-y-6"
+	>
+		{#each [categoryAll, ...categories] as category}
+			<button
+				class="flex h-[45px] w-full items-center gap-4 border-b px-4 pb-3 md:gap-2 md:text-lg {selectedFilter.id ===
+				category.id
+					? 'border-orange text-orange'
+					: 'border-dark30'}"
+				onclick={() => (selectedFilter = category)}
+			>
+				<PeaksSmall
+					size="size-[32px] min-w-[32px] md:size-[24px] md:min-w-[24px] {selectedFilter.id ===
+					category.id
+						? 'block'
+						: 'hidden'}"
+				/>
+
+				{category.name}
+			</button>
+		{/each}
+	</div>
+
+	<Filter {slot1} {slot2} />
+
 	{#snippet slot1()}
 		<div class="grid grid-cols-2 gap-2 md:grid-cols-6 md:gap-4">
 			{#each [categoryAll, ...categories] as category}
@@ -158,41 +144,11 @@
 			{/each}
 		</div>
 	{/snippet}
-	<Divider />
-	<div class="x-margin y-margin flex gap-24">
-		<div class="hidden w-1/2 grid-cols-2 gap-4 md:grid md:grid-cols-2 md:gap-x-12 md:gap-y-6">
-			{#each [categoryAll, ...categories] as category}
-				<button
-					class="flex w-full items-center gap-4 border-b px-4 pb-3 md:gap-2 md:text-xl {selectedFilter.id ===
-					category.id
-						? 'border-orange text-orange'
-						: 'border-dark30'}"
-					onclick={() => (selectedFilter = category)}
-				>
-					<PeaksSmall
-						size="size-[32px] min-w-[32px] md:size-[32px] md:min-w-[32px] {selectedFilter.id ===
-						category.id
-							? 'block'
-							: 'hidden'}"
-					/>
-
-					{category.name}
-				</button>
-			{/each}
-		</div>
-		<div class="mb-8 flex w-full flex-col gap-4 md:w-1/2">
-			<p class="md:hidden">{selectedFilter.name}</p>
-			<h2>{selectedFilter.title}</h2>
-			<p class="">{selectedFilter.description}</p>
-		</div>
-	</div>
-
-	<Filter {slot1} {slot2} />
 
 	{#snippet slot2()}
 		<div class="flex flex-col gap-2 md:flex-row md:gap-4">
 			<Dropdown
-				options={regions}
+				options={allRegions}
 				activeOption={selectedRegion}
 				handleClick={(option) => (selectedRegion = option)}
 			/>
@@ -210,9 +166,9 @@
 	{/snippet}
 
 	<div class="x-margin">
-		<div class="hidden flex-col gap-2 md:flex md:flex-row md:gap-4">
+		<div class="hidden flex-col gap-2 md:flex md:flex-row md:gap-5">
 			<Dropdown
-				options={regions}
+				options={allRegions}
 				activeOption={selectedRegion}
 				handleClick={(option) => (selectedRegion = option)}
 			/>
@@ -236,4 +192,5 @@
 			{/key}
 		</div>
 	</div>
+	<InfoCard {infoCard} />
 </section>

@@ -25,6 +25,7 @@ export default {
 			white: '#FFFFFF',
 			light: '#F8F8F8',
 			light30: 'rgba(248, 248, 248, 0.3)',
+			light40: 'rgba(248, 248, 248, 0.4)',
 			light80: 'rgba(248, 248, 248, 0.8)',
 			light10: 'rgba(248, 248, 248, 0.1)'
 		},
@@ -35,6 +36,7 @@ export default {
 			backgroundImage: {
 				cardGradient:
 					'linear-gradient(179.67deg, rgba(0, 0, 0, 0.112) 59.34%, rgba(0, 0, 0, 0.359589) 70.98%, rgba(0, 0, 0, 0.7) 80.4%)',
+				heroGradient2: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 23, 28, 0.59) 93%)',
 				heroGradient:
 					'linear-gradient(170.8deg, rgba(0, 0, 0, 0) 20.67%, rgba(0, 0, 0, 0.59) 102.38%)'
 			}

@@ -45,15 +45,9 @@
 </script>
 
 <section class="relative h-[92vh]">
-	<Hero data={general} height="h-[calc(100vh+2rem)]" />
-
-	<div
-		class="absolute bottom-[5rem] right-0 flex h-[6rem] items-end justify-center pb-8 sm:bottom-[13.5rem] sm:h-[calc(100vh-17.5rem)] sm:w-[24rem]"
-	>
-		<div class="size-[80px] sm:size-[120px] md:size-[270px]">
-			<Peaks />
-		</div>
-	</div>
+	{#key general}
+		<Hero data={general} height="h-[105vh]" />
+	{/key}
 </section>
 
 <div

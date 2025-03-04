@@ -6,9 +6,16 @@ export async function load() {
       "treks": *[_type == "trek"]{
         seo,
         general,
-        details
+        details {
+          ...,
+          region-> {id}
+        }
       },
-      "categories": *[_type == "category"]
+      "categories": *[_type == "category"],
+      "regions": *[_type == "region"]{
+        "label": general.navigation,
+        "value": id,
+      },
     }`);
 
 	if (data) {

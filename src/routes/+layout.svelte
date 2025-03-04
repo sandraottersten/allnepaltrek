@@ -2,11 +2,17 @@
 	export const prerender = true;
 	import '../app.css';
 	import Footer from '$lib/blocks/Footer.svelte';
-	import Navigation from '../lib/blocks/Navigation.svelte';
-	let { children } = $props();
+	import Navigation from '$lib/blocks/Navigation.svelte';
+	import { page } from '$app/state';
+	let { data, children } = $props();
 </script>
 
-<Navigation />
+<svelte:head>
+	<title>{page?.data?.seo?.title}</title>
+	<meta name={page?.data?.seo?.description} />
+</svelte:head>
+
+<Navigation {data} />
 <div id="portal"></div>
 
 {@render children()}

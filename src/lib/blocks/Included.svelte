@@ -2,7 +2,6 @@
 	import { Check, X } from 'lucide-svelte';
 
 	const { packageContent } = $props();
-	$inspect(packageContent);
 </script>
 
 <section

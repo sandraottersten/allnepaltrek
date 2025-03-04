@@ -93,15 +93,41 @@
 			d="M421 335.5L420.5 340.5L416 341.5V338.5C413.6 338.9 409.667 335.667 408 334L402 336V340.5L399 341.5L386 340.5L386.5 337L382.5 334L382 332L384 327L397.5 328L400.5 325.5L405.5 326C405.5 322.8 407 322 407.5 321.5L413.5 318V316.5C414 316.5 423 315.333 427 314C427.5 314.5 427.1 316.1 421.5 318.5C415.9 320.9 412.5 324.833 411.5 326.5L423 327.5L427.5 328.5L432.5 327L440.5 325.5L445 326L444.5 329C444.9 331 448.333 331.167 450 331L454 328H459.5L463.5 326.5C469 329 480 334.1 480 334.5C480 336.9 477 340.167 475.5 341.5L459.5 342.5V340.5L451 337.5L451.5 341L448 344.5L423.5 337.5V334H422L421 335.5Z"
 			onclick={() => onclick('chitwan')}
 			onkeydown={() => onclick('chitwan')}
-			tabindex="-6"
+			tabindex="-7"
 			role="button"
 			class="cursor-pointer outline-none hover:fill-orange70 hover:stroke-orange {selected ===
 			'chitwan'
 				? 'fill-orange70 stroke-orange'
 				: 'fill-blue stroke-dark'}"
 		/>
-		<circle cx="530.5" cy="317.5" r="11" fill="#D9D9D9" stroke="#00171C" />
-		<circle cx="389.5" cy="252.5" r="7" fill="#D9D9D9" stroke="#00171C" />
+		<circle
+			role="button"
+			tabindex="-8"
+			onclick={() => onclick('kathmandu')}
+			onkeydown={() => onclick('kathmandu')}
+			cx="530.5"
+			cy="317.5"
+			r="11"
+			fill="#D9D9D9"
+			stroke="#00171C"
+			class="outline-none hover:fill-orange70 hover:stroke-orange {selected === 'kathmandu'
+				? 'fill-orange70 stroke-orange'
+				: 'fill-light stroke-dark'}"
+		/>
+		<circle
+			role="button"
+			tabindex="-9"
+			onclick={() => onclick('pokhara')}
+			onkeydown={() => onclick('pokhara')}
+			cx="389.5"
+			cy="262.5"
+			r="11"
+			fill="#D9D9D9"
+			stroke="#00171C"
+			class="outline-none hover:fill-orange70 hover:stroke-orange {selected === 'pokhara'
+				? 'fill-orange70 stroke-orange'
+				: 'fill-light stroke-dark'}"
+		/>
 	</svg>
 </div>
 

@@ -17,7 +17,7 @@
 		<div class="invisible absolute bottom-4 right-4 z-20 group-hover:visible">
 			<PeaksSmall size="size-[32px] min-w-[32px] md:size-[42px] md:min-w-[42px]" />
 		</div>
-		<!-- <div class="absolute left-0 top-0 z-10 size-full bg-cardGradient"></div> -->
+		<div class="absolute left-0 top-0 z-10 size-full bg-dark10"></div>
 		<img
 			src={urlFor(cardImage).width(800).height(800).url()}
 			alt={cardImage.attribution}
@@ -27,7 +27,7 @@
 
 	<div class="flex-1 py-5">
 		<h3>{title}</h3>
-		<p class="sub-small">{subtitle}</p>
+		<p class="font-medium text-dark70">{subtitle}</p>
 		<p class="mt-3">{description}</p>
 	</div>
 

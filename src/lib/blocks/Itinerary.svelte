@@ -29,14 +29,14 @@
 	};
 </script>
 
-<article
+<div
 	id="itinerary"
 	class="scroll-block y-margin flex w-full flex-col rounded-3xl bg-light px-4 md:px-0"
 >
 	<h2>Day to day itinerary</h2>
-	<p class="my-4">
-		We have a prelimanary plan but it can always change due to weather, availability and your
-		preferences.
+	<p class="my-4 md:w-2/3">
+		The itinerary is a preliminary plan and it can always change due to weather conditions,
+		availability and your preferences.
 	</p>
 	<div class="mt-4 flex items-center gap-2 md:justify-end">
 		<button class="text-sm text-orange hover:text-dark30" onclick={expandAllDays}>
@@ -47,18 +47,18 @@
 			Collapse all
 		</button>
 	</div>
-	<section class="mt-8 flex flex-col gap-6">
+	<section class="mt-8 flex flex-col gap-4">
 		{#each itinerary.days as day, i}
 			<div>
-				<div class="mb-2 flex w-full flex-col gap-1 md:mb-4 md:flex-row md:gap-8">
+				<div class="mb-2 flex w-full flex-col gap-1 md:mb-2 md:flex-row md:gap-8">
 					<div class="mt-0.5 flex gap-1">
-						<p class="whitespace-nowrap text-base font-medium text-orange md:text-xl md:leading-7">
+						<p class="h4 whitespace-nowrap text-orange">
 							Day {i + 1}
 						</p>
 					</div>
 					<div class="w-full">
 						<div class="flex items-center md:text-nowrap">
-							<h3 class="h4 flex-grow">{day.title}</h3>
+							<p class="h4 flex-grow">{day.title}</p>
 							<div class="mx-2 hidden h-[1px] w-full bg-dark30 md:block"></div>
 							<button
 								class="group flex size-8 min-w-8 items-center justify-center"
@@ -119,11 +119,11 @@
 					</div>
 				</div>
 				{#if expanded.includes(i.toString())}
-					<div class="md:ml-[5.5rem]">
+					<div class="pb-2 md:ml-[5.5rem]">
 						<PortableText value={day.text} />
 					</div>
 				{/if}
 			</div>
 		{/each}
 	</section>
-</article>
+</div>

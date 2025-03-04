@@ -1,10 +1,9 @@
 <script>
 	import { urlFor } from '../../sanity/index';
-	import Peaks from '$lib/svg/Peaks.svelte';
 	import PeaksSmall from '$lib/svg/PeaksSmall.svelte';
 	import { fly } from 'svelte/transition';
 
-	let { data, height } = $props();
+	let { data, height, usps } = $props();
 
 	const imgMob = urlFor(data.image).width(576).height(1000).url();
 	const imgSm = urlFor(data.image).width(768).url();
@@ -26,12 +25,6 @@
 			};
 		}
 	});
-
-	const heroTexts = [
-		'Local travel agency',
-		'25 years of experience',
-		'Packages and customized treks'
-	];
 </script>
 
 <div
@@ -43,31 +36,28 @@
 	class="relative flex w-screen {height} flex items-end justify-between overflow-hidden bg-[image:var(--image-mob)] bg-cover bg-fixed bg-center bg-no-repeat px-3 pb-16 sm:bg-[image:var(--image-sm)] md:bg-[image:var(--image-md)] md:px-10 lg:bg-[image:var(--image-lg)] xl:bg-[image:var(--image-xl)]"
 >
 	<div class="z-20 flex">
-		<!-- <div class="size-[80px] sm:size-[120px] md:size-[270px]">
-			<Peaks />
-		</div> -->
-
-		<div
-			class="flex w-[calc(100vw-5rem)] flex-col gap-4 sm:w-[36rem] md:w-[34rem] lg:w-[32rem] xl:w-[64rem]"
-		>
+		<div class="flex flex-col gap-4">
 			<div class="flex flex-col gap-2 text-light80">
-				{#each heroTexts as text}
-					<p>{text}</p>
+				{#each usps as text}
+					<p class="text-lg">{text}</p>
 				{/each}
 			</div>
-			<h1>
-				{data.title}
-			</h1>
 
 			{#if data.subtitle}
-				<h2 class="text-light80">{data.subtitle}</h2>
+				<p class="text-3xl leading-[110%] text-light80 md:text-3xl lg:text-4xl xl:text-6xl">
+					{data.subtitle}
+				</p>
 			{/if}
+			<h1 class="w-[calc(100vw-5rem)] sm:w-[36rem] md:w-[34rem] lg:w-[32rem] xl:w-[64rem]">
+				{data.title}
+			</h1>
 		</div>
 	</div>
 
 	{#if data.carousel}
 		<div class="z-20 hidden overflow-hidden rounded-3xl bg-dark80 md:block">
-			<div class="h-[400px] w-[300px] overflow-hidden rounded-3xl">
+			<div class="relative h-[400px] w-[300px] overflow-hidden rounded-3xl">
+				<div class="absolute left-0 top-0 z-10 size-full bg-dark10"></div>
 				{#each [data.carousel[currentSlideItem]] as item (currentSlideItem)}
 					<img
 						in:fly={{ duration: 2000, x: 200 }}
@@ -91,5 +81,5 @@
 		</div>
 	{/if}
 
-	<div class="absolute left-0 top-0 z-10 size-full bg-heroGradient"></div>
+	<div class="absolute left-0 top-0 z-10 size-full bg-dark30"></div>
 </div>

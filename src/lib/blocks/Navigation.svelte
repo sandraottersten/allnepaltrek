@@ -1,8 +1,12 @@
 <script>
 	import Logo from '$lib/svg/Logo.svelte';
-	import { ChevronRight, Menu, X } from 'lucide-svelte';
+	import { ChevronLeft, ChevronRight, Menu, X } from 'lucide-svelte';
 	import WhatsApp from '$lib/svg/WhatsApp.svelte';
 	import PeaksSmall from '$lib/svg/PeaksSmall.svelte';
+	import { on } from 'svelte/events';
+	import { onMount } from 'svelte';
+
+	let { data } = $props();
 
 	let expanded = $state(false);
 	let isScrolling = $state(false);
@@ -10,38 +14,48 @@
 	let scrollDown = $state(false);
 	let showMobileMenu = $state(false);
 	let expandedMenus = $state([]);
+	let vh = $state(0);
 
-	let everestTreks = [
-		{ label: 'All Everest treks', link: '/treks?region=everest' },
-		{ label: 'EBC classic route', link: '/treks/everest-base-camp-classic' },
-		{ label: 'EBC Gokyo lakes', link: '/treks/everest-base-camp-gokyo' },
-		{ label: 'EBC 3 passes', link: '/treks/everest-base-camp-3-passes' },
-		{ label: 'Everest panorama', link: '/treks/everest-panorama-trek' }
-	];
+	onMount(() => {
+		vh = window.innerHeight;
+		window.addEventListener('resize', () => {
+			vh = window.innerHeight;
+		});
+		return () => {
+			window.removeEventListener('resize', () => {
+				vh = window.innerHeight;
+			});
+		};
+	});
 
-	let regions = [
-		{ label: 'All treks', link: '/treks', subItems: null },
-		{ label: 'Everest region', link: '/treks?region=everest', subItems: everestTreks },
-		{ label: 'Annapurna region', link: '/treks?region=annapurna', subItems: null },
-		{ label: 'Manaslu region', link: '/treks?region=manaslu', subItems: null },
-		{ label: 'Langtang region', link: '/treks?region=langtang', subItems: null },
-		{ label: 'Kanchenjunga region', link: '/treks?region=kanchenjunga', subItems: null }
-	];
+	const treks = data.treks.links.map((r) => {
+		return {
+			label: r.title,
+			link: `/treks?region=${r.region.id}`,
+			subItems: [
+				{ title: `All ${r.region.id} treks`, link: `/treks?region=${r.region.id}` },
+				...r.region.treks.map((t) => ({ title: t.title, link: `/treks/${t.slug}` }))
+			]
+		};
+	});
 
-	let destinations = [
-		{ label: 'Annapurna', link: '/regions/annapurna', subItems: null },
-		{ label: 'Everest', link: '/regions/everest', subItems: null },
-		{ label: 'Langtang', link: '/regions/langtang', subItems: null },
-		{ label: 'Manaslu', link: '/regions/manaslu', subItems: null },
-		{ label: 'Makalu', link: '/regions/makalu', subItems: null }
-	];
+	const regions = data.regions.links.map((r) => {
+		return {
+			label: r.title,
+			link: `/regions/${r.region.slug}`
+		};
+	});
 
-	let tours = [
-		{ label: 'All tours', link: '/tours', subItems: null },
-		{ label: 'City sightseeing', link: '/tours?category=city', subItems: null },
-		{ label: 'Adventure', link: '/tours?category=adventure', subItems: null },
-		{ label: 'Day hikes', link: '/tours?category=hike', subItems: null }
-	];
+	const tours = data.tours.links.map((r) => {
+		return {
+			label: r.title,
+			link: `/tours?category=${r.id}`,
+			subItems: [
+				{ title: `All ${r.id} tours`, link: `/tours?category=${r.id}` },
+				...r.tours.map((t) => ({ title: t.title, link: `/tours/${t.slug}` }))
+			]
+		};
+	});
 
 	let information = [
 		{ label: 'Gear', link: '/travel-info/gear', subItems: null },
@@ -49,9 +63,17 @@
 	];
 
 	let menuItems = [
-		{ label: 'Trekking', link: '/treks', subItems: regions },
-		{ label: 'Regions', link: '/regions', subItems: destinations },
-		{ label: 'Tours', link: '/tours', subItems: tours },
+		{
+			label: data.treks.title,
+			link: '/treks',
+			subItems: [{ label: 'All treks', link: '/treks' }, ...treks]
+		},
+		{ label: 'Regions', link: '/regions', subItems: regions },
+		{
+			label: 'Tours',
+			link: '/tours',
+			subItems: [{ label: 'All tours', link: '/tours' }, ...tours]
+		},
 		{ label: 'Travel info', link: '/travel-info', subItems: information }
 	];
 
@@ -94,76 +116,81 @@
 </script>
 
 <header
-	class="fixed left-0 z-50 hidden h-14 w-full items-center justify-between rounded-b-[40px] pl-[1.5rem] sm:px-[3.5rem] md:flex {isScrolling &&
-	lastScrollTop > 600
-		? 'bg-dark80 backdrop-blur delay-500'
-		: ''}
-    {scrollDown
-		? 'translate-y-[-150%] transform delay-500 duration-500'
-		: 'translate-y-0 transform delay-500 duration-500'}"
+	class="fixed left-0 z-50 hidden w-full justify-between rounded-b-[40px] px-10 md:flex {lastScrollTop >
+	vh
+		? 'bg-light80 text-dark shadow-2xl backdrop-blur-xl'
+		: ' text-light'}"
 >
-	<a href="/"
+	<a href="/" class="px-2 py-3"
 		><Logo
-			size={isScrolling && lastScrollTop > 600
-				? 'w-[60px] duration-500 mt-0'
-				: 'w-[90px] duration-500 delay-500 mt-10'}
+			size={lastScrollTop > vh ? 'w-[50px]' : 'w-[80px]'}
+			textColor={lastScrollTop > vh ? '#00171C' : '#F8F8F8'}
 		/></a
 	>
-	<nav class="flex h-full items-center justify-center gap-20">
-		{#each menuItems as item}
-			<div class="group relative flex h-full items-center">
-				<a href={item.link} class="flex items-center gap-2 text-lg text-light">
-					<span>{item.label}</span>
-					{#if item.subItems}
-						<ChevronRight size={24} class="stroke-light80 group-hover:stroke-orange" />
-					{/if}
-				</a>
-				{#if item.subItems}
-					<ul
-						class="absolute -left-8 top-12 hidden flex-col rounded-lg bg-dark py-1 group-hover:flex"
-					>
-						{#each item.subItems as subItem, i}
-							<div class="group/sub relative flex h-full flex-col">
-								<a
-									href={subItem.link}
-									class="group/subitem flex h-12 min-w-max items-center justify-between text-nowrap pl-8 pr-6 hover:bg-light10"
-								>
-									<span class="pr-8 text-light">{subItem.label}</span>
-									<ChevronRight
-										size={28}
-										class="stroke-dark30 group-hover/sub:stroke-orange {expanded
-											? 'rotate-90'
-											: ''}"
-									/>
-								</a>
-								{#if subItem.subItems}
-									<ul
-										class="absolute -top-1 left-[calc(100%-8px)] hidden flex-col rounded-lg bg-dark py-1 group-hover/sub:flex"
-									>
-										{#each subItem.subItems as subItem, i}
-											<div class="relative">
-												<a
-													href={subItem.link}
-													class="group/subitem flex h-12 min-w-max items-center justify-between text-nowrap pl-8 pr-6 hover:bg-light10"
-												>
-													<span class="pr-8 text-light">{subItem.label}</span>
-												</a>
-												<hr
-													class="border-1 w-full {i === 0 ? 'h-[1px] border-light10' : 'hidden'}"
-												/>
-											</div>
-										{/each}
-									</ul>
-								{/if}
-								<div class="w-full {i === 0 ? 'h-[1px] bg-light10' : 'hidden'}"></div>
-							</div>
-						{/each}
-					</ul>
-				{/if}
-			</div>
-		{/each}
 
-		<div class="group/contact relative flex min-h-14 min-w-10 items-center justify-center">
+	<nav class="group/menu relative flex h-full">
+		<ul class="flex gap-5 rounded-lg py-1">
+			{#each menuItems as item}
+				<div class="group relative flex h-full items-center">
+					<a
+						href={item.link}
+						class="flex h-12 min-w-max items-center justify-between gap-2 text-nowrap px-5"
+					>
+						<span>{item.label}</span>
+						{#if item.subItems}
+							<ChevronRight
+								size={24}
+								class=" group-hover:stroke-orange {lastScrollTop > vh
+									? 'stroke-dark30'
+									: 'stroke-light30'}"
+							/>
+						{/if}
+					</a>
+					{#if item.subItems}
+						<ul
+							class="absolute top-12 hidden flex-col rounded-lg bg-light py-1 text-dark shadow-2xl backdrop-blur-xl group-hover:flex"
+						>
+							{#each item.subItems as subItem, i}
+								<div class="group/sub relative flex h-full flex-col">
+									<a
+										href={subItem.link}
+										class="group/subitem flex h-12 items-center gap-3 text-nowrap pl-3 pr-6 hover:bg-light10"
+									>
+										<ChevronLeft
+											size={24}
+											class=" {i > 0 ? 'stroke-dark30 group-hover/sub:stroke-orange' : 'opacity-0'}"
+										/>
+										<span>{subItem.label}</span>
+									</a>
+									{#if subItem.subItems}
+										<ul
+											class="absolute -top-1 right-[100%] hidden flex-col rounded-lg bg-light80 py-1 text-dark shadow-2xl backdrop-blur-xl group-hover/sub:flex"
+										>
+											{#each subItem.subItems as subItem, i}
+												<div class="relative">
+													<a
+														href={subItem.link}
+														class="group/subitem flex h-12 min-w-max items-center justify-between text-nowrap pl-8 pr-6 hover:bg-light10"
+													>
+														<span class="pr-8">{subItem.title}</span>
+													</a>
+													<hr
+														class="border-1 w-full {i === 0 ? 'h-[1px] border-light10' : 'hidden'}"
+													/>
+												</div>
+											{/each}
+										</ul>
+									{/if}
+									<div class="w-full {i === 0 ? 'h-[1px] bg-light10' : 'hidden'}"></div>
+								</div>
+							{/each}
+						</ul>
+					{/if}
+				</div>
+			{/each}
+		</ul>
+
+		<!-- <div class="group/contact relative flex min-h-14 min-w-10 items-center justify-center">
 			<WhatsApp size="size-[24px] cursor-pointer" color="#FFFFFF" />
 			<div
 				class="absolute right-[calc(100%-70px)] top-12 hidden flex-col rounded-lg bg-dark pb-1 text-light group-hover/contact:flex"
@@ -183,7 +210,7 @@
 					</a>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</nav>
 </header>
 
@@ -256,7 +283,7 @@
 														href={subItem.link}
 														class="flex h-12 min-w-max items-center justify-between text-nowrap pl-8 pr-6"
 													>
-														<span class="pr-8 text-light">{subItem.label}</span>
+														<span class="pr-8 text-light">{subItem.title}</span>
 													</a>
 												</div>
 											{/each}
