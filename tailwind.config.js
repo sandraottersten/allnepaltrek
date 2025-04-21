@@ -31,14 +31,18 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				poppins: ['Poppins', 'sans']
+				poppins: ['Poppins', 'sans'],
+				notosans: ['Noto Sans', 'sans']
 			},
 			backgroundImage: {
 				cardGradient:
 					'linear-gradient(179.67deg, rgba(0, 0, 0, 0.112) 59.34%, rgba(0, 0, 0, 0.359589) 70.98%, rgba(0, 0, 0, 0.7) 80.4%)',
-				heroGradient2: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 23, 28, 0.59) 93%)',
+				heroGradient3:
+					'linear-gradient(207.57deg, rgba(0, 0, 0, 0) 23.01%, rgba(0, 23, 28, 0.6) 83.69%)',
+				heroGradient2:
+					'linear-gradient(191.08deg, rgba(0, 0, 0, 0) 4.04%, rgba(0, 23, 28, 0.6) 79.39%)',
 				heroGradient:
-					'linear-gradient(170.8deg, rgba(0, 0, 0, 0) 20.67%, rgba(0, 0, 0, 0.59) 102.38%)'
+					'linear-gradient(170.8deg, rgba(0, 0, 0, 0) 10.67%, rgba(0, 0, 0, 0.59) 102.38%)'
 			}
 		}
 	},

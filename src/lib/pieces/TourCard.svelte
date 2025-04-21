@@ -9,15 +9,14 @@
 </script>
 
 <a href={`/tours/${slug.current}`} class="group flex h-full w-full cursor-pointer flex-col">
-	<div class="relative h-full overflow-hidden rounded-3xl">
-		<div class="absolute left-0 top-0 z-10 size-full bg-dark10"></div>
+	<div class="relative h-full overflow-hidden rounded-lg">
 		<img
 			src={urlFor(cardImage).width(800).height(500).url()}
 			alt={cardImage.attribution}
-			class="size-full object-cover"
+			class="size-full object-cover saturate-[.80] filter"
 		/>
 		<div
-			class="absolute right-0 top-0 hidden h-full w-2/5 flex-col justify-end gap-5 bg-dark70 p-8 text-light md:group-hover:flex"
+			class="absolute right-0 top-0 hidden h-full w-2/5 flex-col justify-end gap-5 bg-light80 p-8 text-dark backdrop-blur md:group-hover:flex"
 		>
 			<p>{description}</p>
 			<span class="group flex items-center gap-2">

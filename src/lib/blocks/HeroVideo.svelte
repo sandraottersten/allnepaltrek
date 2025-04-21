@@ -5,12 +5,6 @@
 
 	let { data, height, usps } = $props();
 
-	const imgMob = urlFor(data.image).width(576).height(1000).url();
-	const imgSm = urlFor(data.image).width(768).url();
-	const imgMd = urlFor(data.image).width(2000).url();
-	const imgLg = urlFor(data.image).width(2000).url();
-	const imgXl = urlFor(data.image).width(3000).url();
-
 	let currentSlideItem = $state(0);
 
 	$effect(() => {
@@ -28,10 +22,10 @@
 </script>
 
 <div
-	class="relative flex w-screen {height} flex items-end justify-between overflow-hidden px-3 pb-24 md:px-10"
+	class="relative flex w-screen {height} flex items-end justify-between overflow-hidden px-3 pb-12 md:px-10"
 >
 	<video class="absolute inset-0 h-full w-full object-cover" autoplay loop muted playsinline>
-		<source src="/test5.mp4" type="video/mp4" />
+		<source src="/test1.mp4" type="video/mp4" />
 	</video>
 
 	<div class="z-20 flex w-full justify-between">
@@ -48,7 +42,7 @@
 				</p>
 			{/if}
 			<h1
-				class="w-[calc(100vw-5rem)] text-light sm:w-[36rem] md:w-[34rem] lg:w-[32rem] xl:w-[64rem]"
+				class="w-[calc(100vw-5rem)] font-semibold text-light sm:w-[36rem] md:w-[34rem] lg:w-[32rem] xl:w-[64rem]"
 			>
 				{data.title}
 			</h1>
@@ -56,5 +50,5 @@
 		<Peaks size="w-[24vh] mb-[10vh]" />
 	</div>
 
-	<div class="absolute left-0 top-0 z-10 size-full bg-dark30"></div>
+	<div class="bg-heroGradient3 absolute left-0 top-0 z-10 size-full"></div>
 </div>

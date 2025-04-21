@@ -63,7 +63,7 @@
 
 <div
 	style:--image-mob={`url(${urlFor(images[0]).width(700).height(700).url()})`}
-	class="flex h-80 items-center justify-center overflow-hidden rounded-3xl bg-[image:var(--image-mob)] bg-cover bg-center bg-no-repeat md:hidden"
+	class="flex h-80 items-center justify-center overflow-hidden rounded-lg bg-[image:var(--image-mob)] bg-cover bg-center bg-no-repeat md:hidden"
 >
 	<button
 		class="flex rounded-full bg-dark80 px-6 py-3 text-light backdrop-blur"
@@ -74,7 +74,7 @@
 {#if images.length === 3}
 	<section
 		id="gallery"
-		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex"
+		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-lg md:flex"
 	>
 		<!-- row 1 -->
 		<div class="flex h-[360px] flex-col gap-2 md:flex-row">
@@ -107,7 +107,7 @@
 {#if images.length === 4}
 	<section
 		id="gallery"
-		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex"
+		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-lg md:flex"
 	>
 		<!-- row 1 -->
 		<div class="flex h-[360px] flex-col gap-2 md:flex-row">
@@ -143,7 +143,7 @@
 {#if images.length === 5}
 	<section
 		id="gallery"
-		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex"
+		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-lg md:flex"
 	>
 		<!-- row 1 -->
 		<div class="flex flex-col gap-2 md:flex-row">
@@ -192,7 +192,7 @@
 {#if images.length === 6}
 	<section
 		id="gallery"
-		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex"
+		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-lg md:flex"
 	>
 		<!-- row 1 -->
 		<div class="flex flex-col gap-2 md:flex-row">
@@ -244,7 +244,7 @@
 {#if images.length === 7}
 	<section
 		id="gallery"
-		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex"
+		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-lg md:flex"
 	>
 		<!-- row 1 -->
 		<div class="flex flex-col gap-2 md:flex-row">
@@ -289,7 +289,7 @@
 {#if images.length === 8}
 	<section
 		id="gallery"
-		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-3xl md:flex"
+		class="relative mx-auto hidden flex-col gap-2 overflow-hidden rounded-lg md:flex"
 	>
 		<!-- row 1 -->
 		<div class="flex flex-col gap-2 md:flex-row">

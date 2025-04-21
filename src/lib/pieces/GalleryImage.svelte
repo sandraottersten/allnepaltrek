@@ -8,6 +8,6 @@
 	<img
 		src={urlFor(image).width(800).url()}
 		alt={image.attribution}
-		class="{size} transform object-cover duration-150 hover:scale-105"
+		class="{size} transform object-cover saturate-[.80] filter duration-150 hover:scale-105"
 	/>
 </button>

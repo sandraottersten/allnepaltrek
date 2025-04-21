@@ -28,13 +28,13 @@
 </script>
 
 <div
-	style:--image-mob={`url(${imgMob})`}
-	style:--image-sm={`url(${imgSm})`}
-	style:--image-md={`url(${imgMd})`}
-	style:--image-lg={`url(${imgLg})`}
-	style:--image-xl={`url(${imgXl})`}
-	class="relative flex w-screen {height} flex items-end justify-between overflow-hidden bg-[image:var(--image-mob)] bg-cover bg-fixed bg-center bg-no-repeat px-3 pb-16 sm:bg-[image:var(--image-sm)] md:bg-[image:var(--image-md)] md:px-10 lg:bg-[image:var(--image-lg)] xl:bg-[image:var(--image-xl)]"
+	class="relative flex w-screen {height} flex items-end justify-between overflow-hidden px-3 pb-12 md:px-10"
 >
+	<img
+		src={imgXl}
+		alt={data.image.attribution || 'Hero image'}
+		class="absolute left-0 top-0 size-full object-cover saturate-[.8] filter"
+	/>
 	<div class="z-20 flex">
 		<div class="flex flex-col gap-4">
 			<div class="flex flex-col gap-2 text-light80">
@@ -81,5 +81,5 @@
 		</div>
 	{/if}
 
-	<div class="absolute left-0 top-0 z-10 size-full bg-dark30"></div>
+	<div class="bg-heroGradient3 absolute left-0 top-0 z-10 size-full"></div>
 </div>

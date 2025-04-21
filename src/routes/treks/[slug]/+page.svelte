@@ -56,14 +56,12 @@
 
 <section class="relative">
 	{#key general}
-		<Hero data={general} height="h-[105vh]" />
+		<Hero data={general} height="h-[100vh]" />
 		<AnimatedMap map={itinerary.map} />
 	{/key}
 </section>
 
-<div
-	class="z-20 -mt-10 flex rounded-t-3xl bg-light py-12 text-dark md:flex-row md:rounded-t-[40px] md:px-16 md:py-28 lg:px-40 lg:py-32"
->
+<div class="z-20 flex bg-light py-12 text-dark md:flex-row md:px-16 md:py-28 lg:px-40 lg:py-32">
 	<aside class="relative hidden w-full flex-col pt-40 md:flex md:w-[30%] md:pr-12 lg:pr-24">
 		<div class="sticky top-20 flex h-fit flex-col gap-12">
 			<ul class="flex flex-col">
@@ -82,7 +80,7 @@
 				{/each}
 			</ul>
 
-			<div class="flex h-min flex-col items-center gap-8">
+			<div class="flex h-min flex-col items-center gap-8 rounded-lg border border-dark30 p-6">
 				<div class="flex w-full flex-col gap-4">
 					<span class="flex items-baseline justify-between border-b border-dark30 pb-2">
 						<p class="font-medium">1 person</p>
@@ -107,20 +105,20 @@
 	</aside>
 
 	<article class="md:w-[70%] md:border-l md:border-dark30 md:pl-10 lg:pl-24">
-		{#key description}
+		{#key general}
 			<TrekOverview {details} {description} />
+			{#if gallery}
+				<Gallery {gallery} />
+			{/if}
+			<Itinerary {itinerary} />
+			{#if itinerary.map}
+				<Map map={itinerary.map} image={general.image} />
+			{/if}
+			<Included {packageContent} />
+			{#if tours && tours.length > 0}
+				<Tours {tours} />
+			{/if}
 		{/key}
-		{#if gallery}
-			<Gallery {gallery} />
-		{/if}
-		<Itinerary {itinerary} />
-		{#if itinerary.map}
-			<Map map={itinerary.map} image={general.image} />
-		{/if}
-		<Included {packageContent} />
-		{#if tours && tours.length > 0}
-			<Tours {tours} />
-		{/if}
 	</article>
 
 	<div class="fixed bottom-4 right-4 z-50 md:hidden">

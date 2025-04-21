@@ -6,11 +6,13 @@
 		Mountain,
 		Route,
 		ChartNoAxesColumnIncreasing,
-		Info
+		Info,
+		MinusCircle
 	} from 'lucide-svelte';
 	import Divider from '$lib/pieces/Divider.svelte';
 	import { PortableText } from '@eirikk/portabletext-2-svelte-5';
 	import { urlFor } from '../../sanity/index';
+	import { slide } from 'svelte/transition';
 
 	const { details, description } = $props();
 	const { distance, difficulty, duration, altitude, trekDays } = details;
@@ -66,66 +68,48 @@
 		</div>
 
 		<div class="my-12">
-			<section class="my-8 flex gap-12">
+			<section class="my-8 flex flex-col gap-2 md:flex-row md:gap-12">
 				{#if highlightImage}
-					<div class="relative hidden h-[300px] w-full flex-1 md:flex">
-						<div class="absolute left-0 top-0 z-10 size-full rounded-3xl bg-dark10"></div>
+					<div class="relative h-[300px] w-full flex-1 md:flex">
+						<div class="absolute left-0 top-0 z-10 size-full bg-dark10"></div>
 						<img
 							src={urlFor(highlightImage).width(800).height(1000).url()}
 							alt={highlightImage.attribution}
-							class="size-full rounded-3xl object-cover"
+							class="size-full rounded-lg object-cover saturate-[.80] filter"
 						/>
 					</div>
 				{/if}
 				<div class="flex-[2_2_0%]">
 					{#each description.highlights as cat, i}
 						<div
-							class="flex gap-5 overflow-hidden border-dark30 p-5 transition-[height] duration-700
-              {i !== 0 ? 'border-t' : ''}
-              {expandedHighlight === i ? 'h-[200px]' : 'h-[72px]'}"
+							key={cat.title}
+							class="flex flex-col overflow-hidden pt-5
+              {i !== 0 ? 'border-t border-dark30' : ''}"
 						>
 							<button
-								class="tranform h-min duration-150 {expandedHighlight === i
-									? 'rotate-45'
-									: 'rotate-0'}"
+								class="flex items-center gap-5 pb-5"
 								onclick={() => {
 									expandedHighlight === i ? (expandedHighlight = -1) : (expandedHighlight = i);
 									expandedHighlight === i && (highlightImage = cat.image);
 								}}
 							>
-								<PlusCircle size={32} color="#EE7430" strokeWidth={1} />
-							</button>
-							<div class="flex flex-col gap-5">
+								{#if expandedHighlight === i}
+									<MinusCircle size={32} color="#EE7430" strokeWidth={1} />
+								{:else}
+									<PlusCircle size={32} color="#EE7430" strokeWidth={1} />
+								{/if}
 								<p class="h4">{cat.title}</p>
-								<p>{cat.description}</p>
-							</div>
+							</button>
+							{#if expandedHighlight === i}
+								<div class="flex flex-col gap-5 pb-5 pl-[3.2rem]" transition:slide>
+									<p>{cat.description}</p>
+								</div>
+							{/if}
 						</div>
 					{/each}
 				</div>
 			</section>
 		</div>
-		<!-- <div class="my-12">
-			<h3>{`Highlights of ${description.trekName}`}</h3>
-			<div class="mt-4 grid grid-cols-4 gap-3">
-				{#each description.highlights as highlight}
-					<div>
-						<div class="group relative mb-3 aspect-[1/1]">
-							<div
-								class="absolute left-0 top-0 hidden size-full rounded-xl bg-dark70 p-3 backdrop-blur group-hover:flex"
-							>
-								<p class="text-sm font-light text-light">{highlight.description}</p>
-							</div>
-							<img
-								src={urlFor(highlight.image).width(800).height(800).url()}
-								alt={highlight.image.attribution}
-								class="size-full rounded-xl object-cover"
-							/>
-						</div>
-						<span class="text-md flex w-[65%] font-medium leading-tight">{highlight.title}</span>
-					</div>
-				{/each}
-			</div>
-		</div> -->
 
 		<div class="portable">
 			<PortableText value={description.text} />

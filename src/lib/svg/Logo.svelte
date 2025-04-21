@@ -2,7 +2,7 @@
 	let { size, textColor = '#F8F8F8' } = $props();
 </script>
 
-<div class={size}>
+<div class="duration-500 {size}">
 	<svg
 		width="100%"
 		height="100%"

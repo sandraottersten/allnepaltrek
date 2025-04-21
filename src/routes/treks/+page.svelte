@@ -81,13 +81,13 @@
 </script>
 
 <section class="relative">
-	<Hero data={general} height="h-[105vh]" />
+	<Hero data={general} height="h-[100vh]" />
 </section>
 
 <section
-	class="y-margin relative z-20 -mt-8 flex flex-col items-center rounded-t-[40px] bg-light pb-3 pt-12 text-dark md:gap-24 md:pb-0 md:pt-28 lg:pt-32"
+	class="y-margin relative z-20 flex flex-col items-center bg-light pt-12 text-dark md:gap-24 md:pt-28 lg:pt-32"
 >
-	<div class="x-margin flex w-full flex-col items-center gap-16">
+	<div class="x-margin flex w-full flex-col items-center gap-8 md:gap-16">
 		<h2 class="px-3 md:max-w-[50%] md:text-center">{intro.title}</h2>
 		<div class="grid grid-cols-1 gap-8 px-3 md:grid-cols-3">
 			{#each usps as usp}

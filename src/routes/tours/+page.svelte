@@ -36,11 +36,11 @@
 </script>
 
 <section class="relative">
-	<Hero data={general} height="h-[105vh]" />
+	<Hero data={general} height="h-[100vh]" />
 </section>
 
 <section
-	class="y-margin relative z-20 -mt-8 flex flex-col rounded-t-[40px] bg-light pb-3 text-dark md:flex-row md:gap-24 md:pb-0"
+	class="y-margin relative z-20 flex flex-col bg-light pb-3 text-dark md:flex-row md:gap-24 md:pb-0"
 >
 	<div class="x-margin flex w-full flex-col items-center gap-16">
 		<h2 class="px-3 md:max-w-[50%] md:text-center">{intro.title}</h2>

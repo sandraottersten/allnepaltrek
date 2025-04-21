@@ -6,12 +6,8 @@
 
 	let { general, regions } = $props();
 
-	let selectedRegion = $state();
+	let selectedRegion = $state(regions[0]);
 	const imgMob = urlFor(general.image).width(2000).height(1000).url();
-
-	const nepalTitle = "Nepal's protected areas and trekking regions";
-	const nepalText =
-		'Between the high peaks and the lowlands, Nepal has a number of conservation areas and national parks to protect the flora and fauna. In these areas we find most of the trekking trails and destinations. Which area would you like to visit?';
 </script>
 
 <section
@@ -19,7 +15,7 @@
 	class="hidden h-[100vh] bg-[image:var(--image-mob)] bg-cover bg-fixed bg-center bg-no-repeat md:flex"
 >
 	<div
-		class="x-margin relative flex w-full flex-col justify-center gap-12 bg-dark80 py-16 text-light backdrop-blur"
+		class="x-margin relative flex w-full flex-col justify-center gap-12 bg-light80 py-16 text-dark backdrop-blur"
 	>
 		<div class="flex justify-center">
 			<NepalMap
@@ -29,8 +25,8 @@
 			/>
 		</div>
 		<div class="absolute right-40 top-24 flex w-2/6 flex-col gap-5">
-			<h3>{selectedRegion?.general.title || nepalTitle}</h3>
-			<p>{selectedRegion?.general.description || nepalText}</p>
+			<h3>{selectedRegion?.general.title}</h3>
+			<p>{selectedRegion?.general.description}</p>
 			{#if selectedRegion}
 				<TextLink link={`/regions/${selectedRegion.seo.slug.current}`} text="Read more" />
 			{/if}
@@ -40,13 +36,13 @@
 				<img
 					src={urlFor(selectedRegion?.general.image).width(1000).height(800).url()}
 					alt={selectedRegion?.general.image.attribution}
-					class="size-full rounded-3xl object-cover"
+					class="size-full rounded-lg object-cover saturate-[.8] filter"
 				/>
 
-				<p class="mt-4 border-y border-light30 px-3 py-3">{selectedRegion.topTrek}</p>
+				<p class="mt-4 border-y border-dark30 px-3 py-3">{selectedRegion.topTrek}</p>
 				<a
 					href={`/regions/${selectedRegion.seo.slug.current}`}
-					class="flex justify-between border-b border-light30 px-3 py-3 hover:text-orange"
+					class="flex justify-between border-b border-dark30 px-3 py-3 hover:text-orange"
 					>See all treks <PeaksSmall size="size-[24px] min-w-[24px]" /></a
 				>
 			</div>
@@ -58,42 +54,34 @@
 	style:--image-mob={`url(${imgMob})`}
 	class="flex bg-[image:var(--image-mob)] bg-cover bg-fixed bg-center bg-no-repeat md:hidden"
 >
-	<div class="relative flex w-full flex-col gap-12 bg-dark70 px-4 py-8 text-light backdrop-blur">
-		<h2 class="text-light">Regions</h2>
-		<div class="flex justify-center">
+	<div class="relative flex w-full flex-col gap-12 bg-light80 py-8 text-dark backdrop-blur">
+		<div class="flex justify-center pr-4">
 			<NepalMap
 				size="w-[100vw]"
 				selected={selectedRegion?.id}
 				onclick={(region) => (selectedRegion = regions.find((r) => r.id === region))}
 			/>
 		</div>
-		<div class="flex w-full flex-col gap-5">
-			<h3>{selectedRegion?.general.title || nepalTitle}</h3>
-			<p>{selectedRegion?.general.description || nepalText}</p>
-			{#if selectedRegion}
-				<a
-					href={`/regions/${selectedRegion.seo.slug.current}`}
-					class="flex gap-2 hover:text-orange"
-				>
-					Read more <PeaksSmall size="size-[24px] min-w-[24px]" /></a
-				>
-			{/if}
+		<div class="flex w-full flex-col gap-5 px-4">
+			<h3>{selectedRegion?.general.title}</h3>
+			<p>{selectedRegion?.general.description}</p>
+			<TextLink link={`/regions/${selectedRegion.seo.slug.current}`} text="Read more" />
 		</div>
 		{#if selectedRegion}
-			<div class="flex w-full gap-3">
+			<div class="flex w-full gap-3 px-4">
 				<div class="flex-1">
 					<img
 						src={urlFor(selectedRegion?.general.image).width(1000).height(800).url()}
 						alt={selectedRegion?.general.image.attribution}
-						class="size-full rounded-3xl object-cover"
+						class="size-full rounded-lg object-cover saturate-[.80] filter"
 					/>
 				</div>
 
 				<div class="flex-1">
-					<p class="mt-4 border-y border-light30 px-3 py-3">Treks: 5</p>
+					<p class="mt-4 border-y border-dark30 px-3 py-3">Treks: 5</p>
 					<a
 						href={`/regions/${selectedRegion.seo.slug.current}`}
-						class="flex justify-between border-b border-light30 px-3 py-3"
+						class="flex justify-between border-b border-dark30 px-3 py-3"
 						>See all treks <PeaksSmall size="size-[24px] min-w-[24px]" /></a
 					>
 				</div>
