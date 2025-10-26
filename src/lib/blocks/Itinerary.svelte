@@ -10,7 +10,7 @@
 		Footprints,
 		Mountain,
 		Timer
-	} from 'lucide-svelte';
+	} from '@lucide/svelte';
 
 	const { itinerary } = $props();
 	let expanded = $state([]);
@@ -39,11 +39,11 @@
 		availability and your preferences.
 	</p>
 	<div class="mt-4 flex items-center gap-2 md:justify-end">
-		<button class="text-sm text-orange hover:text-dark30" onclick={expandAllDays}>
+		<button class="text-sm text-blue hover:text-dark30" onclick={expandAllDays}>
 			Expand all
 		</button>
 		<span class="text-dark30">|</span>
-		<button class="text-sm text-orange hover:text-dark30" onclick={() => (expanded = [])}>
+		<button class="text-sm text-blue hover:text-dark30" onclick={() => (expanded = [])}>
 			Collapse all
 		</button>
 	</div>
@@ -52,7 +52,7 @@
 			<div>
 				<div class="mb-2 flex w-full flex-col gap-1 md:mb-2 md:flex-row md:gap-8">
 					<div class="mt-0.5 flex gap-1">
-						<p class="h4 whitespace-nowrap text-orange">
+						<p class="h4 whitespace-nowrap text-blue">
 							Day {i + 1}
 						</p>
 					</div>
@@ -66,7 +66,7 @@
 							>
 								<ChevronRight
 									size={28}
-									class="stroke-dark30 group-hover:stroke-orange {expanded.includes(i.toString())
+									class="stroke-dark30 group-hover:stroke-blue {expanded.includes(i.toString())
 										? 'rotate-90'
 										: ''}"
 								/>

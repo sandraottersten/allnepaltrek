@@ -1,5 +1,5 @@
 <script>
-	import { ChevronRight } from 'lucide-svelte';
+	import { ChevronRight } from '@lucide/svelte';
 
 	const { activeOption, options, handleClick } = $props();
 	let openList = $state(false);

@@ -2,7 +2,7 @@
 	import { urlFor } from '../../sanity/index';
 	import Portal from '$lib/pieces/Portal.svelte';
 	import GalleryImage from '$lib/pieces/GalleryImage.svelte';
-	import { ChevronLeft, ChevronRight, X } from 'lucide-svelte';
+	import { ChevronLeft, ChevronRight, X } from '@lucide/svelte';
 
 	const { gallery } = $props();
 	const { images } = gallery;
@@ -229,7 +229,7 @@
 			<div class="flex flex-1">
 				<GalleryImage image={images[4]} size="h-full" flex onclick={() => (selectedImage = 4)} />
 			</div>
-			<div class="flex-[2_2_0%] flex-row gap-2 md:flex">
+			<div class="flex-[2_2_2%] flex-row gap-2 md:flex">
 				<GalleryImage
 					image={images[5]}
 					size="h-full w-full"

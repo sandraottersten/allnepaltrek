@@ -1,19 +1,22 @@
 <script>
 	import Hero from '$lib/blocks/Hero.svelte';
 	import TourOverview from '$lib/blocks/TourOverview.svelte';
-	import LinkButton from '$lib/pieces/LinkButton.svelte';
-	import { ChevronRight } from 'lucide-svelte';
+	import { ChevronRight } from '@lucide/svelte';
 	import NavDropdown from '$lib/pieces/NavDropdown.svelte';
-	import Peaks from '$lib/svg/Peaks.svelte';
 	import Included from '$lib/blocks/Included.svelte';
 	import Gallery from '$lib/blocks/Gallery.svelte';
 	import { PortableText } from '@eirikk/portabletext-2-svelte-5';
+	import Pricing from '$lib/pieces/Pricing.svelte';
 
 	let { data } = $props();
 	let activeContent = $state('overview');
 
-	const { general, description, details, gallery, packageContent } = data;
-	const { cat1, cat2, cat3, cat4 } = data.pricing;
+	const general = $derived(data.general);
+	const description = $derived(data.description);
+	const details = $derived(data.details);
+	const gallery = $derived(data.gallery);
+	const packageContent = $derived(data.packageContent);
+	const pricing = $derived(data.pricing);
 
 	const content = [
 		{ label: 'Overview', value: 'overview' },
@@ -72,24 +75,7 @@
 			{/each}
 		</ul>
 
-		<section class="flex h-min flex-col items-center gap-8">
-			<div class="flex w-full flex-col gap-4">
-				<span class="flex items-baseline justify-between border-b border-dark30 pb-2">
-					<p class="font-medium">1 pax</p>
-					<p class="text-5xl font-medium md:text-3xl">${cat1}</p>
-				</span>
-				<p class="flex text-nowrap border-b border-dark30 pb-2 leading-4">
-					2 - 5 pax <span class="mx-2 w-full flex-grow border-b border-light80"></span>${cat2}
-				</p>
-				<p class="flex text-nowrap border-b border-dark30 pb-2 leading-4">
-					6 - 10 pax <span class="mx-2 w-full flex-grow border-b border-light80"></span>${cat3}
-				</p>
-				<p class="flex text-nowrap border-b border-dark30 pb-2 leading-4">
-					11 - 15 pax <span class="mx-2 w-full flex-grow border-b border-light80"></span>${cat4}
-				</p>
-			</div>
-			<LinkButton label="Contact us" link="/" />
-		</section>
+		<Pricing {pricing} />
 	</aside>
 
 	<article class="md:w-[70%] md:border-l md:border-dark30 md:pl-10 lg:pl-24">
@@ -97,8 +83,8 @@
 		{#if gallery}
 			<Gallery {gallery} />
 		{/if}
-		<section id="program" class="y-margin">
-			<h2>Program</h2>
+		<section id="program" class="y-margin portable">
+			<h3>Program</h3>
 			<PortableText value={description.program} />
 		</section>
 		<Included {packageContent} />

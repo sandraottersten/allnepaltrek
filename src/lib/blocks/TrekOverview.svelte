@@ -2,13 +2,13 @@
 	import {
 		Footprints,
 		Calendar,
-		PlusCircle,
+		CirclePlus,
 		Mountain,
 		Route,
 		ChartNoAxesColumnIncreasing,
 		Info,
-		MinusCircle
-	} from 'lucide-svelte';
+		CircleMinus
+	} from '@lucide/svelte';
 	import Divider from '$lib/pieces/Divider.svelte';
 	import { PortableText } from '@eirikk/portabletext-2-svelte-5';
 	import { urlFor } from '../../sanity/index';
@@ -31,7 +31,7 @@
 				<span class="flex items-center gap-4">
 					<ChartNoAxesColumnIncreasing />
 					<p class="text-start font-medium capitalize">{difficulty}</p>
-					<Info color="#EE7430" size="18" />
+					<Info color="#027B83" size="18" />
 				</span>
 			</div>
 			<Divider />
@@ -94,9 +94,9 @@
 								}}
 							>
 								{#if expandedHighlight === i}
-									<MinusCircle size={32} color="#EE7430" strokeWidth={1} />
+									<CircleMinus size={32} color="#027B83" strokeWidth={1} />
 								{:else}
-									<PlusCircle size={32} color="#EE7430" strokeWidth={1} />
+									<CirclePlus size={32} color="#027B83" strokeWidth={1} />
 								{/if}
 								<p class="h4">{cat.title}</p>
 							</button>

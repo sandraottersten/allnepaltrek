@@ -1,6 +1,6 @@
 <script>
 	import { urlFor } from '../../sanity/index';
-	import { ChevronDown } from 'lucide-svelte';
+	import { ChevronDown } from '@lucide/svelte';
 	import { PortableText } from '@eirikk/portabletext-2-svelte-5';
 	import TextLink from './TextLink.svelte';
 	import { slide, fade } from 'svelte/transition';
@@ -22,21 +22,19 @@
 	};
 </script>
 
-<div class="x-margin t-margin hidden md:block">
-	<div class="relative aspect-[16/10] w-full overflow-hidden rounded-lg">
+<div class="x-margin y-margin hidden gap-16 md:flex">
+	<div class="relative aspect-[16/8] w-2/3 overflow-hidden rounded-lg">
 		<img
 			src={imgMob}
 			srcset={`${imgMob} 576w, ${imgSm} 768w, ${imgMd} 600w, ${imgLg} 600w, ${imgXl} 800w`}
 			alt={infoCard.image.attribution}
 			class="size-full object-cover saturate-[.80] filter"
 		/>
-		<div
-			class="absolute right-0 top-0 flex h-full w-1/3 flex-col justify-end gap-5 bg-light80 p-8 text-dark backdrop-blur"
-		>
-			<h3>{infoCard.title}</h3>
-			<PortableText value={infoCard.text} />
-			<TextLink link={getLink()} text={infoCard.link.linkText} />
-		</div>
+	</div>
+	<div class="flex h-full w-1/3 flex-col justify-end gap-5 bg-light80 py-8 text-dark backdrop-blur">
+		<h3>{infoCard.title}</h3>
+		<PortableText value={infoCard.text} />
+		<TextLink link={getLink()} text={infoCard.link.linkText} />
 	</div>
 </div>
 

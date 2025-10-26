@@ -2,7 +2,7 @@
 	import { urlFor } from '../../sanity/index';
 	import PeaksSmall from '$lib/svg/PeaksSmall.svelte';
 	import { fly } from 'svelte/transition';
-
+	import LinkButton from '$lib/pieces/LinkButton.svelte';
 	let { data, height, usps } = $props();
 
 	const imgMob = urlFor(data.image).width(576).height(1000).url();
@@ -28,33 +28,27 @@
 </script>
 
 <div
-	class="relative flex w-screen {height} flex items-end justify-between overflow-hidden px-3 pb-12 md:px-10"
+	class="relative flex w-screen {height} flex items-end justify-center overflow-hidden px-3 pb-12 md:px-10"
 >
 	<img
 		src={imgXl}
 		alt={data.image.attribution || 'Hero image'}
 		class="absolute left-0 top-0 size-full object-cover saturate-[.8] filter"
 	/>
-	<div class="z-20 flex">
-		<div class="flex flex-col gap-4">
-			<div class="flex flex-col gap-2 text-light80">
-				{#each usps as text}
-					<p class="text-lg">{text}</p>
-				{/each}
-			</div>
+	<div class="z-20 flex w-[75%] flex-col items-center gap-4 pt-60">
+		<h1 class="text-center">
+			{data.title}
+		</h1>
 
-			{#if data.subtitle}
-				<p class="text-3xl leading-[110%] text-light80 md:text-3xl lg:text-4xl xl:text-6xl">
-					{data.subtitle}
-				</p>
-			{/if}
-			<h1 class="w-[calc(100vw-5rem)] sm:w-[36rem] md:w-[34rem] lg:w-[32rem] xl:w-[64rem]">
-				{data.title}
-			</h1>
-		</div>
+		<p
+			class="mb-8 text-center text-xl text-light80 sm:w-[36rem] md:w-[34rem] md:text-xl lg:w-[42rem] xl:w-[64rem]"
+		>
+			{data.subtitle}
+		</p>
+		<!-- <LinkButton label="Go to treks" /> -->
 	</div>
 
-	{#if data.carousel}
+	<!-- {#if data.carousel}
 		<div class="z-20 hidden overflow-hidden rounded-3xl bg-dark80 md:block">
 			<div class="relative h-[400px] w-[300px] overflow-hidden rounded-3xl">
 				<div class="absolute left-0 top-0 z-10 size-full bg-dark10"></div>
@@ -79,7 +73,7 @@
 				</a>
 			</div>
 		</div>
-	{/if}
+	{/if} -->
 
-	<div class="bg-heroGradient3 absolute left-0 top-0 z-10 size-full"></div>
+	<div class="absolute left-0 top-0 z-10 size-full bg-heroGradient3"></div>
 </div>

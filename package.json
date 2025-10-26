@@ -30,8 +30,8 @@
 	},
 	"dependencies": {
 		"@eirikk/portabletext-2-svelte-5": "^0.1.0-alpha.2",
+		"@lucide/svelte": "^0.544.0",
 		"@sanity/client": "^6.22.2",
-		"@sanity/image-url": "^1.1.0",
-		"lucide-svelte": "^0.460.1"
+		"@sanity/image-url": "^1.1.0"
 	}
 }

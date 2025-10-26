@@ -1,5 +1,5 @@
 <script>
-	import { ChevronDown } from 'lucide-svelte';
+	import { ChevronDown } from '@lucide/svelte';
 
 	const { activeOption, options, handleClick } = $props();
 	let openList = $state(false);
@@ -20,7 +20,7 @@
 			onclick={() => (openList = !openList)}
 		>
 			{activeOption.label}
-			<ChevronDown color="#EE7430" />
+			<ChevronDown color="#027B83" />
 		</button>
 	</div>
 

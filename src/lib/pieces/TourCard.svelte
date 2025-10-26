@@ -1,7 +1,6 @@
 <script>
 	import { urlFor } from '../../sanity/index';
-	import PeaksSmall from '$lib/svg/PeaksSmall.svelte';
-
+	import { ChevronsRight } from '@lucide/svelte';
 	let { tour } = $props();
 	const { cardImage, title, description } = tour.general;
 	const { duration } = tour.details;
@@ -13,15 +12,20 @@
 		<img
 			src={urlFor(cardImage).width(800).height(500).url()}
 			alt={cardImage.attribution}
-			class="size-full object-cover saturate-[.80] filter"
+			class="size-full object-cover saturate-[.80] filter duration-300 group-hover:scale-105"
 		/>
 		<div
-			class="absolute right-0 top-0 hidden h-full w-2/5 flex-col justify-end gap-5 bg-light80 p-8 text-dark backdrop-blur md:group-hover:flex"
+			class="absolute right-0 top-0 hidden h-full w-2/5 flex-col justify-end gap-5 bg-light80 p-6 text-dark backdrop-blur md:flex"
 		>
 			<p>{description}</p>
 			<span class="group flex items-center gap-2">
-				<PeaksSmall size="size-[24px] min-w-[24px]" />
-				<p class="group-hover:text-orange">Read more</p>
+				<div class="group mb-2 mt-2 flex items-center gap-1">
+					<span class="text-blue">Read more</span>
+					<ChevronsRight
+						size={24}
+						class="transform text-blue duration-200 group-hover:translate-x-1"
+					/>
+				</div>
 			</span>
 		</div>
 	</div>
@@ -30,5 +34,5 @@
 		<p>{title}</p>
 		<p>{duration}</p>
 	</div>
-	<hr class="border-1 w-full border-dark30 group-hover:border-orange" />
+	<hr class="border-1 w-full border-dark30 group-hover:border-blue" />
 </a>

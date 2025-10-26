@@ -1,7 +1,6 @@
 <script>
 	import { urlFor } from '../../sanity/index';
-	import PeaksSmall from '$lib/svg/PeaksSmall.svelte';
-
+	import { Calendar, ChartNoAxesColumnIncreasing } from '@lucide/svelte';
 	let { trek = $bindable() } = $props();
 	const { cardImage, title, subtitle, description } = trek.general;
 	const { duration, difficulty, tags } = trek.details;
@@ -28,33 +27,32 @@
 	class="group relative flex h-full w-full cursor-pointer flex-col"
 >
 	<div class="relative aspect-[380/400] overflow-hidden rounded-lg">
-		<div class="invisible absolute bottom-4 right-4 z-20 group-hover:visible">
-			<PeaksSmall size="size-[32px] min-w-[32px] md:size-[42px] md:min-w-[42px]" />
-		</div>
 		{#if tags}
-			<div class="absolute right-0 top-0 z-20 rounded-lg bg-dark80 px-4 py-3 text-light">
+			<p class="absolute right-0 top-3 z-20 rounded-l-lg bg-dark px-4 py-2 text-light">
 				{getTag(tags[0])}
-			</div>
+			</p>
 		{/if}
 		<div class="absolute left-0 top-0 z-10 size-full bg-dark10"></div>
 		<img
 			src={urlFor(cardImage).width(800).height(800).url()}
 			alt={cardImage.attribution}
-			class="size-full object-cover saturate-[.80] filter"
+			class="size-full object-cover saturate-[.80] filter duration-300 group-hover:scale-105"
 		/>
 	</div>
 
-	<div class="flex-1 px-1 py-5 md:px-0">
-		<h3 class="group-hover:text-orange">{title}</h3>
+	<div class="flex-1 px-1 pb-5 pt-4">
+		<h3 class="text-blue group-hover:text-blue">{title}</h3>
 		<p class="font-medium text-dark70">{subtitle}</p>
 		<p class="mt-3">{description}</p>
 	</div>
 
-	<div class="my-5 flex gap-2 px-1 md:px-0">
-		<div class="flex h-min w-fit flex-col rounded bg-dark10 px-4 py-1 text-sm uppercase text-dark">
+	<div class="mb-5 flex gap-8 px-1">
+		<div class="flex h-min w-fit items-center gap-2 text-sm uppercase">
+			<ChartNoAxesColumnIncreasing size={18} strokeWidth={2} class="text-blue" />
 			<p class="font-medium">{difficulty}</p>
 		</div>
-		<div class="flex h-min w-fit flex-col rounded bg-dark10 px-4 py-1 text-sm uppercase text-dark">
+		<div class="flex h-min w-fit items-center gap-2 text-sm uppercase">
+			<Calendar size={18} strokeWidth={2} class="text-blue" />
 			<p class="font-medium">{duration} DAYS</p>
 		</div>
 	</div>

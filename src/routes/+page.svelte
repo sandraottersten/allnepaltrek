@@ -1,18 +1,15 @@
 <script>
+	import Hero from '$lib/blocks/Hero.svelte';
 	import HeroVideo from '$lib/blocks/HeroVideo.svelte';
-	import TextLink from '$lib/pieces/TextLink.svelte';
-	import Peaks from '$lib/svg/Peaks.svelte';
 	import Silouette from '$lib/svg/Silouette.svelte';
 	import LinkButton from '$lib/pieces/LinkButton.svelte';
 	import TrekCard from '$lib/pieces/TrekCard.svelte';
 	import TourCard from '$lib/pieces/TourCard.svelte';
 	import Divider from '$lib/pieces/Divider.svelte';
 	import InfoCard from '$lib/pieces/InfoCard.svelte';
-	import PeaksSmall from '$lib/svg/PeaksSmall.svelte';
-	import { urlFor } from '../sanity/index';
-	import { PlusCircle, MinusCircle } from 'lucide-svelte';
 	import Regions from '../lib/blocks/Regions.svelte';
-	import { slide, fade } from 'svelte/transition';
+	import Categories from '$lib/blocks/Categories.svelte';
+	import { urlFor } from '../sanity';
 
 	let { data } = $props();
 	const { general, intro, infoCard, treks, regions, categories, tours } = data;
@@ -39,7 +36,8 @@
 </script>
 
 <section class="relative">
-	<HeroVideo data={general} height="h-[100vh]" usps={heroUsps} />
+	<Hero data={general} height="h-[100vh]" usps={heroUsps} />
+	<!-- <HeroVideo data={general} height="h-[100vh]" /> -->
 </section>
 
 <section
@@ -58,6 +56,7 @@
 </section>
 
 <InfoCard {infoCard} />
+<Categories {categories} image={general.image} />
 
 <section class="y-margin flex flex-col gap-5">
 	<h2 class="x-margin">Trekking packages</h2>
@@ -73,53 +72,29 @@
 	</div>
 </section>
 
-<div class="flex flex-col items-center py-6 md:py-12">
-	<p class="mb-8 w-[90%] text-center text-2xl font-medium text-dark70 md:w-[40rem] md:text-4xl">
-		It's not the mountain we conquer but ourselves
-	</p>
-	<LinkButton label="See all treks" link="/treks" />
-	<Silouette size="w-screen md:mt-8" />
-</div>
-
-<section class="x-margin b-margin flex gap-12">
-	<div class="relative hidden h-[600px] w-full flex-1 md:flex">
-		{#key selectedCategory.image}
-			<img
-				src={urlFor(selectedCategory.image).width(800).height(1000).url()}
-				alt={selectedCategory.image.attribution}
-				class="size-full rounded-lg object-cover saturate-[.8] filter"
-				in:fade={{ duration: 300 }}
-			/>
-		{/key}
-	</div>
-	<div class="flex-[2_2_0%]">
-		{#each categories as cat}
-			<div
-				key={cat.id}
-				class="flex flex-col overflow-hidden {categories[0].id !== cat.id
-					? 'border-t border-dark30'
-					: ''} pt-5"
-			>
-				<div class="flex items-center gap-5 pb-5">
-					<button class="h-min" onclick={() => toggleCategory(cat)}>
-						{#if expandedCategory === cat.id}
-							<MinusCircle size={32} color="#EE7430" strokeWidth={1} />
-						{:else}
-							<PlusCircle size={32} color="#EE7430" strokeWidth={1} />
-						{/if}
-					</button>
-					<h3>{cat.name}</h3>
-				</div>
-				{#if expandedCategory === cat.id}
-					<div class="flex flex-col gap-5 pb-5 pl-[3.2rem] md:w-2/3" transition:slide>
-						<p>{cat.description}</p>
-						<TextLink link={`/treks?category=${cat.id}`} text="Go to treks" />
-					</div>
-				{/if}
-			</div>
-		{/each}
+<section
+	style:--image-mob={`url(${urlFor(general.image).width(800).url()})`}
+	class="flex w-full overflow-hidden bg-[image:var(--image-mob)] bg-cover bg-fixed bg-center bg-no-repeat"
+>
+	<div class="y-margin flex w-full flex-col items-center bg-light80 backdrop-blur-sm">
+		<p class="mb-8 w-[90%] text-center text-2xl font-medium text-dark70 md:w-[40rem] md:text-4xl">
+			It's not the mountain we conquer but ourselves
+		</p>
+		<LinkButton label="See all treks" link="/treks" />
 	</div>
 </section>
+
+<!-- <section
+	style:--image-mob={`url(${urlFor(general.image).width(800).url()})`}
+	class="flex w-full overflow-hidden bg-[image:var(--image-mob)] bg-cover bg-fixed bg-center bg-no-repeat saturate-[.80] filter"
+>
+	<div class="y-margin flex w-full flex-col items-center bg-dark30 backdrop-blur-md">
+		<p class="mb-8 w-[90%] text-center text-2xl font-medium text-light md:w-[40rem] md:text-4xl">
+			It's not the mountain we conquer but ourselves
+		</p>
+		<LinkButton label="See all treks" link="/treks" />
+	</div>
+</section> -->
 
 <Regions {general} {regions} />
 

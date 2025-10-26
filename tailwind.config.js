@@ -11,28 +11,31 @@ export default {
 			xl: '1620px'
 		},
 		colors: {
-			dark: '#00171C',
-			dark80: 'rgba(0, 23, 28, 0.8)',
-			dark70: 'rgba(0, 23, 28, 0.7)',
-			dark30: 'rgba(0, 23, 28, 0.3)',
-			dark10: 'rgba(0, 23, 28, 0.1)',
+			dark: '#271F30',
+			// dark: '#00171C',
+			dark80: 'rgba(39, 31, 48, 0.8)',
+			dark70: 'rgba(39, 31, 48, 0.7)',
+			dark30: 'rgba(39, 31, 48, 0.3)',
+			dark10: 'rgba(39, 31, 48, 0.1)',
 			// blue: '#073147',
-			blue: '#334C59',
-			blue70: 'rgba(7, 49, 71, 0.7)',
-			blue40: 'rgba(7, 49, 71, 0.4)',
+			blue: '#027B83',
+			blue70: 'rgba(2, 123, 131, 0.7)',
+			blue40: 'rgba(2, 123, 131, 0.4)',
+
 			orange: '#EE7430',
-			orange70: 'rgba(238, 116, 48, 0.7)',
+			orange70: 'rgba(2, 123, 131, 0.7)',
 			white: '#FFFFFF',
 			light: '#F8F8F8',
 			light30: 'rgba(248, 248, 248, 0.3)',
 			light40: 'rgba(248, 248, 248, 0.4)',
 			light80: 'rgba(248, 248, 248, 0.8)',
+			light90: 'rgba(248, 248, 248, 0.9)',
 			light10: 'rgba(248, 248, 248, 0.1)'
 		},
 		extend: {
 			fontFamily: {
 				poppins: ['Poppins', 'sans'],
-				notosans: ['Noto Sans', 'sans']
+				notosans: ['Lato', 'sans']
 			},
 			backgroundImage: {
 				cardGradient:

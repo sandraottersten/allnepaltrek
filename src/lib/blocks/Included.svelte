@@ -1,13 +1,10 @@
 <script>
-	import { Check, X } from 'lucide-svelte';
+	import { Check, X } from '@lucide/svelte';
 
 	const { packageContent } = $props();
 </script>
 
-<section
-	id="included"
-	class="scroll-block y-margin flex w-full flex-col rounded-3xl bg-light px-4 md:px-0"
->
+<section id="included" class="scroll-block y-margin flex w-full flex-col px-4 md:px-0">
 	<h3>Cost includes</h3>
 	<ul class="mb-12 mt-8 flex flex-col gap-3">
 		{#each packageContent?.included as item, i}

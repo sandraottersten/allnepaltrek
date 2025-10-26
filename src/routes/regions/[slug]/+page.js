@@ -3,7 +3,12 @@ import { queryPage } from '../../../sanity';
 export async function load({ params }) {
 	const data = await queryPage(`*[_type == "region" && seo.slug.current == "${params.slug}"]{
     ...,
-     "treks": *[_type == "trek" && details.region == "${params.slug}"]{
+     "treks": *[_type == "trek" && references(^._id)]{
+      seo,
+      general,
+      details
+      },
+     "tours": *[_type == "tour" && references(^._id)]{
       seo,
       general,
       details

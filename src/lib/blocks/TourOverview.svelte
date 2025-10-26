@@ -1,8 +1,6 @@
 <script>
-	import { Calendar, SunSnow, MapPin } from 'lucide-svelte';
-	import Divider from '$lib/pieces/Divider.svelte';
+	import { Calendar, MapPin } from '@lucide/svelte';
 	import { PortableText } from '@eirikk/portabletext-2-svelte-5';
-	import PeaksSmall from '$lib/svg/PeaksSmall.svelte';
 
 	const { details, description } = $props();
 	const { region, duration, season } = details;
@@ -33,14 +31,8 @@
 			</section>
 		</div>
 
-		<PortableText value={description.text} />
-	</div>
-
-	<div class="flex">
-		<SunSnow />
-		<div>
-			<p>Best season:</p>
-			<p>{season}</p>
+		<div class="portable">
+			<PortableText value={description.text} />
 		</div>
 	</div>
 </section>

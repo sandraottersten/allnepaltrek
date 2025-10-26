@@ -10,10 +10,7 @@
 	const imgMob = urlFor(general.image).width(2000).height(1000).url();
 </script>
 
-<section
-	style:--image-mob={`url(${imgMob})`}
-	class="hidden h-[100vh] bg-[image:var(--image-mob)] bg-cover bg-fixed bg-center bg-no-repeat md:flex"
->
+<section class="hidden h-[100vh] bg-[#E3E3E3] bg-center md:flex">
 	<div
 		class="x-margin relative flex w-full flex-col justify-center gap-12 bg-light80 py-16 text-dark backdrop-blur"
 	>
@@ -39,12 +36,12 @@
 					class="size-full rounded-lg object-cover saturate-[.8] filter"
 				/>
 
-				<p class="mt-4 border-y border-dark30 px-3 py-3">{selectedRegion.topTrek}</p>
-				<a
-					href={`/regions/${selectedRegion.seo.slug.current}`}
-					class="flex justify-between border-b border-dark30 px-3 py-3 hover:text-orange"
-					>See all treks <PeaksSmall size="size-[24px] min-w-[24px]" /></a
-				>
+				<p class=" border-b border-dark30 p-3">{selectedRegion.topTrek}</p>
+				<TextLink
+					link={`/regions/${selectedRegion.seo.slug.current}`}
+					text="See all treks"
+					style="mt-3 ml-3"
+				/>
 			</div>
 		{/if}
 	</div>

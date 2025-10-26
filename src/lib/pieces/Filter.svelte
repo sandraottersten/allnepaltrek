@@ -1,5 +1,5 @@
 <script>
-	import { Filter, X } from 'lucide-svelte';
+	import { Filter, X } from '@lucide/svelte';
 
 	const { slot1, slot2 } = $props();
 	let open = $state(false);

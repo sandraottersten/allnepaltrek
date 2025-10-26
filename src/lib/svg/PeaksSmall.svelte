@@ -1,5 +1,5 @@
 <script>
-	let { size } = $props();
+	let { size, color = '#FFFFFF' } = $props();
 </script>
 
 <div class={size}>
@@ -13,7 +13,7 @@
 		<rect width="51" height="51" fill="none" />
 		<path
 			d="M27.8461 40.9984L43.3453 25.4992L27.8461 10M4 41.0004L19.4992 25.5012L4 10.002"
-			stroke="#FD8847"
+			stroke={color}
 			stroke-width="9.53798"
 		/>
 	</svg>

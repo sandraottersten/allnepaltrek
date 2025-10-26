@@ -3,8 +3,9 @@
 	import TrekCard from '$lib/pieces/TrekCard.svelte';
 	import InfoCard from '$lib/pieces/InfoCard.svelte';
 	import Dropdown from '$lib/pieces/Dropdown.svelte';
+	import Divider from '$lib/pieces/Divider.svelte';
 	import Filter from '$lib/pieces/Filter.svelte';
-	import PeaksSmall from '$lib/svg/PeaksSmall.svelte';
+	import { ChevronsRight, Footprints, Mountain, Timer, Binoculars, Bird } from '@lucide/svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 
@@ -85,7 +86,7 @@
 </section>
 
 <section
-	class="y-margin relative z-20 flex flex-col items-center bg-light pt-12 text-dark md:gap-24 md:pt-28 lg:pt-32"
+	class="y-margin relative flex flex-col items-center pt-12 text-dark md:gap-24 md:pt-28 lg:pt-32"
 >
 	<div class="x-margin flex w-full flex-col items-center gap-8 md:gap-16">
 		<h2 class="px-3 md:max-w-[50%] md:text-center">{intro.title}</h2>
@@ -98,25 +99,59 @@
 		</div>
 	</div>
 
-	<div
-		class="x-margin hidden w-4/5 grid-cols-2 gap-4 md:grid md:grid-cols-3 md:gap-x-12 md:gap-y-6"
-	>
+	<div class="x-margin hidden w-4/5 grid-cols-2 gap-4 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-6">
 		{#each [categoryAll, ...categories] as category}
 			<button
-				class="flex h-[45px] w-full items-center gap-4 border-b px-4 pb-3 md:gap-2 md:text-lg {selectedFilter.id ===
+				class="flex h-[56px] w-full items-center gap-2 rounded-lg px-4 md:gap-2 md:text-lg {selectedFilter.id ===
 				category.id
-					? 'border-orange text-orange'
-					: 'border-dark30'}"
+					? 'bg-blue70 text-light'
+					: 'bg-[#E3E3E3] hover:bg-blue40'}"
 				onclick={() => (selectedFilter = category)}
 			>
-				<PeaksSmall
-					size="size-[32px] min-w-[32px] md:size-[24px] md:min-w-[24px] {selectedFilter.id ===
-					category.id
-						? 'block'
-						: 'hidden'}"
-				/>
+				{#if selectedFilter.id === category.id}
+					<ChevronsRight size={32} />
+				{/if}
 
 				{category.name}
+				<div class="ml-auto">
+					{#if category.icon === 'Footprints'}
+						<Footprints
+							size={24}
+							strokeWidth={1.5}
+							class={selectedFilter.id === category.id ? 'text-light' : 'text-blue'}
+						/>
+					{:else if category.icon === 'Mountain'}
+						<Mountain
+							size={24}
+							strokeWidth={1.5}
+							class={selectedFilter.id === category.id ? 'text-light' : 'text-blue'}
+						/>
+					{:else if category.icon === 'Timer'}
+						<Timer
+							size={24}
+							strokeWidth={1.5}
+							class={selectedFilter.id === category.id ? 'text-light' : 'text-blue'}
+						/>
+					{:else if category.icon === 'Binoculars'}
+						<Binoculars
+							size={24}
+							strokeWidth={1.5}
+							class={selectedFilter.id === category.id ? 'text-light' : 'text-blue'}
+						/>
+					{:else if category.icon === 'Bird'}
+						<Bird
+							size={24}
+							strokeWidth={1.5}
+							class={selectedFilter.id === category.id ? 'text-light' : 'text-blue'}
+						/>
+					{:else}
+						<Mountain
+							size={24}
+							strokeWidth={1.5}
+							class={selectedFilter.id === category.id ? 'text-light' : 'text-blue'}
+						/>
+					{/if}
+				</div>
 			</button>
 		{/each}
 	</div>
@@ -166,7 +201,7 @@
 	{/snippet}
 
 	<div class="x-margin">
-		<div class="hidden flex-col gap-2 md:flex md:flex-row md:gap-5">
+		<div class="hidden flex-row items-end gap-2 md:flex md:gap-5">
 			<Dropdown
 				options={allRegions}
 				activeOption={selectedRegion}
@@ -182,6 +217,9 @@
 				activeOption={selectedDuration}
 				handleClick={(option) => (selectedDuration = option)}
 			/>
+			<div class="ml-auto mr-0 text-blue">
+				{filteredTreks.length} treks
+			</div>
 		</div>
 
 		<div class="grid grid-cols-1 gap-4 md:mt-12 md:grid-cols-2 lg:grid-cols-3">
@@ -192,5 +230,8 @@
 			{/key}
 		</div>
 	</div>
-	<InfoCard {infoCard} />
+	<div>
+		<Divider />
+		<InfoCard {infoCard} />
+	</div>
 </section>
