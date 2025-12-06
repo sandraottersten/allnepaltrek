@@ -15,7 +15,7 @@
 			case 'classic':
 				return 'Classic';
 			case 'offpath':
-				return 'Off the beaten path';
+				return 'Hidden gem';
 			default:
 				return '';
 		}
@@ -26,7 +26,7 @@
 	href={`/treks/${slug.current}`}
 	class="group relative flex h-full w-full cursor-pointer flex-col"
 >
-	<div class="relative aspect-[380/400] overflow-hidden rounded-lg">
+	<div class="relative aspect-[380/300] overflow-hidden rounded-lg md:aspect-[380/400]">
 		{#if tags}
 			<p class="absolute right-0 top-3 z-20 rounded-l-lg bg-dark px-4 py-2 text-light">
 				{getTag(tags[0])}
@@ -34,7 +34,7 @@
 		{/if}
 		<div class="absolute left-0 top-0 z-10 size-full bg-dark10"></div>
 		<img
-			src={urlFor(cardImage).width(800).height(800).url()}
+			src={urlFor(cardImage).width(600).height(600).url()}
 			alt={cardImage.attribution}
 			class="size-full object-cover saturate-[.80] filter duration-300 group-hover:scale-105"
 		/>

@@ -17,7 +17,7 @@
 <section
 	id="map"
 	style:--image-mob={`url(${urlFor(image).width(800).url()})`}
-	class="flex aspect-[1/1] w-full overflow-hidden rounded-xl bg-[image:var(--image-mob)] bg-cover bg-fixed bg-center bg-no-repeat"
+	class="scroll-block flex aspect-[1/1] w-full overflow-hidden bg-[image:var(--image-mob)] bg-cover bg-fixed bg-center bg-no-repeat md:rounded-xl"
 >
 	<div class="flex w-full justify-center bg-light80 backdrop-blur">
 		{#if map === 'ebc-classic'}

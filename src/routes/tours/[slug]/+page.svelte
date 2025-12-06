@@ -17,6 +17,7 @@
 	const gallery = $derived(data.gallery);
 	const packageContent = $derived(data.packageContent);
 	const pricing = $derived(data.pricing);
+	const duration = $derived(data.details.duration);
 
 	const content = [
 		{ label: 'Overview', value: 'overview' },
@@ -28,63 +29,91 @@
 	let sections;
 
 	$effect(() => {
-		sections = document.querySelectorAll('.scroll-block ');
-		document.addEventListener('scroll', handleScroll);
+		// Wait for DOM to be ready
+		const updateSections = () => {
+			sections = document.querySelectorAll('.scroll-block');
+			handleScroll(); // Check initial state
+		};
+
+		// Use setTimeout to ensure DOM is ready
+		const timeoutId = setTimeout(updateSections, 100);
+		
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		window.addEventListener('resize', handleScroll, { passive: true });
+
 		return () => {
-			document.removeEventListener('scroll', handleScroll);
+			clearTimeout(timeoutId);
+			window.removeEventListener('scroll', handleScroll);
+			window.removeEventListener('resize', handleScroll);
 		};
 	});
 
 	const handleScroll = () => {
-		sections.forEach(function (section) {
-			var rect = section.getBoundingClientRect();
-			const viewportHeight = window.innerHeight;
+		if (!sections || sections.length === 0) return;
 
-			if (rect.top <= viewportHeight / 3 && rect.bottom > 0) {
-				activeContent = section.id;
+		let currentSection = null;
+		const viewportHeight = window.innerHeight;
+		const threshold = viewportHeight / 3;
+
+		sections.forEach(function (section) {
+			const rect = section.getBoundingClientRect();
+			
+			// Check if section is in view (top is above threshold and bottom is below top of viewport)
+			if (rect.top <= threshold && rect.bottom > 0) {
+				// If no current section, or this section is higher up (more visible)
+				if (!currentSection || rect.top > currentSection.rect.top) {
+					currentSection = { id: section.id, rect };
+				}
 			}
 		});
+
+		// If we found a section in view, update activeContent
+		if (currentSection) {
+			activeContent = currentSection.id;
+		}
 	};
 </script>
 
-<section class="relative h-[92vh]">
+<section class="relative h-[77vh]">
 	{#key general}
-		<Hero data={general} height="h-[105vh]" />
+		<Hero data={general} height="h-[82vh]" />
 	{/key}
 </section>
 
 <div
-	class="relative z-20 mt-20 flex rounded-t-[40px] bg-light text-dark md:flex-row md:px-16 md:py-20 lg:px-40 lg:py-24"
+	class="relative z-20 flex rounded-t-[40px] bg-light py-12 text-dark md:flex-row md:px-16 md:py-20 lg:px-40 lg:py-24"
 >
-	<aside
-		class="sticky top-20 hidden h-fit w-full flex-col gap-12 md:flex md:w-[30%] md:pr-12 lg:pr-24"
-	>
-		<ul class="flex flex-col">
-			{#each content as con}
-				<li class="flex items-center gap-1 border-t border-dark30 py-3">
-					<span class={activeContent === con.value ? 'opacity-1' : 'opacity-0'}>
-						<ChevronRight color="#EE7430" />
-					</span>
-					<a
-						href={`#${con.value}`}
-						class="font-medium uppercase hover:text-orange {activeContent === con.value
-							? 'text-orange'
-							: 'text-dark'}">{con.label}</a
-					>
-				</li>
-			{/each}
-		</ul>
+	<aside class="relative hidden w-full flex-col pt-10 md:flex md:w-[30%] md:pr-12 lg:pr-24">
+		<div class="sticky top-20 flex h-fit flex-col gap-12">
+			<ul class="flex flex-col">
+				{#each content as con}
+					<li class="flex items-center gap-1 border-t border-dark30 py-3">
+						<span class={activeContent === con.value ? 'opacity-1' : 'opacity-0'}>
+							<ChevronRight color="#EE7430" />
+						</span>
+						<a
+							href={`#${con.value}`}
+							class="font-medium uppercase hover:text-orange {activeContent === con.value
+								? 'text-blue'
+								: 'text-dark'}">{con.label}</a
+						>
+					</li>
+				{/each}
+			</ul>
 
-		<Pricing {pricing} />
+			<Pricing {pricing} {duration} />
+		</div>
 	</aside>
 
-	<article class="md:w-[70%] md:border-l md:border-dark30 md:pl-10 lg:pl-24">
-		<TourOverview {details} {description} />
+	<article
+		class="flex flex-col gap-12 md:w-[70%] md:gap-20 md:border-l md:border-dark30 md:pl-10 lg:gap-24 lg:pl-24"
+	>
+		<TourOverview {details} {description} {pricing} />
 		{#if gallery}
 			<Gallery {gallery} />
 		{/if}
-		<section id="program" class="y-margin portable">
-			<h3>Program</h3>
+		<section id="program" class="scroll-block x-margin portable md:px-0">
+			<h2 class="mb-8">Program</h2>
 			<PortableText value={description.program} />
 		</section>
 		<Included {packageContent} />

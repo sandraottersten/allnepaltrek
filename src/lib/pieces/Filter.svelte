@@ -1,31 +1,66 @@
 <script>
-	import { Filter, X } from '@lucide/svelte';
+	import { ChevronUp, Sparkle, X } from '@lucide/svelte';
 
-	const { slot1, slot2 } = $props();
+	let props = $props();
 	let open = $state(false);
+
+	$effect(() => {
+		if (open) {
+			document.body.style.overflow = 'hidden';
+		} else {
+			document.body.style.overflow = '';
+		}
+
+		return () => {
+			document.body.style.overflow = '';
+		};
+	});
 </script>
 
-<div
-	class="fixed bottom-4 right-3 z-50 flex flex-col rounded-full bg-light80 p-2 pl-3 backdrop-blur md:hidden"
->
+<div class="fixed bottom-0 z-50 flex w-full flex-col bg-blue70 p-2 pl-3 backdrop-blur md:hidden">
 	<button
-		class="bg-transparent txt-normal flex h-10 items-center justify-between gap-1 rounded px-3 uppercase text-dark"
+		class="bg-blue80 txt-normal flex h-10 items-center justify-between gap-2 px-3 text-light"
 		onclick={() => (open = !open)}
 	>
+		<span class="flex items-center gap-2">
+			<Sparkle />
+			Filter
+			{#if props.selectedFilter}
+				: {props.selectedFilter}
+			{/if}
+		</span>
 		{#if open}
 			<X />
 		{:else}
-			<Filter />
+			<ChevronUp />
 		{/if}
-		{'Filter'}
 	</button>
 </div>
 
 {#if open}
+	<!-- Overlay -->
 	<div
-		class="fixed bottom-20 right-3 z-50 flex w-[calc(100vw-1.5rem)] flex-col gap-4 rounded-3xl bg-light80 p-3 backdrop-blur md:hidden"
+		class="fixed inset-0 z-40 bg-dark30 md:hidden"
+		role="button"
+		tabindex="0"
+		aria-label="Close filter"
+		onclick={() => (open = false)}
+		onkeydown={(e) => {
+			if (e.key === 'Enter' || e.key === ' ') {
+				open = false;
+			}
+		}}
+	></div>
+
+	<!-- Filter Content -->
+	<div
+		class="fixed bottom-14 z-50 flex w-full flex-col gap-4 border-t border-dark30 bg-light p-3 md:hidden"
 	>
-		{@render slot2()}
-		{@render slot1()}
+		{#if props.slot2}
+			{@render props.slot2()}
+		{/if}
+		{#if props.slot1}
+			{@render props.slot1()}
+		{/if}
 	</div>
 {/if}

@@ -4,7 +4,8 @@
 	import { ChevronRight, Menu, X } from '@lucide/svelte';
 	import WhatsApp from '$lib/svg/WhatsApp.svelte';
 	import { onMount } from 'svelte';
-
+	import { page } from '$app/stores';
+	import LinkButton from '$lib/pieces/LinkButton.svelte';
 	let { data } = $props();
 
 	let isScrolling = $state(false);
@@ -13,6 +14,7 @@
 	let showMobileMenu = $state(false);
 	let expandedMenus = $state([]);
 	let vh = $state(0);
+	let showWhatsApp = $state(false);
 
 	onMount(() => {
 		vh = window.innerHeight;
@@ -74,7 +76,8 @@
 			subItems: [{ label: 'All tours', link: '/tours' }, ...tours]
 		},
 		{ label: 'Regions', link: '/regions', subItems: regions, id: 'regions' },
-		{ label: 'Travel info', link: '/travel-info', subItems: information, id: 'info' }
+		{ label: 'Travel info', link: '/travel-info', subItems: information, id: 'info' },
+		{ label: 'Contact', link: '/contact', subItems: null, id: 'contact' }
 	];
 
 	$effect(() => {
@@ -113,6 +116,24 @@
 		window.document.body.classList.toggle('no-scroll');
 		if (!showMobileMenu) expandedMenus = [];
 	};
+
+	const closeMobileMenu = () => {
+		showMobileMenu = false;
+		window.document.body.classList.remove('no-scroll');
+		expandedMenus = [];
+	};
+
+	let currentPath = $state('');
+
+	$effect(() => {
+		const path = $page.url.pathname;
+		if (currentPath !== path) {
+			currentPath = path;
+			if (showMobileMenu) {
+				closeMobileMenu();
+			}
+		}
+	});
 </script>
 
 <header
@@ -123,21 +144,32 @@
 			? 'translate-y-[-58%] transform'
 			: 'translate-y-0 transform'}"
 >
-	<div class="flex h-[64px] items-center justify-between bg-light pr-8">
+	<div class="flex h-[64px] items-center justify-between bg-light90 pr-8">
 		<a href="/" class="flex h-[64px] items-center border-r border-dark30 pl-10 pr-10">
 			<Logo size="w-[64px]" textColor="#000000" /></a
 		>
-		<button class="flex h-12 items-center rounded-full bg-blue px-6 text-lg font-normal text-light">
-			Book now
-		</button>
+		<div class="flex items-center gap-2">
+			{#if showWhatsApp}
+				<a
+					href={`https://wa.me/9779841356471`}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="inline-flex items-center space-x-2"
+				>
+					<span class="text-blue hover:underline">+9779841356471</span>
+				</a>
+			{/if}
+			<button
+				class="flex h-12 w-12 items-center justify-center rounded-full"
+				onclick={() => (showWhatsApp = !showWhatsApp)}
+			>
+				<WhatsApp size="size-[30px]" color="#027B83" />
+			</button>
+			<LinkButton label="Book now" link="/booking" />
+		</div>
 	</div>
 	<div class="w-full justify-between bg-dark80 text-light backdrop-blur-sm duration-300 md:flex">
 		<div class="flex w-full flex-col justify-center">
-			<!-- <div class="flex h-8 w-full items-center justify-end border-b border-dark30 pr-16">
-			<span class="flex items-center text-sm">
-				Bhim Guide <span class="ml-3 mr-2"><WhatsApp size="size-[20px]" color="#000000" /></span> +9779841356471
-			</span>
-		</div> -->
 			<div class="flex w-full items-center px-10">
 				<a href="/" class="mt-1 duration-300 {lastScrollTop > 150 ? 'block' : 'hidden'}">
 					<Logo2 size="w-[100px]" textColor="#F8F8F8" />
@@ -206,105 +238,112 @@
 							</div>
 						{/each}
 					</ul>
-					<button class="flex h-12 w-12 items-center justify-center rounded-full">
-						<WhatsApp size="size-[30px]" color="#027B83" />
-					</button>
 				</nav>
 			</div>
 		</div>
 	</div>
 </header>
 
+<!-- mobile -->
 <header
-	class="fixed inset-x-0 z-50 flex flex-col duration-300 sm:px-[3.5rem] md:hidden {lastScrollTop >
-	vh
-		? 'bg-light80 text-dark backdrop-blur-xl'
-		: ' text-light'}
-    {scrollDown ? 'translate-y-[-100%] transform' : 'translate-y-0 transform'}"
+	class="fixed inset-x-0 z-50 flex flex-col backdrop-blur-xl duration-300 sm:px-[3.5rem] md:hidden
+    {scrollDown && lastScrollTop > 200
+		? 'translate-y-[-100%] transform'
+		: 'translate-y-0 transform'}"
 >
-	<div
-		class="flex items-center justify-between pl-3 pr-6 {lastScrollTop > vh
-			? 'h-[3.5rem]'
-			: 'h-[4rem]'}"
-	>
+	<div class="flex h-[3.5rem] items-center justify-between bg-light90 pl-3 pr-6 text-dark">
 		<a href="/">
-			<Logo
-				size={lastScrollTop > vh ? 'w-[50px]' : 'w-[70px] pt-3'}
-				textColor={lastScrollTop > vh ? '#00171C' : '#F8F8F8'}
-			/>
+			<Logo size="w-[50px]" textColor="#00171C" />
 		</a>
 
 		{#if showMobileMenu}
 			<button onclick={toggleMobileMenu}><X color="#00171C" /></button>
 		{:else}
-			<button onclick={toggleMobileMenu}
-				><Menu color={lastScrollTop > vh ? '#00171C' : '#F8F8F8'} /></button
-			>
+			<button onclick={toggleMobileMenu}><Menu color="#00171C" /></button>
 		{/if}
 	</div>
+	{#if !showMobileMenu && lastScrollTop < 200}
+		<div class="h-[28px] w-full bg-dark80 text-light backdrop-blur-sm"></div>
+	{/if}
 
 	{#if showMobileMenu}
 		<nav>
-			<ul class="flex h-[calc(100vh-80px)] flex-col overflow-y-auto text-dark">
+			<ul class="flex h-[calc(100vh-80px)] flex-col overflow-y-auto bg-light90 text-dark">
 				{#each menuItems as item}
-					<button
-						onclick={() => expandMenuItem(item.label)}
-						class="flex h-12 min-h-12 min-w-max items-center justify-between text-nowrap px-4 uppercase"
-					>
-						<span>{item.label}</span>
+					<li class="flex flex-col">
+						<div class="flex h-12 min-h-12 items-center">
+							<a
+								href={item.link}
+								class="flex min-w-max flex-1 items-center justify-between text-nowrap px-4"
+							>
+								<span>{item.label}</span>
+							</a>
+							{#if item.subItems}
+								<button
+									onclick={() => expandMenuItem(item.label)}
+									class="flex h-12 items-center justify-center px-2"
+								>
+									<ChevronRight
+										size={28}
+										class={expandedMenus.includes(item.label)
+											? 'rotate-90 stroke-blue'
+											: 'stroke-dark80'}
+									/>
+								</button>
+							{/if}
+						</div>
 						{#if item.subItems}
-							<ChevronRight
-								size={28}
-								class={expandedMenus.includes(item.label)
-									? 'rotate-90 stroke-blue'
-									: 'stroke-dark80'}
-							/>
-						{/if}
-					</button>
-					{#if item.subItems}
-						<ul
-							class="flex flex-col bg-light80 {expandedMenus.includes(item.label)
-								? 'h-min'
-								: 'h-0 overflow-hidden'}"
-						>
-							{#each item.subItems as subItem, i}
-								<div class="flex flex-col">
-									<button
-										onclick={() => expandMenuItem(subItem.label)}
-										class="flex h-12 min-h-12 min-w-max items-center justify-between text-nowrap px-4"
-									>
-										<span class="pr-8 text-dark">{subItem.label}</span>
+							<ul
+								class="flex flex-col bg-light80 {expandedMenus.includes(item.label)
+									? 'h-min'
+									: 'h-0 overflow-hidden'}"
+							>
+								{#each item.subItems as subItem, i}
+									<div class="flex flex-col">
+										<div class="flex h-12 min-h-12 items-center">
+											<a
+												href={subItem.link}
+												class="flex min-w-max flex-1 items-center justify-between text-nowrap px-4"
+											>
+												<span class="text-dark">{subItem.label}</span>
+											</a>
+											{#if subItem.subItems}
+												<button
+													onclick={() => expandMenuItem(subItem.label)}
+													class="flex h-12 items-center justify-center px-2"
+												>
+													<ChevronRight
+														size={28}
+														class={expandedMenus.includes(subItem.label)
+															? 'rotate-90 stroke-blue'
+															: 'stroke-dark80'}
+													/>
+												</button>
+											{/if}
+										</div>
 										{#if subItem.subItems}
-											<ChevronRight
-												size={28}
-												class={expandedMenus.includes(subItem.label)
-													? 'rotate-90 text-blue'
-													: 'stroke-dark80'}
-											/>
+											<ul
+												class="flex flex-col bg-light {expandedMenus.includes(subItem.label)
+													? 'h-full'
+													: 'h-0 overflow-hidden'}"
+											>
+												{#each subItem.subItems as subItem, i}
+													<div class="relative">
+														<a
+															href={subItem.link}
+															class="flex h-12 min-w-max items-center justify-between text-nowrap pl-8 pr-6"
+														>
+															<span class="pr-8 text-dark">{subItem.title}</span>
+														</a>
+													</div>
+												{/each}
+											</ul>
 										{/if}
-									</button>
-									{#if subItem.subItems}
-										<ul
-											class="flex flex-col bg-light {expandedMenus.includes(subItem.label)
-												? 'h-full'
-												: 'h-0 overflow-hidden'}"
-										>
-											{#each subItem.subItems as subItem, i}
-												<div class="relative">
-													<a
-														href={subItem.link}
-														class="flex h-12 min-w-max items-center justify-between text-nowrap pl-8 pr-6"
-													>
-														<span class="pr-8 text-dark">{subItem.title}</span>
-													</a>
-												</div>
-											{/each}
-										</ul>
-									{/if}
-								</div>
-							{/each}
-						</ul>
-					{/if}
+									</div>
+								{/each}
+							</ul>
+						{/if}
+					</li>
 				{/each}
 			</ul>
 		</nav>

@@ -20,6 +20,7 @@
 	const packageContent = $derived(data.packageContent);
 	const pricing = $derived(data.pricing);
 	const tours = $derived(data.tours);
+	const duration = $derived(data.details.duration);
 
 	const content = [
 		{ label: 'Overview', value: 'overview' },
@@ -33,22 +34,48 @@
 	let sections;
 
 	$effect(() => {
-		sections = document.querySelectorAll('.scroll-block ');
-		document.addEventListener('scroll', handleScroll);
+		// Wait for DOM to be ready
+		const updateSections = () => {
+			sections = document.querySelectorAll('.scroll-block');
+			handleScroll(); // Check initial state
+		};
+
+		// Use setTimeout to ensure DOM is ready
+		const timeoutId = setTimeout(updateSections, 100);
+
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		window.addEventListener('resize', handleScroll, { passive: true });
+
 		return () => {
-			document.removeEventListener('scroll', handleScroll);
+			clearTimeout(timeoutId);
+			window.removeEventListener('scroll', handleScroll);
+			window.removeEventListener('resize', handleScroll);
 		};
 	});
 
 	const handleScroll = () => {
-		sections.forEach(function (section) {
-			var rect = section.getBoundingClientRect();
-			const viewportHeight = window.innerHeight;
+		if (!sections || sections.length === 0) return;
 
-			if (rect.top <= viewportHeight / 3 && rect.bottom > 0) {
-				activeContent = section.id;
+		let currentSection = null;
+		const viewportHeight = window.innerHeight;
+		const threshold = viewportHeight / 3;
+
+		sections.forEach(function (section) {
+			const rect = section.getBoundingClientRect();
+
+			// Check if section is in view (top is above threshold and bottom is below top of viewport)
+			if (rect.top <= threshold && rect.bottom > 0) {
+				// If no current section, or this section is higher up (more visible)
+				if (!currentSection || rect.top > currentSection.rect.top) {
+					currentSection = { id: section.id, rect };
+				}
 			}
 		});
+
+		// If we found a section in view, update activeContent
+		if (currentSection) {
+			activeContent = currentSection.id;
+		}
 	};
 </script>
 
@@ -58,8 +85,8 @@
 	{/key}
 </section>
 
-<div
-	class="relative z-20 flex rounded-t-[40px] bg-light text-dark md:flex-row md:px-16 md:py-20 lg:px-40 lg:py-24"
+<section
+	class="relative z-20 flex rounded-t-[40px] bg-light py-12 text-dark md:flex-row md:px-16 md:py-20 lg:px-40 lg:py-24"
 >
 	<aside class="relative hidden w-full flex-col pt-10 md:flex md:w-[30%] md:pr-12 lg:pr-24">
 		<div class="sticky top-20 flex h-fit flex-col gap-12">
@@ -79,13 +106,13 @@
 				{/each}
 			</ul>
 
-			<Pricing {pricing} />
+			<Pricing {pricing} {duration} />
 		</div>
 	</aside>
 
 	<article class="md:w-[70%] md:border-l md:border-dark30 md:pl-10 lg:pl-24">
 		{#key general}
-			<TrekOverview {details} {description} />
+			<TrekOverview {details} {description} {pricing} />
 			{#if gallery}
 				<Gallery {gallery} />
 			{/if}
@@ -107,4 +134,4 @@
 			handleClick={(option) => (activeContent = option)}
 		/>
 	</div>
-</div>
+</section>

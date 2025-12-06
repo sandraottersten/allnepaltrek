@@ -19,12 +19,12 @@
 		@apply text-[3rem] md:text-[4.5rem] lg:text-[5rem] xl:text-8xl font-medium leading-[110%] uppercase text-light80;
 	}
 
-  h2 {
-		@apply text-2xl md:text-3xl lg:text-3xl xl:text-6xl font-medium text-dark;
+  h2, .h2 {
+		@apply text-2xl md:text-3xl lg:text-3xl xl:text-6xl font-medium text-dark normal-case;
 	}
 
-  h3 {
-		@apply text-xl md:text-2xl lg:text-2xl xl:text-3xl font-medium;
+  h3, .h3 {
+		@apply text-2xl lg:text-2xl xl:text-3xl font-medium;
 	}
 
   .h4 {

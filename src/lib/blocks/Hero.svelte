@@ -35,8 +35,8 @@
 		alt={data.image.attribution || 'Hero image'}
 		class="absolute left-0 top-0 size-full object-cover saturate-[.8] filter"
 	/>
-	<div class="z-20 flex w-[75%] flex-col items-center gap-4 pt-60">
-		<h1 class="text-center">
+	<div class="z-20 flex flex-col items-center gap-4 pt-60">
+		<h1 class="text-center md:w-[75%]">
 			{data.title}
 		</h1>
 

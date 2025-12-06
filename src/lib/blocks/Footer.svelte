@@ -1,6 +1,5 @@
 <script>
 	import Logo from '$lib/svg/Logo.svelte';
-	import Divider from '$lib/pieces/Divider.svelte';
 
 	let regions = [
 		{ label: 'Everest region', link: '/treks?region=everest' },
@@ -15,7 +14,7 @@
 		{ label: 'Classic treks', link: '/treks?category=classic' },
 		{ label: 'Best views', link: '/treks?category=view' },
 		{ label: 'Peak climbs', link: '/treks?category=peak' },
-		{ label: 'Off the beaten path', link: '/treks?category=offpath' }
+		{ label: 'Hidden gems', link: '/treks?category=offpath' }
 	];
 
 	let tours = [

@@ -5,7 +5,7 @@
 
 <a
 	href={link}
-	class="flex h-14 items-center gap-4 rounded-full bg-blue pl-10 pr-6 text-lg font-normal text-light {style} {fullWidth
+	class="flex h-12 items-center gap-4 rounded-lg bg-blue pl-6 pr-4 text-lg font-normal text-light {style} {fullWidth
 		? 'w-full'
 		: 'w-fit'}"
 	>{label}

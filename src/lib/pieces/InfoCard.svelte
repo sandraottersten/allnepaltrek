@@ -38,7 +38,7 @@
 	</div>
 </div>
 
-<div class="x-margin t-margin md:hidden">
+<div class="x-margin y-margin md:hidden">
 	<div class="relative w-full">
 		<div class="relative">
 			<img
@@ -48,11 +48,11 @@
 				class="size-full rounded-lg object-cover saturate-[.8] filter"
 			/>
 			<button
-				class="absolute bottom-0 flex w-full items-center justify-between rounded-b-lg bg-light80 p-4 text-dark backdrop-blur"
+				class="absolute bottom-0 flex w-full items-center justify-between rounded-b-lg bg-light90 p-4 text-dark backdrop-blur"
 				onclick={() => (openImageText = !openImageText)}
 			>
-				<h3>{infoCard.title}</h3>
-				<ChevronDown color="#EE7430" size={28} />
+				<span class="text-lg font-medium">{infoCard.title}</span>
+				<ChevronDown color="#027B83" size={28} />
 			</button>
 		</div>
 		{#if openImageText}

@@ -47,11 +47,8 @@
 	</div>
 </section>
 
-<section
-	style:--image-mob={`url(${imgMob})`}
-	class="flex bg-[image:var(--image-mob)] bg-cover bg-fixed bg-center bg-no-repeat md:hidden"
->
-	<div class="relative flex w-full flex-col gap-12 bg-light80 py-8 text-dark backdrop-blur">
+<section style:--image-mob={`url(${imgMob})`} class="flex bg-[#E3E3E3] md:hidden">
+	<div class="relative flex w-full flex-col gap-12 bg-light80 py-8 text-dark">
 		<div class="flex justify-center pr-4">
 			<NepalMap
 				size="w-[100vw]"
@@ -75,12 +72,13 @@
 				</div>
 
 				<div class="flex-1">
-					<p class="mt-4 border-y border-dark30 px-3 py-3">Treks: 5</p>
-					<a
-						href={`/regions/${selectedRegion.seo.slug.current}`}
-						class="flex justify-between border-b border-dark30 px-3 py-3"
-						>See all treks <PeaksSmall size="size-[24px] min-w-[24px]" /></a
-					>
+					<p class="px-3">Top trek:</p>
+					<p class="border-b border-dark30 px-3 py-3">{selectedRegion.topTrek}</p>
+					<TextLink
+						link={`/regions/${selectedRegion.seo.slug.current}`}
+						text="See all treks"
+						style="mt-4 ml-3"
+					/>
 				</div>
 			</div>
 		{/if}

@@ -12,18 +12,18 @@
 	const treks = $derived(data.treks);
 </script>
 
-<section class="relative h-[92vh]">
+<section class="relative h-[77vh]">
 	{#key general}
-		<Hero data={general} height="h-[100vh]" />
+		<Hero data={general} height="h-[82vh]" />
 	{/key}
 </section>
 
 <section
-	class="x-margin relative z-20 flex rounded-t-3xl bg-light py-12 text-dark md:gap-12 md:pt-28 lg:pt-32"
+	class="x-margin relative z-20 flex flex-col rounded-t-3xl bg-light py-12 text-dark md:flex-row md:py-20 lg:py-24"
 >
 	<div class="md:w-[70%] md:border-r md:border-dark30 md:pr-10 lg:pr-24">
 		<article class="rounded-3xlpx-4 portable flex w-full flex-col md:px-0">
-			<h2 class="mb-12 w-5/6">{description.title}</h2>
+			<h2 class="mb-12 text-center md:w-5/6 md:text-left">{description.title}</h2>
 			<PortableText value={description.text} />
 		</article>
 		{#if gallery?.images.length > 3}
@@ -40,4 +40,12 @@
 			{/each}
 		</section>
 	</aside>
+	<div class="mt-12 flex flex-col gap-12 md:hidden">
+		{#each treks as trek}
+			<ActivityCard data={trek} link={`/treks/${trek.seo.slug.current}`} />
+		{/each}
+		{#each tours as tour}
+			<ActivityCard data={tour} link={`/tours/${tour.seo.slug.current}`} />
+		{/each}
+	</div>
 </section>

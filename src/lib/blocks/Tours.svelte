@@ -4,7 +4,7 @@
 	let { tours } = $props();
 </script>
 
-<div id="tours" class="py-12">
+<div id="tours" class="scroll-block py-12">
 	<h2>Combine with</h2>
 	<p class="my-4">
 		We have a prelimanary plan but it can always change due to weather, availability and your

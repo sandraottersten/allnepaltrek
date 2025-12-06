@@ -43,7 +43,7 @@
 <section
 	class="x-margin relative z-20 flex flex-col rounded-t-3xl bg-light pt-12 text-dark md:gap-12 md:pt-28 lg:pt-32"
 >
-	<div class="flex w-full flex-col items-center gap-16">
+	<div class="flex w-full flex-col items-center gap-8 md:gap-16">
 		<h2 class="px-3 md:max-w-[50%] md:text-center">{intro.title}</h2>
 		<div class="grid grid-cols-1 gap-8 px-3 md:grid-cols-3">
 			{#each usps as usp}

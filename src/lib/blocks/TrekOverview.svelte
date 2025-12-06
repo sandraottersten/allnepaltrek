@@ -13,8 +13,9 @@
 	import { PortableText } from '@eirikk/portabletext-2-svelte-5';
 	import { urlFor } from '../../sanity/index';
 	import { slide } from 'svelte/transition';
+	import Pricing from '$lib/pieces/Pricing.svelte';
 
-	const { details, description } = $props();
+	const { details, description, pricing } = $props();
 	const { distance, difficulty, duration, altitude, trekDays } = details;
 	let expandedHighlight = $state(-1);
 	let highlightImage = $state(description.highlights?.[0]?.image);
@@ -25,13 +26,13 @@
 	class="scroll-block b-margin flex w-full flex-col gap-12 rounded-3xl bg-light px-4 md:gap-16 md:px-0"
 >
 	<div>
-		<h2 class="w-5/6">{description.title}</h2>
+		<h2 class="text-center md:w-5/6 md:text-left">{description.title}</h2>
 		<div class="my-12">
 			<div class="my-4 flex items-center justify-between">
 				<span class="flex items-center gap-4">
 					<ChartNoAxesColumnIncreasing />
 					<p class="text-start font-medium capitalize">{difficulty}</p>
-					<Info color="#027B83" size="18" />
+					<!-- <Info color="#027B83" size="24" /> -->
 				</span>
 			</div>
 			<Divider />
@@ -65,6 +66,10 @@
 					</span>
 				</div>
 			</section>
+		</div>
+
+		<div class="md:hidden">
+			<Pricing {pricing} {duration} />
 		</div>
 
 		<div class="my-12">

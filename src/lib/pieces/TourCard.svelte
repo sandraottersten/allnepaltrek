@@ -35,4 +35,17 @@
 		<p>{duration}</p>
 	</div>
 	<hr class="border-1 w-full border-dark30 group-hover:border-blue" />
+
+	<div class="gap-5p-6 flex flex-col justify-end p-3 text-dark md:hidden">
+		<p>{description}</p>
+		<span class="group flex items-center gap-2">
+			<div class="group mb-2 mt-2 flex items-center gap-1">
+				<span class="text-blue">Read more</span>
+				<ChevronsRight
+					size={24}
+					class="transform text-blue duration-200 group-hover:translate-x-1"
+				/>
+			</div>
+		</span>
+	</div>
 </a>

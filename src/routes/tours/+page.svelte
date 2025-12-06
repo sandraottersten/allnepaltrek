@@ -35,14 +35,14 @@
 	});
 </script>
 
-<section class="relative">
-	<Hero data={general} height="h-[100vh]" />
+<section class="relative h-[77vh]">
+	<Hero data={general} height="h-[82vh]" />
 </section>
 
 <section
-	class="y-margin relative flex flex-col items-center pt-12 text-dark md:gap-24 md:pt-28 lg:pt-32"
+	class="relative z-20 flex flex-col items-center rounded-t-[40px] bg-light py-12 text-dark md:gap-24 md:py-20 lg:py-24"
 >
-	<div class="x-margin flex w-full flex-col items-center gap-16">
+	<div class="x-margin flex w-full flex-col items-center gap-8 md:gap-16">
 		<h2 class="px-3 md:max-w-[50%] md:text-center">{intro.title}</h2>
 		<div class="grid grid-cols-1 gap-8 px-3 md:grid-cols-3">
 			{#each usps as usp}
@@ -57,23 +57,49 @@
 		<div class="grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4">
 			{#each categories as category}
 				<button
-					class="flex h-[56px] w-full items-center gap-2 rounded-lg px-4 md:h-28 md:flex-col md:justify-center md:gap-2 md:rounded-xl md:text-lg {selectedCategory.value ===
+					class="flex h-14 w-full items-center gap-1 rounded-lg border px-4 md:h-28 md:flex-col md:justify-center md:gap-2 md:rounded-xl md:text-lg {selectedCategory.value ===
 					category.value
-						? 'bg-blue70 text-light'
-						: 'bg-[#E3E3E3] hover:bg-blue40'}"
+						? 'border-blue70 bg-blue70 text-light'
+						: 'border-dark80 text-dark'}"
 					onclick={() => (selectedCategory = category)}
 				>
 					<span class="hidden size-6 md:block">
-						<category.icon size="32" />
+						{#if category.icon === 'Footprints'}
+							<Footprints size={32} />
+						{:else if category.icon === 'Landmark'}
+							<Landmark size={32} />
+						{:else if category.icon === 'Kayak'}
+							<Kayak size={32} />
+						{:else if category.icon === 'PawPrint'}
+							<PawPrint size={32} />
+						{:else if category.icon === 'Compass'}
+							<Compass size={32} />
+						{:else}
+							<Compass size={32} />
+						{/if}
 					</span>
 					<span class="block size-6 md:hidden">
-						<category.icon size="20" />
+						{#if category.icon === 'Footprints'}
+							<Footprints size={20} />
+						{:else if category.icon === 'Landmark'}
+							<Landmark size={20} />
+						{:else if category.icon === 'Kayak'}
+							<Kayak size={20} />
+						{:else if category.icon === 'PawPrint'}
+							<PawPrint size={20} />
+						{:else if category.icon === 'Compass'}
+							<Compass size={20} />
+						{:else}
+							<Compass size={20} />
+						{/if}
 					</span>
 					{category.label}
 				</button>
 			{/each}
 		</div>
 	{/snippet}
+
+	<Filter {slot1} selectedFilter={selectedCategory.label} />
 
 	<div class="x-margin hidden w-4/5 grid-cols-2 gap-4 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-6">
 		{#each categories as category}
@@ -132,9 +158,7 @@
 		{/each}
 	</div>
 
-	<Filter {slot1} />
-
-	<div class="x-margin grid grid-cols-1 gap-4 md:mt-12 md:grid-cols-2">
+	<div class="t-margin x-margin grid grid-cols-1 gap-4 md:grid-cols-2">
 		{#key filteredTours}
 			{#each filteredTours as tour, i}
 				<TourCard index={i} {tour} />

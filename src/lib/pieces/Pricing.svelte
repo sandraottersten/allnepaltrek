@@ -4,15 +4,14 @@
 	import TextLink from '$lib/pieces/TextLink.svelte';
 	import LinkButton from '$lib/pieces/LinkButton.svelte';
 
-	let { pricing = $bindable() } = $props();
+	let { duration, pricing } = $props();
 	let expandedGroupDiscount = $state(false);
-	const { cat1, cat2, cat3, cat4 } = pricing;
 </script>
 
 <div class="flex h-min flex-col items-center overflow-hidden rounded-lg border border-dark30">
-	<div class="flex w-full items-end justify-between bg-dark80 p-4">
-		<p class="font-medium text-light">14 days</p>
-		<p class="text-5xl font-medium text-light md:text-3xl">US$ {pricing.cat1}</p>
+	<div class="flex w-full items-end justify-between bg-dark80 px-4 py-3 md:py-4">
+		<p class="font-medium text-light">{duration} / 1 ppl</p>
+		<p class="text-2xl font-medium text-light">US$ {pricing.cat1}</p>
 	</div>
 	<button
 		class="flex w-full items-center justify-between px-5 py-4"
@@ -41,5 +40,5 @@
 		<TextLink text="Contact us" link="/" />
 	</div>
 	<Divider />
-	<LinkButton label="Book now" link="/" style="my-6" />
+	<LinkButton label="Book now" link="/booking" style="my-6" />
 </div>

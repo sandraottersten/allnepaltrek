@@ -49,7 +49,7 @@
 	</div>
 	<section class="mt-8 flex flex-col gap-4">
 		{#each itinerary.days as day, i}
-			<div>
+			<div class="border-b border-dark30 pb-2 md:border-b-0 md:pb-0">
 				<div class="mb-2 flex w-full flex-col gap-1 md:mb-2 md:flex-row md:gap-8">
 					<div class="mt-0.5 flex gap-1">
 						<p class="h4 whitespace-nowrap text-blue">
@@ -61,7 +61,7 @@
 							<p class="h4 flex-grow">{day.title}</p>
 							<div class="mx-2 hidden h-[1px] w-full bg-dark30 md:block"></div>
 							<button
-								class="group flex size-8 min-w-8 items-center justify-center"
+								class="group flex size-8 min-w-8 items-center justify-center rounded-md hover:bg-dark10"
 								onclick={() => expandDay(i)}
 							>
 								<ChevronRight

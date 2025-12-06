@@ -41,6 +41,8 @@
 	let selectedRegion = $state(allRegions[0]);
 	let selectedDuration = $state(durations[0]);
 	let selectedDifficulty = $state(difficulties[0]);
+	let openDropdownId = $state(null);
+	$inspect(selectedFilter.name);
 
 	onMount(() => {
 		const region = $page.url.searchParams.get('region');
@@ -81,12 +83,12 @@
 	});
 </script>
 
-<section class="relative">
-	<Hero data={general} height="h-[100vh]" />
+<section class="relative h-[77vh]">
+	<Hero data={general} height="h-[82vh]" />
 </section>
 
 <section
-	class="y-margin relative flex flex-col items-center pt-12 text-dark md:gap-24 md:pt-28 lg:pt-32"
+	class="relative z-20 flex flex-col items-center rounded-t-[40px] bg-light py-12 text-dark md:gap-24 md:py-20 lg:py-24"
 >
 	<div class="x-margin flex w-full flex-col items-center gap-8 md:gap-16">
 		<h2 class="px-3 md:max-w-[50%] md:text-center">{intro.title}</h2>
@@ -156,23 +158,45 @@
 		{/each}
 	</div>
 
-	<Filter {slot1} {slot2} />
-
 	{#snippet slot1()}
 		<div class="grid grid-cols-2 gap-2 md:grid-cols-6 md:gap-4">
 			{#each [categoryAll, ...categories] as category}
 				<button
-					class="flex h-16 w-full items-center gap-1 rounded-full border px-4 md:h-28 md:flex-col md:justify-center md:gap-2 md:rounded-3xl md:text-lg {selectedFilter.value ===
-					category.value
-						? 'border-orange bg-orange text-light'
-						: 'border-dark80 text-dark hover:bg-orange70'}"
+					class="flex h-14 w-full items-center gap-1 rounded-lg border px-4 md:h-28 md:flex-col md:justify-center md:gap-2 md:rounded-xl md:text-lg {selectedFilter.id ===
+					category.id
+						? 'border-blue70 bg-blue70 text-light'
+						: 'border-dark80 text-dark'}"
 					onclick={() => (selectedFilter = category)}
 				>
 					<span class="hidden size-6 md:block">
-						<category.icon size="32" />
+						{#if category.icon === 'Footprints'}
+							<Footprints size={32} />
+						{:else if category.icon === 'Mountain'}
+							<Mountain size={32} />
+						{:else if category.icon === 'Timer'}
+							<Timer size={32} />
+						{:else if category.icon === 'Binoculars'}
+							<Binoculars size={32} />
+						{:else if category.icon === 'Bird'}
+							<Bird size={32} />
+						{:else}
+							<Mountain size={32} />
+						{/if}
 					</span>
 					<span class="block size-6 md:hidden">
-						<category.icon size="20" />
+						{#if category.icon === 'Footprints'}
+							<Footprints size={20} />
+						{:else if category.icon === 'Mountain'}
+							<Mountain size={20} />
+						{:else if category.icon === 'Timer'}
+							<Timer size={20} />
+						{:else if category.icon === 'Binoculars'}
+							<Binoculars size={20} />
+						{:else if category.icon === 'Bird'}
+							<Bird size={20} />
+						{:else}
+							<Mountain size={20} />
+						{/if}
 					</span>
 					{category.name}
 				</button>
@@ -183,46 +207,67 @@
 	{#snippet slot2()}
 		<div class="flex flex-col gap-2 md:flex-row md:gap-4">
 			<Dropdown
+				id="region-mobile"
 				options={allRegions}
 				activeOption={selectedRegion}
 				handleClick={(option) => (selectedRegion = option)}
+				maxHeight={319}
+				openId={openDropdownId}
+				setOpenId={(id) => (openDropdownId = id)}
 			/>
 			<Dropdown
+				id="difficulty-mobile"
 				options={difficulties}
 				activeOption={selectedDifficulty}
 				handleClick={(option) => (selectedDifficulty = option)}
+				openId={openDropdownId}
+				setOpenId={(id) => (openDropdownId = id)}
 			/>
 			<Dropdown
+				id="duration-mobile"
 				options={durations}
 				activeOption={selectedDuration}
 				handleClick={(option) => (selectedDuration = option)}
+				openId={openDropdownId}
+				setOpenId={(id) => (openDropdownId = id)}
 			/>
 		</div>
 	{/snippet}
 
+	<Filter {slot1} {slot2} selectedFilter={selectedFilter.name} />
+
 	<div class="x-margin">
 		<div class="hidden flex-row items-end gap-2 md:flex md:gap-5">
 			<Dropdown
+				id="region-desktop"
 				options={allRegions}
 				activeOption={selectedRegion}
 				handleClick={(option) => (selectedRegion = option)}
+				openId={openDropdownId}
+				setOpenId={(id) => (openDropdownId = id)}
 			/>
 			<Dropdown
+				id="difficulty-desktop"
 				options={difficulties}
 				activeOption={selectedDifficulty}
 				handleClick={(option) => (selectedDifficulty = option)}
+				openId={openDropdownId}
+				setOpenId={(id) => (openDropdownId = id)}
 			/>
 			<Dropdown
+				id="duration-desktop"
 				options={durations}
 				activeOption={selectedDuration}
 				handleClick={(option) => (selectedDuration = option)}
+				openId={openDropdownId}
+				setOpenId={(id) => (openDropdownId = id)}
 			/>
 			<div class="ml-auto mr-0 text-blue">
 				{filteredTreks.length} treks
 			</div>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 md:mt-12 md:grid-cols-2 lg:grid-cols-3">
+		<div class="t-margin grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 			{#key filteredTreks}
 				{#each filteredTreks as trek, i}
 					<TrekCard index={i} {trek} />

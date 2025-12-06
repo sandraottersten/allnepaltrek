@@ -1,49 +1,31 @@
 <script>
-	import { ChevronRight } from '@lucide/svelte';
-
-	const { activeOption, options, handleClick } = $props();
-	let openList = $state(false);
+	const { options, handleClick, activeOption } = $props();
 </script>
 
-<div
-	class="flex flex-col-reverse rounded-full bg-blue70 p-2 pl-3 backdrop-blur {openList
-		? 'rounded-[1.8rem]'
-		: 'rounded-full'}"
->
-	<div class="flex">
-		<select class="hidden w-12">
-			{#each options as option}
-				<option value={option} class="w-12">
-					{option}
-				</option>
-			{/each}
-		</select>
-
-		<button
-			class="bg-transparent txt-normal flex h-10 items-center justify-between rounded px-2 uppercase text-light"
-			onclick={() => (openList = !openList)}
-		>
-			{activeOption}
-			<ChevronRight color="#FFFFFF" />
-		</button>
+<nav class="fixed bottom-0 left-0 right-0 z-50 bg-blue70 backdrop-blur">
+	<div class="no-scrollbar flex gap-4 overflow-x-auto">
+		{#each options as option}
+			<a
+				href={`#${option.value}`}
+				class="txt-normal hover:bg-blue60 flex-shrink-0 rounded-full px-4 py-4 text-light transition-colors {activeOption ===
+				option.value
+					? 'underline underline-offset-4'
+					: ''}"
+				onclick={() => handleClick(option.value)}
+			>
+				{option.label}
+			</a>
+		{/each}
 	</div>
+</nav>
 
-	{#if openList}
-		<div>
-			{#each options as option}
-				{#if option !== activeOption}
-					<button
-						key={option}
-						class="txt-normal flex h-10 w-full items-center justify-between whitespace-nowrap px-3 uppercase text-light"
-						onclick={() => {
-							handleClick(option);
-							openList = false;
-						}}
-					>
-						{option}
-					</button>
-				{/if}
-			{/each}
-		</div>
-	{/if}
-</div>
+<style>
+	/* Hide scrollbar but keep functionality */
+	.no-scrollbar {
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
+	.no-scrollbar::-webkit-scrollbar {
+		display: none; /* Chrome, Safari and Opera */
+	}
+</style>
