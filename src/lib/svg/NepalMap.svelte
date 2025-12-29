@@ -18,10 +18,16 @@
 		<!-- Langtang -->
 		<path
 			d="M539.5 241L532.5 246L528.5 251L527 259.5L530 261.5V264.5L528 265L527 261.5L522.5 263C522.5 264.667 521.1 268.3 515.5 269.5L514 274C515.167 274.5 518.9 275.2 524.5 274C524.167 275.5 524.8 278.5 530 278.5C535.6 279.3 536 279.5 535.5 279.5L538.5 277.5L540.5 282.5L543 281L542.5 279H544.5L545.5 276L554 278.5L556.5 281L562.5 277.5L565.5 281L574.5 279.5L580 272.5V268.5L584 266L580.5 264.5L579 258.5L572 254.5L567 238.5L562 236.5L558 251L555 249.5L554 246L539.5 241Z"
-			onclick={() => onclick('langtang')}
-			onkeydown={() => onclick('langtang')}
-			tabindex="-1"
-			role="button"
+      role="button"
+      tabindex={0}
+      aria-label="Select Langtang"
+      onclick={() => onClick('langtang')}
+      onkeydown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onclick('langtang');
+        }
+      }}
 			class="cursor-pointer outline-none hover:fill-blue70 hover:stroke-blue70 {selected ===
 			'langtang'
 				? 'fill-blue stroke-blue'
@@ -30,9 +36,15 @@
 		<!-- Sagarmatha -->
 		<path
 			d="M650.5 290.006L647.5 287.006L647 286.507V283.506L646 278.007L647 273.507H650L651 267.006H654.5L656.5 270.007H659.5L662 267.006C670 267.005 670.5 270.001 670 272.506C670.5 273.506 672.5 275.506 674.5 276.506L679 275.006C689.4 284.606 695.333 284.673 697 283.506L694 286.006L693 288.006L692 290.006L693 293.006C691 295.406 687.5 294.006 686 293.006L683.5 295.506L685 298.006L682 300.506C678.8 298.106 677 299.839 676.5 301.006H672.5V305.006L666.5 303.506V306.006L664 306.506C664.167 306.839 664 306.706 662 303.506C660 300.306 652.167 299.173 648.5 299.006L650.5 290.006Z"
-			onclick={() => onclick('everest')}
-			onkeydown={() => onclick('everest')}
-			tabindex="-2"
+      aria-label="Select Everest"
+      onclick={() => onclick('everest')}
+      onkeydown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onclick('everest');
+        }
+      }}
+			tabindex={0}
 			role="button"
 			class="cursor-pointer outline-none hover:fill-blue70 hover:stroke-blue70 {selected ===
 			'everest'
@@ -42,9 +54,15 @@
 		<!-- Makalu -->
 		<path
 			d="M737.5 295.501L739 298.501H736L739 301V303.5L742 304.5L737.5 308.5L734 307.5L729.5 308.5L732.5 311.5L730.5 315C727.167 317.167 720.2 321.5 719 321.5C716.6 319.9 713.667 324.5 712.5 327C709.3 324.6 708.5 327 708.5 328.5H702.5L699.5 327C698.333 327.5 695.6 328.5 694 328.5C690 325.7 684.333 326.333 682 327L671.5 318.5L674 315.5L673 311.5L679 304.5C678.167 303.5 676.5 301.4 676.5 301C678.1 298.2 680.833 299.5 682 300.5L685 298L683.5 295.501L686 293C690 295.4 692.333 294 693 293L692 290L694 286L697 283.5C699 285.667 703.4 290.1 705 290.5C706.6 290.9 709 293 710 294L707.5 297.001C714 300.5 720.167 297.334 722 295.501C730 298.501 730.5 297.5 731 297.001C732.2 295.001 735.833 295.167 737.5 295.501Z"
-			onclick={() => onclick('makalu')}
-			onkeydown={() => onclick('makalu')}
-			tabindex="-3"
+      aria-label="Select Makalu"
+      onclick={() => onclick('makalu')}
+      onkeydown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onclick('makalu');
+        }
+      }}
+			tabindex={0}
 			role="button"
 			class="cursor-pointer outline-none hover:fill-blue70 hover:stroke-blue70 {selected ===
 			'makalu'
@@ -54,9 +72,15 @@
 		<!-- Kanchenjunga -->
 		<path
 			d="M762 311C763.6 310.2 764.667 304.334 765 301.5H771.5L774.5 297V292L778.5 291V286.5L782.5 288C783 289.5 783.5 290 784.5 290C788.5 288.8 790.5 289.5 791 290L794.5 293.5L800.5 292L804 294L808 292L815.5 296L812.5 298.5L816 301C816 303.4 815 305.833 814.5 307C811 313 811 313 810 319.5C808.5 324 803.5 326.259 803.5 327C803.5 330.5 802.167 333.5 802 333.5C799.167 333.834 792.9 334.3 790.5 333.5C788.1 332.7 784.167 337.5 782.5 340L779.5 336H776L775 332L773 334.5L766 331L769 326.5C767.8 324.1 768.5 321.5 769 320.5L767.5 316.5C765 315 760.4 311.8 762 311Z"
-			onclick={() => onclick('kanchenjunga')}
-			onkeydown={() => onclick('kanchenjunga')}
-			tabindex="-4"
+      aria-label="Select Kanchenjunga"
+      onclick={() => onclick('kanchenjunga')}
+      onkeydown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onclick('kanchenjunga');
+        }
+      }}
+			tabindex={0}
 			role="button"
 			class="cursor-pointer outline-none hover:fill-blue70 hover:stroke-blue70 {selected ===
 			'kanchenjunga'
@@ -66,9 +90,15 @@
 		<!-- Annapurna -->
 		<path
 			d="M360.5 148.001L359 144.501L366 137H374.5L376.5 132L393 130L395.5 133.501C397.9 133.101 403.833 133.668 406.5 134.001L407.5 137.001L414.5 140.001L411.5 145L412.5 151.001L416 152.501L413.5 160.501L420 161.501C420.8 161.501 418.167 166.833 417.5 169.5V177.001L430 180.501H434.5C437.7 182.501 438.833 185.668 439 187.001V193.501L430.5 195.001L425.5 203.501L428 205.001V207.501L434.5 213.001L430.5 216.501L432 226.001L435.5 230.001L434.5 240.501L429 244.001C424.2 244.001 422 247.001 421.5 248.501H409C406.2 246.501 404.5 246.668 404 247.001L399 248.001L395 239.501L388 243.001H380C379.667 243.168 378.3 243.601 375.5 244.001C369.9 243.201 365.167 239.001 363.5 237.001L359.5 235.501L362.5 229.501L356.5 227.501C353.5 224.501 357.545 223.001 358.5 221.501C361.3 217.101 358.667 213.001 357 211.501L351 210.001L349.5 204.001L348 203.001L346 198.501L349.5 192.501V190.001C348.667 189.501 346.3 188.301 343.5 187.501C340.7 186.701 341 183.501 341.5 182.001L343.5 181.501V178.001L352.5 166.501L355 167.501L356 165.501L354.5 164.001L355 158.501H356.5L357 156.001L355 154.501L357 153.001L359 153.501L360 151.501H362.5V149.001L360.5 148.001Z"
-			onclick={() => onclick('annapurna')}
-			onkeydown={() => onclick('annapurna')}
-			tabindex="-5"
+      aria-label="Select Annapurna"
+      onclick={() => onclick('annapurna')}
+      onkeydown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onclick('annapurna');
+        }
+      }}
+      tabindex={0}
 			role="button"
 			class="cursor-pointer outline-none hover:fill-blue70 hover:stroke-blue70 {selected ===
 			'annapurna'
@@ -78,9 +108,15 @@
 		<!-- Manaslu -->
 		<path
 			d="M448 200.5L443.5 196L448.5 193.5L455.5 194.5L465 203V206.5L469.5 207.5L476 210L481 212.5L487.5 209L493.5 210.5L501 201.5H507L510.5 203L515 206.5V217.5C513.4 220.3 508.833 224 507 225.5L497.5 224L500 232.5H495.5C493.1 235.7 488.167 237.167 486 237.5L480.5 233.5L472 232.5L468.5 236H464L459 227L455 226.5L451.5 221.5L449.5 206L446.5 202L448 200.5Z"
-			onclick={() => onclick('manaslu')}
-			onkeydown={() => onclick('manaslu')}
-			tabindex="-6"
+      aria-label="Select Manaslu"
+      onclick={() => onclick('manaslu')}
+      onkeydown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onclick('manaslu');
+        }
+      }}
+      tabindex={0}
 			role="button"
 			class="cursor-pointer outline-none hover:fill-blue70 hover:stroke-blue70 {selected ===
 			'manaslu'
@@ -90,9 +126,15 @@
 		<!-- Chitwan -->
 		<path
 			d="M421 335.5L420.5 340.5L416 341.5V338.5C413.6 338.9 409.667 335.667 408 334L402 336V340.5L399 341.5L386 340.5L386.5 337L382.5 334L382 332L384 327L397.5 328L400.5 325.5L405.5 326C405.5 322.8 407 322 407.5 321.5L413.5 318V316.5C414 316.5 423 315.333 427 314C427.5 314.5 427.1 316.1 421.5 318.5C415.9 320.9 412.5 324.833 411.5 326.5L423 327.5L427.5 328.5L432.5 327L440.5 325.5L445 326L444.5 329C444.9 331 448.333 331.167 450 331L454 328H459.5L463.5 326.5C469 329 480 334.1 480 334.5C480 336.9 477 340.167 475.5 341.5L459.5 342.5V340.5L451 337.5L451.5 341L448 344.5L423.5 337.5V334H422L421 335.5Z"
-			onclick={() => onclick('chitwan')}
-			onkeydown={() => onclick('chitwan')}
-			tabindex="-7"
+      aria-label="Select Chitwan"
+      onclick={() => onclick('chitwan')}
+      onkeydown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onclick('chitwan');
+        }
+      }}
+      tabindex={0}
 			role="button"
 			class="cursor-pointer outline-none hover:fill-blue70 hover:stroke-blue70 {selected ===
 			'chitwan'
@@ -149,9 +191,15 @@
 		<!-- Langtang -->
 		<path
 			d="M219.5 137L212.5 142L208.5 147L207 155.5L210 157.5V160.5L208 161L207 157.5L202.5 159C202.5 160.667 201.1 164.3 195.5 165.5L194 170C195.167 170.5 198.9 171.2 204.5 170C204.167 171.5 204.8 174.5 210 174.5C215.6 175.3 216 175.5 215.5 175.5L218.5 173.5L220.5 178.5L223 177L222.5 175H224.5L225.5 172L234 174.5L236.5 177L242.5 173.5L245.5 177L254.5 175.5L260 168.5V164.5L264 162L260.5 160.5L259 154.5L252 150.5L247 134.5L242 132.5L238 147L235 145.5L234 142L219.5 137Z"
-			onclick={() => onclick('langtang')}
-			onkeydown={() => onclick('langtang')}
-			tabindex="-1"
+      aria-label="Select Langtang"
+      onclick={() => onclick('langtang')}
+      onkeydown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onclick('langtang');
+        }
+      }}
+			tabindex={0}
 			role="button"
 			class="cursor-pointer outline-none hover:fill-blue70 hover:stroke-blue70 {selected ===
 			'langtang'
@@ -161,9 +209,15 @@
 		<!-- Chitwan -->
 		<path
 			d="M101 231.5L100.5 236.5L96 237.5V234.5C93.6 234.9 89.6667 231.667 88 230L82 232V236.5L79 237.5L66 236.5L66.5 233L62.5 230L62 228L64 223L77.5 224L80.5 221.5L85.5 222C85.5 218.8 87 218 87.5 217.5L93.5 214V212.5C94 212.5 103 211.333 107 210C107.5 210.5 107.1 212.1 101.5 214.5C95.9 216.9 92.5 220.833 91.5 222.5L103 223.5L107.5 224.5L112.5 223L120.5 221.5L125 222L124.5 225C124.9 227 128.333 227.167 130 227L134 224H139.5L143.5 222.5C149 225 160 230.1 160 230.5C160 232.9 157 236.167 155.5 237.5L139.5 238.5V236.5L131 233.5L131.5 237L128 240.5L103.5 233.5V230H102L101 231.5Z"
-			onclick={() => onclick('chitwan')}
-			onkeydown={() => onclick('chitwan')}
-			tabindex="-6"
+      aria-label="Select Chitwan"
+      onclick={() => onclick('chitwan')}
+      onkeydown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onclick('chitwan');
+        }
+      }}
+			tabindex={0}
 			role="button"
 			class="cursor-pointer outline-none hover:fill-blue70 hover:stroke-blue70 {selected ===
 			'chitwan'
@@ -173,9 +227,15 @@
 		<!-- Makalu -->
 		<path
 			d="M417.5 191.501L419 194.501H416L419 197V199.5L422 200.5L417.5 204.5L414 203.5L409.5 204.5L412.5 207.5L410.5 211C407.167 213.167 400.2 217.5 399 217.5C396.6 215.9 393.667 220.5 392.5 223C389.3 220.6 388.5 223 388.5 224.5H382.5L379.5 223C378.333 223.5 375.6 224.5 374 224.5C370 221.7 364.333 222.333 362 223L351.5 214.5L354 211.5L353 207.5L359 200.5C358.167 199.5 356.5 197.4 356.5 197C358.1 194.2 360.833 195.5 362 196.5L365 194L363.5 191.501L366 189C370 191.4 372.333 190 373 189L372 186L374 182L377 179.5C379 181.667 383.4 186.1 385 186.5C386.6 186.9 389 189 390 190L387.5 193.001C394 196.5 400.167 193.334 402 191.501C410 194.501 410.5 193.5 411 193.001C412.2 191.001 415.833 191.167 417.5 191.501Z"
+			aria-label="Select Makalu"
 			onclick={() => onclick('makalu')}
-			onkeydown={() => onclick('makalu')}
-			tabindex="-3"
+			onkeydown={(e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					onclick('makalu');
+				}
+			}}
+			tabindex={0}
 			role="button"
 			class="cursor-pointer outline-none hover:fill-blue70 hover:stroke-blue70 {selected ===
 			'makalu'
@@ -185,9 +245,15 @@
 		<!-- Sagarmatha -->
 		<path
 			d="M330.5 186.006L327.5 183.006L327 182.507V179.506L326 174.007L327 169.507H330L331 163.006H334.5L336.5 166.007H339.5L342 163.006C350 163.005 350.5 166.001 350 168.506C350.5 169.506 352.5 171.506 354.5 172.506L359 171.006C369.4 180.606 375.333 180.673 377 179.506L374 182.006L373 184.006L372 186.006L373 189.006C371 191.406 367.5 190.006 366 189.006L363.5 191.506L365 194.006L362 196.506C358.8 194.106 357 195.839 356.5 197.006H352.5V201.006L346.5 199.506V202.006L344 202.506C344.167 202.839 344 202.706 342 199.506C340 196.306 332.167 195.173 328.5 195.006L330.5 186.006Z"
+			aria-label="Select Everest"
 			onclick={() => onclick('everest')}
-			onkeydown={() => onclick('everest')}
-			tabindex="-2"
+			onkeydown={(e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					onclick('everest');
+				}
+			}}
+			tabindex={0}
 			role="button"
 			class="cursor-pointer outline-none hover:fill-blue70 hover:stroke-blue70 {selected ===
 			'everest'
@@ -197,9 +263,15 @@
 		<!-- Kanchenjunga -->
 		<path
 			d="M442 207C443.6 206.2 444.667 200.334 445 197.5H451.5L454.5 193V188L458.5 187V182.5L462.5 184C463 185.5 463.5 186 464.5 186C468.5 184.8 470.5 185.5 471 186L474.5 189.5L480.5 188L484 190L488 188L495.5 192L492.5 194.5L496 197C496 199.4 495 201.833 494.5 203C491 209 491 209 490 215.5C488.5 220 483.5 222.259 483.5 223C483.5 226.5 482.167 229.5 482 229.5C479.167 229.834 472.9 230.3 470.5 229.5C468.1 228.7 464.167 233.5 462.5 236L459.5 232H456L455 228L453 230.5L446 227L449 222.5C447.8 220.1 448.5 217.5 449 216.5L447.5 212.5C445 211 440.4 207.8 442 207Z"
+			aria-label="Select Kanchenjunga"
 			onclick={() => onclick('kanchenjunga')}
-			onkeydown={() => onclick('kanchenjunga')}
-			tabindex="-4"
+			onkeydown={(e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					onclick('kanchenjunga');
+				}
+			}}
+			tabindex={0}
 			role="button"
 			class="cursor-pointer outline-none hover:fill-blue70 hover:stroke-blue70 {selected ===
 			'kanchenjunga'
@@ -209,9 +281,15 @@
 		<!-- Annapurna -->
 		<path
 			d="M40.5 44.0009L39 40.5009L46 33H54.5L56.5 28L73 26L75.5 29.5009C77.9 29.1009 83.8334 29.6675 86.5 30.0009L87.5 33.0009L94.5 36.0009L91.5 41L92.5 47.0009L96 48.5009L93.5 56.5009L100 57.5009C100.8 57.5009 98.1667 62.8333 97.5 65.5V73.0009L110 76.5009H114.5C117.7 78.5009 118.833 81.6675 119 83.0009V89.5009L110.5 91.0009L105.5 99.5009L108 101.001V103.501L114.5 109.001L110.5 112.501L112 122.001L115.5 126.001L114.5 136.501L109 140.001C104.2 140.001 102 143.001 101.5 144.501H89C86.2 142.501 84.5 142.668 84 143.001L79 144.001L75 135.501L68 139.001H60C59.6667 139.168 58.3 139.601 55.5 140.001C49.9 139.201 45.1667 135.001 43.5 133.001L39.5 131.501L42.5 125.501L36.5 123.501C33.5 120.501 37.5455 119.001 38.5 117.501C41.3 113.101 38.6667 109.001 37 107.501L31 106.001L29.5 100.001L28 99.0009L26 94.5009L29.5 88.5009V86.0009C28.6667 85.5009 26.3 84.3009 23.5 83.5009C20.7 82.7009 21 79.5009 21.5 78.0009L23.5 77.5009V74.0009L32.5 62.5009L35 63.5009L36 61.5009L34.5 60.0009L35 54.5009H36.5L37 52.0009L35 50.5009L37 49.0009L39 49.5009L40 47.5009H42.5V45.0009L40.5 44.0009Z"
-			onclick={() => onclick('annapurna')}
-			onkeydown={() => onclick('annapurna')}
-			tabindex="-5"
+			aria-label="Select Annapurna"
+      onclick={() => onclick('annapurna')}
+			onkeydown={(e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					onclick('annapurna');
+				}
+			}}
+			tabindex={0}
 			role="button"
 			class="cursor-pointer outline-none hover:fill-blue70 hover:stroke-blue70 {selected ===
 			'annapurna'
@@ -221,9 +299,15 @@
 		<!-- Manaslu -->
 		<path
 			d="M128 96.5L123.5 92L128.5 89.5L135.5 90.5L145 99V102.5L149.5 103.5L156 106L161 108.5L167.5 105L173.5 106.5L181 97.5H187L190.5 99L195 102.5V113.5C193.4 116.3 188.833 120 187 121.5L177.5 120L180 128.5H175.5C173.1 131.7 168.167 133.167 166 133.5L160.5 129.5L152 128.5L148.5 132H144L139 123L135 122.5L131.5 117.5L129.5 102L126.5 98L128 96.5Z"
+			aria-label="Select Manaslu"
 			onclick={() => onclick('manaslu')}
-			onkeydown={() => onclick('manaslu')}
-			tabindex="-6"
+			onkeydown={(e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					onclick('manaslu');
+				}
+			}}
+			tabindex={0}
 			role="button"
 			class="cursor-pointer outline-none hover:fill-blue70 hover:stroke-blue70 {selected ===
 			'manaslu'

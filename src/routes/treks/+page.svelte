@@ -6,7 +6,6 @@
 	import Divider from '$lib/pieces/Divider.svelte';
 	import Filter from '$lib/pieces/Filter.svelte';
 	import { ChevronsRight, Footprints, Mountain, Timer, Binoculars, Bird } from '@lucide/svelte';
-	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 
 	let { data } = $props();
@@ -44,16 +43,22 @@
 	let openDropdownId = $state(null);
 	$inspect(selectedFilter.name);
 
-	onMount(() => {
+	const allCategories = [categoryAll, ...categories];
+
+	$effect(() => {
 		const region = $page.url.searchParams.get('region');
 		if (region) {
 			const regionObject = allRegions.find((r) => r.value === region);
-			selectedRegion = regionObject;
+			if (regionObject) {
+				selectedRegion = regionObject;
+			}
 		}
 		const category = $page.url.searchParams.get('category');
 		if (category) {
-			const categoryObject = allRegions.find((r) => r.value === category);
-			selectedFilter = categoryObject;
+			const categoryObject = allCategories.find((c) => c.id === category);
+			if (categoryObject) {
+				selectedFilter = categoryObject;
+			}
 		}
 	});
 
@@ -88,7 +93,7 @@
 </section>
 
 <section
-	class="relative z-20 flex flex-col items-center rounded-t-[40px] bg-light py-12 text-dark md:gap-24 md:py-20 lg:py-24"
+	class="relative z-20 flex flex-col items-center rounded-t-[30px] md:rounded-t-[40px] bg-light py-12 text-dark md:gap-24 md:py-20 lg:py-24"
 >
 	<div class="x-margin flex w-full flex-col items-center gap-8 md:gap-16">
 		<h2 class="px-3 md:max-w-[50%] md:text-center">{intro.title}</h2>

@@ -2,7 +2,7 @@
 	import TextLink from '$lib/pieces/TextLink.svelte';
 	import { slide, fade } from 'svelte/transition';
 	import { urlFor } from '../sanity/index';
-	import { PlusCircle, MinusCircle } from '@lucide/svelte';
+	import { CirclePlus, CircleMinus } from '@lucide/svelte';
 
 	let { categories, selectedCategory } = $props();
 </script>
@@ -27,11 +27,11 @@
 					: ''} pt-5"
 			>
 				<div class="flex items-center gap-5 pb-5">
-					<button class="h-min" onclick={() => toggleCategory(cat)}>
+					<button class="h-min" aria-label="Toggle open/close category" onclick={() => toggleCategory(cat)}>
 						{#if expandedCategory === cat.id}
-							<MinusCircle size={32} color="#EE7430" strokeWidth={1} />
+							<CircleMinus aria-hidden="true" size={32} color="#EE7430" strokeWidth={1} />
 						{:else}
-							<PlusCircle size={32} color="#EE7430" strokeWidth={1} />
+							<CirclePlus aria-hidden="true" size={32} color="#EE7430" strokeWidth={1} />
 						{/if}
 					</button>
 					<h3>{cat.name}</h3>

@@ -1,7 +1,5 @@
 <script>
 	import Hero from '$lib/blocks/Hero.svelte';
-	import HeroVideo from '$lib/blocks/HeroVideo.svelte';
-	import Silouette from '$lib/svg/Silouette.svelte';
 	import LinkButton from '$lib/pieces/LinkButton.svelte';
 	import TrekCard from '$lib/pieces/TrekCard.svelte';
 	import TourCard from '$lib/pieces/TourCard.svelte';
@@ -37,7 +35,6 @@
 
 <section class="relative">
 	<Hero data={general} height="h-[100vh]" usps={heroUsps} />
-	<!-- <HeroVideo data={general} height="h-[100vh]" /> -->
 </section>
 
 <section

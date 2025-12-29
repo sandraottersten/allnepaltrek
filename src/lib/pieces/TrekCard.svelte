@@ -53,7 +53,7 @@
 		</div>
 		<div class="flex h-min w-fit items-center gap-2 text-sm uppercase">
 			<Calendar size={18} strokeWidth={2} class="text-blue" />
-			<p class="font-medium">{duration} DAYS</p>
+			<p class="font-medium">{duration}</p>
 		</div>
 	</div>
 </a>

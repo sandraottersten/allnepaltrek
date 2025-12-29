@@ -1,5 +1,5 @@
 <script>
-	import { ChevronUp, Sparkle, X } from '@lucide/svelte';
+	import { ChevronUp, SlidersHorizontal, X } from '@lucide/svelte';
 
 	let props = $props();
 	let open = $state(false);
@@ -22,8 +22,8 @@
 		class="bg-blue80 txt-normal flex h-10 items-center justify-between gap-2 px-3 text-light"
 		onclick={() => (open = !open)}
 	>
-		<span class="flex items-center gap-2">
-			<Sparkle />
+		<span class="flex items-center gap-4">
+			<SlidersHorizontal />
 			Filter
 			{#if props.selectedFilter}
 				: {props.selectedFilter}

@@ -1,7 +1,7 @@
 <script>
 	import { urlFor } from '../../sanity';
 	import { Footprints, Mountain, Timer, Binoculars, Bird } from '@lucide/svelte';
-	let { categories, image } = $props();
+	let { categories } = $props();
 </script>
 
 <section class="flex w-full overflow-hidden bg-[#E3E3E3]">

@@ -41,14 +41,14 @@
 					<Calendar />
 					<span>
 						<p class="font-medium">Duration</p>
-						<p>{duration} days</p>
+						<p>{duration}</p>
 					</span>
 				</div>
 				<div class="flex items-center gap-4">
 					<Footprints />
 					<span>
 						<p class="font-medium">Days on trek</p>
-						<p>{trekDays} days</p>
+						<p>{trekDays}</p>
 					</span>
 				</div>
 				<div class="flex items-center gap-4">

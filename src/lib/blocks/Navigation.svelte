@@ -145,8 +145,8 @@
 			: 'translate-y-0 transform'}"
 >
 	<div class="flex h-[64px] items-center justify-between bg-light90 pr-8">
-		<a href="/" class="flex h-[64px] items-center border-r border-dark30 pl-10 pr-10">
-			<Logo size="w-[64px]" textColor="#000000" /></a
+		<a href="/"   aria-label="Go to start page" class="flex h-[64px] items-center border-r border-dark30 pl-10 pr-10">
+			<Logo aria-hidden="true" size="w-[64px]" textColor="#000000" /></a
 		>
 		<div class="flex items-center gap-2">
 			{#if showWhatsApp}
@@ -161,9 +161,10 @@
 			{/if}
 			<button
 				class="flex h-12 w-12 items-center justify-center rounded-full"
+        aria-label="Contact us on WhatsApp"
 				onclick={() => (showWhatsApp = !showWhatsApp)}
 			>
-				<WhatsApp size="size-[30px]" color="#027B83" />
+				<WhatsApp aria-hidden="true" size="size-[30px]" color="#027B83" />
 			</button>
 			<LinkButton label="Book now" link="/booking" />
 		</div>

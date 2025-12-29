@@ -86,7 +86,7 @@
 </section>
 
 <section
-	class="relative z-20 flex rounded-t-[40px] bg-light py-12 text-dark md:flex-row md:px-16 md:py-20 lg:px-40 lg:py-24"
+	class="relative z-20 flex rounded-t-[30px] md:rounded-t-[40px] bg-light py-12 text-dark md:flex-row md:px-16 md:py-20 lg:px-40 lg:py-24"
 >
 	<aside class="relative hidden w-full flex-col pt-10 md:flex md:w-[30%] md:pr-12 lg:pr-24">
 		<div class="sticky top-20 flex h-fit flex-col gap-12">
