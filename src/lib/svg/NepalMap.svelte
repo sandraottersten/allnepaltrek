@@ -143,9 +143,15 @@
 		/>
 		<circle
 			role="button"
-			tabindex="-8"
+      aria-label="Select Kathmandu"
+      tabindex={0}
 			onclick={() => onclick('kathmandu')}
-			onkeydown={() => onclick('kathmandu')}
+      onkeydown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onclick('kathmandu');
+        }
+      }}
 			cx="530.5"
 			cy="317.5"
 			r="11"
@@ -157,9 +163,15 @@
 		/>
 		<circle
 			role="button"
-			tabindex="-9"
+      aria-label="Select Pokhara"
+			tabindex={0}
 			onclick={() => onclick('pokhara')}
-			onkeydown={() => onclick('pokhara')}
+      onkeydown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onclick('pokhara');
+        }
+      }}
 			cx="389.5"
 			cy="262.5"
 			r="11"
@@ -314,7 +326,45 @@
 				? 'fill-blue stroke-blue'
 				: 'fill-dark80 stroke-dark70'}"
 		/>
-		<circle cx="210.5" cy="213.5" r="11" fill="#D9D9D9" stroke="#00171C" />
-		<circle cx="69.5" cy="148.5" r="7" fill="#D9D9D9" stroke="#00171C" />
+    <circle
+      role="button"
+      aria-label="Select Pokhara"
+      tabindex={0}
+      onclick={() => onclick('pokhara')}
+      onkeydown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onclick('pokhara');
+        }
+      }}
+      cx="69.5"
+      cy="148.5"
+      r="7"
+      fill="#D9D9D9"
+      stroke="#00171C"
+      class="outline-none hover:fill-orange70 hover:stroke-orange {selected === 'pokhara'
+        ? 'fill-orange70 stroke-orange'
+        : 'fill-light stroke-dark30'}"
+    />
+    <circle
+      role="button"
+      aria-label="Select Pokhara"
+      tabindex={0}
+      onclick={() => onclick('pokhara')}
+      onkeydown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onclick('pokhara');
+        }
+      }}
+      cx="210.5"
+      cy="213.5"
+      r="11"
+      fill="#D9D9D9"
+      stroke="#00171C"
+      class="outline-none hover:fill-orange70 hover:stroke-orange {selected === 'pokhara'
+        ? 'fill-orange70 stroke-orange'
+        : 'fill-light stroke-dark30'}"
+    />
 	</svg>
 </div>
