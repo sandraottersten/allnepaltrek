@@ -111,7 +111,7 @@
 			<button
 				class="flex h-[56px] w-full items-center gap-2 rounded-lg px-4 md:gap-2 md:text-lg {selectedFilter.id ===
 				category.id
-					? 'bg-blue70 text-light'
+					? 'bg-blue text-light'
 					: 'bg-[#E3E3E3] hover:bg-blue40'}"
 				onclick={() => (selectedFilter = category)}
 			>
@@ -169,7 +169,7 @@
 				<button
 					class="flex h-14 w-full items-center gap-1 rounded-lg border px-4 md:h-28 md:flex-col md:justify-center md:gap-2 md:rounded-xl md:text-lg {selectedFilter.id ===
 					category.id
-						? 'border-blue70 bg-blue70 text-light'
+						? 'border-blue bg-blue text-light'
 						: 'border-dark80 text-dark'}"
 					onclick={() => (selectedFilter = category)}
 				>

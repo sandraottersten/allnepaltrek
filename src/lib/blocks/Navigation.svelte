@@ -145,7 +145,7 @@
 			: 'translate-y-0 transform'}"
 >
 	<div class="flex h-[64px] items-center justify-between bg-light90 pr-8">
-		<a href="/"   aria-label="Go to start page" class="flex h-[64px] items-center border-r border-dark30 pl-10 pr-10">
+		<a href="/" aria-label="Go to start page" class="flex h-[64px] items-center border-r border-dark30 pl-10 pr-10">
 			<Logo aria-hidden="true" size="w-[64px]" textColor="#000000" /></a
 		>
 		<div class="flex items-center gap-2">
@@ -172,8 +172,8 @@
 	<div class="w-full justify-between bg-dark80 text-light backdrop-blur-sm duration-300 md:flex">
 		<div class="flex w-full flex-col justify-center">
 			<div class="flex w-full items-center px-10">
-				<a href="/" class="mt-1 duration-300 {lastScrollTop > 150 ? 'block' : 'hidden'}">
-					<Logo2 size="w-[100px]" textColor="#F8F8F8" />
+				<a href="/" aria-label="Go to start page"class="mt-1 duration-300 {lastScrollTop > 150 ? 'block' : 'hidden'}">
+					<Logo2 aria-hidden="true" size="w-[100px]" textColor="#F8F8F8" />
 				</a>
 				<nav class="group/menu relative ml-auto mr-0 flex h-full items-center gap-5">
 					<ul class="flex gap-5 rounded-lg">
@@ -253,8 +253,8 @@
 		: 'translate-y-0 transform'}"
 >
 	<div class="flex h-[3.5rem] items-center justify-between bg-light90 pl-3 pr-6 text-dark">
-		<a href="/">
-			<Logo size="w-[50px]" textColor="#00171C" />
+		<a href="/" aria-label="Go to start page">
+			<Logo aria-hidden="true" size="w-[50px]" textColor="#00171C" />
 		</a>
 
 		{#if showMobileMenu}

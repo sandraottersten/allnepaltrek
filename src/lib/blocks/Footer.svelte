@@ -27,7 +27,7 @@
 <footer class="hidden flex-col bg-dark pb-6 pt-8 font-normal text-light80 md:flex md:pt-16">
 	<div class="x-margin flex flex-col md:flex-row">
 		<div class="w-[30%]">
-			<a href="/"><Logo size="h-[80px] w-[100px] md:h-[140px] md:w-[186px]" /></a>
+			<a href="/" aria-label="Go to start page"><Logo aria-hidden="true" size="h-[80px] w-[100px] md:h-[140px] md:w-[186px]" /></a>
 		</div>
 		<div class="grid w-full grid-cols-1 md:w-[46rem] md:grid-cols-3">
 			<ul class="flex flex-col gap-1">
@@ -67,7 +67,7 @@
 <footer class="flex flex-col bg-dark pb-4 pt-8 font-normal text-light80 md:hidden md:pt-16">
 	<div class="x-margin flex flex-col md:flex-row">
 		<div class="mb-8 w-[30%]">
-			<a href="/"><Logo size="h-[64px] w-[86px]" /></a>
+			<a href="/" aria-label="Go to start page"><Logo aria-hidden="true" size="h-[64px] w-[86px]" /></a>
 		</div>
 		<div class="grid w-full grid-cols-2">
 			<ul class="flex flex-col gap-1">

@@ -18,11 +18,8 @@
 </script>
 
 <svelte:head>
-	<title>Contact Us | All Nepal Trek</title>
-	<meta
-		name="description"
-		content="Get in touch with All Nepal Trek for your trekking and tour inquiries. We're here to help plan your perfect Nepal adventure."
-	/>
+	<title>{data.seo.title}</title>
+	<meta name="description" content={data.seo.description} />
 </svelte:head>
 
 <section class="x-margin y-margin relative z-20 mt-24 flex flex-col bg-light text-dark md:gap-12">
