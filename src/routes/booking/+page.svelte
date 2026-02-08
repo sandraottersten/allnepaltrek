@@ -4,7 +4,7 @@
 	import Divider from '$lib/pieces/Divider.svelte';
 
 	let { data } = $props();
-	const { tours = [], treks = [] } = data;
+	const { tours = [], treks = [] } = $derived(data);
 </script>
 
 <svelte:head>

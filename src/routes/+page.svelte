@@ -10,12 +10,18 @@
 	import { urlFor } from '../sanity';
 
 	let { data } = $props();
-	const { general, intro, infoCard, treks, regions, categories, tours } = data;
+	const { general, intro, infoCard, treks, regions, categories, tours } = $derived(data);
 
-	let selectedCategory = $state(categories[0]);
-	let expandedCategory = $state(categories[0].id);
+	let selectedCategory = $state(null);
+	let expandedCategory = $state(null);
+	$effect(() => {
+		if (selectedCategory === null && categories?.[0]) {
+			selectedCategory = categories[0];
+			expandedCategory = categories[0].id;
+		}
+	});
 
-	const usps = [intro.usp1, intro.usp2, intro.usp3];
+	const usps = $derived([intro.usp1, intro.usp2, intro.usp3]);
 
 	const heroUsps = [
 		'Local travel agency',

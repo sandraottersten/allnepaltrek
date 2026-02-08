@@ -3,7 +3,7 @@
 	import { PortableText } from '@eirikk/portabletext-2-svelte-5';
 	import Pricing from '$lib/pieces/Pricing.svelte';
 	const { details, description, pricing } = $props();
-	const { region, duration } = details;
+	const { region, duration } = $derived(details);
 </script>
 
 <section

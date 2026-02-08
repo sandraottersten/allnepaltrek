@@ -8,13 +8,13 @@
 	import { Mail } from '@lucide/svelte';
 
 	let { data } = $props();
-	const { general, formSection, form } = data;
+	const { general, formSection, form } = $derived(data);
 
-	const imgMob = urlFor(formSection.image).width(800).height(1000).url();
-	const imgSm = urlFor(formSection.image).width(768).height(800).url();
-	const imgMd = urlFor(formSection.image).width(600).url();
-	const imgLg = urlFor(formSection.image).width(600).url();
-	const imgXl = urlFor(formSection.image).width(1500).url();
+	const imgMob = $derived(urlFor(formSection.image).width(800).height(1000).url());
+	const imgSm = $derived(urlFor(formSection.image).width(768).height(800).url());
+	const imgMd = $derived(urlFor(formSection.image).width(600).url());
+	const imgLg = $derived(urlFor(formSection.image).width(600).url());
+	const imgXl = $derived(urlFor(formSection.image).width(1500).url());
 </script>
 
 <svelte:head>

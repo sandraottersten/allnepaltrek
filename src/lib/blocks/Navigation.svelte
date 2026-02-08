@@ -28,41 +28,41 @@
 		};
 	});
 
-	const treks = data.treks.links.map((r) => {
-		return {
+	const treks = $derived(
+		data.treks.links.map((r) => ({
 			label: r.title,
 			link: `/treks?region=${r.region.id}`,
 			subItems: [
 				{ title: `All ${r.region.id} treks`, link: `/treks?region=${r.region.id}` },
 				...r.region.treks.map((t) => ({ title: t.title, link: `/treks/${t.slug}` }))
 			]
-		};
-	});
+		}))
+	);
 
-	const regions = data.regions.links.map((r) => {
-		return {
+	const regions = $derived(
+		data.regions.links.map((r) => ({
 			label: r.title,
 			link: `/regions/${r.region.slug}`
-		};
-	});
+		}))
+	);
 
-	const tours = data.tours.links.map((r) => {
-		return {
+	const tours = $derived(
+		data.tours.links.map((r) => ({
 			label: r.title,
 			link: `/tours?category=${r.id}`,
 			subItems: [
 				{ title: `All ${r.id} tours`, link: `/tours?category=${r.id}` },
 				...r.tours.map((t) => ({ title: t.title, link: `/tours/${t.slug}` }))
 			]
-		};
-	});
+		}))
+	);
 
 	let information = [
 		{ label: 'Gear', link: '/travel-info/gear', subItems: null },
 		{ label: 'Health & fitness', link: '/travel-info/health', subItems: null }
 	];
 
-	let menuItems = [
+	let menuItems = $derived([
 		{
 			label: data.treks.title,
 			link: '/treks',
@@ -78,7 +78,7 @@
 		{ label: 'Regions', link: '/regions', subItems: regions, id: 'regions' },
 		{ label: 'Travel info', link: '/travel-info', subItems: information, id: 'info' },
 		{ label: 'Contact', link: '/contact', subItems: null, id: 'contact' }
-	];
+	]);
 
 	$effect(() => {
 		window.addEventListener('scroll', handleScroll);

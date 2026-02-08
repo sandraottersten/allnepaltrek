@@ -2,9 +2,9 @@
 	import { urlFor } from '../../sanity/index';
 	import { ChevronsRight } from '@lucide/svelte';
 	let { tour } = $props();
-	const { cardImage, title, description } = tour.general;
-	const { duration } = tour.details;
-	const { slug } = tour.seo;
+	const { cardImage, title, description } = $derived(tour.general);
+	const { duration } = $derived(tour.details);
+	const { slug } = $derived(tour.seo);
 </script>
 
 <a href={`/tours/${slug.current}`} class="group flex h-full w-full cursor-pointer flex-col">

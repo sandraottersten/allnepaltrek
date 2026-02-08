@@ -9,9 +9,9 @@
 	import { page } from '$app/stores';
 
 	let { data } = $props();
-	const { general, intro, categories, treks, infoCard, regions } = data;
-	const usps = [intro.usp1, intro.usp2, intro.usp3];
-	const allRegions = [{ label: 'All regions', value: 'all' }, ...regions];
+	const { general, intro, categories, treks, infoCard, regions } = $derived(data);
+	const usps = $derived([intro.usp1, intro.usp2, intro.usp3]);
+	const allRegions = $derived([{ label: 'All regions', value: 'all' }, ...regions]);
 
 	const difficulties = [
 		{ label: 'All difficulties', value: 'all' },
@@ -37,28 +37,26 @@
 	};
 
 	let selectedFilter = $state(categoryAll);
-	let selectedRegion = $state(allRegions[0]);
+	let selectedRegion = $state(null);
 	let selectedDuration = $state(durations[0]);
 	let selectedDifficulty = $state(difficulties[0]);
 	let openDropdownId = $state(null);
 	$inspect(selectedFilter.name);
 
-	const allCategories = [categoryAll, ...categories];
+	const allCategories = $derived([categoryAll, ...categories]);
 
 	$effect(() => {
 		const region = $page.url.searchParams.get('region');
 		if (region) {
 			const regionObject = allRegions.find((r) => r.value === region);
-			if (regionObject) {
-				selectedRegion = regionObject;
-			}
+			if (regionObject) selectedRegion = regionObject;
+		} else if (selectedRegion === null && allRegions[0]) {
+			selectedRegion = allRegions[0];
 		}
 		const category = $page.url.searchParams.get('category');
 		if (category) {
 			const categoryObject = allCategories.find((c) => c.id === category);
-			if (categoryObject) {
-				selectedFilter = categoryObject;
-			}
+			if (categoryObject) selectedFilter = categoryObject;
 		}
 	});
 
@@ -71,12 +69,13 @@
 	};
 
 	let filteredTreks = $derived.by(() => {
+		const regionValue = selectedRegion?.value ?? 'all';
 		return treks
 			.filter(
 				(trek) => trek.details.tags?.includes(selectedFilter.id) || selectedFilter.id === 'all'
 			)
 			.filter(
-				(trek) => selectedRegion.value === trek.details.region.id || selectedRegion.value === 'all'
+				(trek) => regionValue === trek.details.region.id || regionValue === 'all'
 			)
 			.filter(
 				(trek) =>
@@ -88,8 +87,8 @@
 	});
 </script>
 
-<section class="relative h-[77vh]">
-	<Hero data={general} height="h-[82vh]" />
+<section class="relative h-[82vh]">
+	<Hero data={general} height="h-[86vh]" />
 </section>
 
 <section

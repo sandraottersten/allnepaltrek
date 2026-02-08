@@ -12,9 +12,9 @@
 	const treks = $derived(data.treks);
 </script>
 
-<section class="relative h-[77vh]">
+<section class="relative h-[82vh]">
 	{#key general}
-		<Hero data={general} height="h-[82vh]" />
+		<Hero data={general} height="h-[86vh]" />
 	{/key}
 </section>
 

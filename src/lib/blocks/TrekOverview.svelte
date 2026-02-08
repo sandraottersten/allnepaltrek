@@ -16,9 +16,11 @@
 	import Pricing from '$lib/pieces/Pricing.svelte';
 
 	const { details, description, pricing } = $props();
-	const { distance, difficulty, duration, altitude, trekDays } = details;
-	let expandedHighlight = $state(-1);
-	let highlightImage = $state(description.highlights?.[0]?.image);
+	const { distance, difficulty, duration, altitude, trekDays } = $derived(details);
+	let expandedHighlight = $state(0);
+	const highlightImage = $derived(
+		description.highlights?.[expandedHighlight]?.image ?? description.highlights?.[0]?.image
+	);
 </script>
 
 <section
@@ -94,8 +96,7 @@
 							<button
 								class="flex items-center gap-5 pb-5"
 								onclick={() => {
-									expandedHighlight === i ? (expandedHighlight = -1) : (expandedHighlight = i);
-									expandedHighlight === i && (highlightImage = cat.image);
+									expandedHighlight = expandedHighlight === i ? -1 : i;
 								}}
 							>
 								{#if expandedHighlight === i}

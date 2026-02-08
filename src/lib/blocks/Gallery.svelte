@@ -5,7 +5,7 @@
 	import { ChevronLeft, ChevronRight, X } from '@lucide/svelte';
 
 	const { gallery } = $props();
-	const { images } = gallery;
+	const { images } = $derived(gallery);
 	let selectedImage = $state(-1);
 	let showMobileGallery = $state(false);
 </script>

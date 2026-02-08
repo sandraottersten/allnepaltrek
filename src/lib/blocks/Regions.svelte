@@ -6,8 +6,11 @@
 
 	let { general, regions } = $props();
 
-	let selectedRegion = $state(regions[0]);
-	const imgMob = urlFor(general.image).width(2000).height(1000).url();
+	let selectedRegion = $state(null);
+	$effect(() => {
+		if (selectedRegion === null && regions?.[0]) selectedRegion = regions[0];
+	});
+	const imgMob = $derived(urlFor(general.image).width(2000).height(1000).url());
 </script>
 
 <section class="hidden h-[100vh] bg-[#E3E3E3] bg-center md:flex">

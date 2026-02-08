@@ -7,11 +7,11 @@
 
 	let { infoCard } = $props();
 
-	const imgMob = urlFor(infoCard.image).width(800).height(1000).url();
-	const imgSm = urlFor(infoCard.image).width(768).height(800).url();
-	const imgMd = urlFor(infoCard.image).width(600).url();
-	const imgLg = urlFor(infoCard.image).width(600).url();
-	const imgXl = urlFor(infoCard.image).width(1500).url();
+	const imgMob = $derived(urlFor(infoCard.image).width(800).height(1000).url());
+	const imgSm = $derived(urlFor(infoCard.image).width(768).height(800).url());
+	const imgMd = $derived(urlFor(infoCard.image).width(600).url());
+	const imgLg = $derived(urlFor(infoCard.image).width(600).url());
+	const imgXl = $derived(urlFor(infoCard.image).width(1500).url());
 
 	let openImageText = $state(false);
 

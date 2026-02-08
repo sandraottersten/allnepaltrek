@@ -1,5 +1,4 @@
 <script>
-	export const prerender = true;
 	import '../app.css';
 	import Footer from '$lib/blocks/Footer.svelte';
 	import Navigation from '$lib/blocks/Navigation.svelte';
@@ -8,8 +7,8 @@
 </script>
 
 <svelte:head>
-	<title>{page?.data?.seo?.title}</title>
-	<meta name={page?.data?.seo?.description} />
+  <title>{page?.data?.seo?.title}</title>
+  <meta name="description" content={page?.data?.seo?.description} />
 </svelte:head>
 
 <Navigation {data} />

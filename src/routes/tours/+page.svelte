@@ -7,8 +7,8 @@
 	import { page } from '$app/stores';
 
 	let { data } = $props();
-	const { general, intro, tours } = data;
-	const usps = [intro.usp1, intro.usp2, intro.usp3];
+	const { general, intro, tours } = $derived(data);
+	const usps = $derived([intro.usp1, intro.usp2, intro.usp3]);
 
 	const categories = [
 		{ label: 'All tours', value: 'all', icon: 'Compass' },
@@ -35,8 +35,8 @@
 	});
 </script>
 
-<section class="relative h-[77vh]">
-	<Hero data={general} height="h-[82vh]" />
+<section class="relative h-[82vh]">
+	<Hero data={general} height="h-[86vh]" />
 </section>
 
 <section
